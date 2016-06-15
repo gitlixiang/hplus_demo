@@ -1,0 +1,40 @@
+<%= javascript_include_tag rjs_all_of_fdn_organizations_path(columns: ['id', 'name']) %>
+<% menu = Fdn::Menu.where(:code => 'fdn_organizations_list').first %>
+<%= nav_bar(menu) do %>
+    <%= bs_button_window(new_fdn_organization_path(type: 'GOV'), '创建部门', 'btn-primary btn-sm', 'fa fa-check',) %>
+    <%= bs_button_window(new_fdn_organization_path(type: 'ENT'), '创建企业', 'btn-primary btn-sm', 'fa fa-check',) %>
+    <%= bs_button_window(import_ent_fdn_organizations_path, '导入企业', 'btn-primary btn-sm', 'fa fa-check',) %>
+<% end %>
+<div class="ibox-title">
+  <%= search_form_for(@search, url: ent_index_fdn_organizations_path, nav_bar: true) do |f| %>
+      <div class="input-group col-md-2"><%= f.control 'text', '企业id', 'id_eq', readonly: true %></div>
+      <div class="input-group col-md-2">
+        <%= f.control('autocomplete', '企业名称', :name_cont, 'data-source' => "orgs", 'data-mapping' => '{"value": "q_id_eq"}', value: params[:q][:name_cont]) %>
+      </div>
+  <% end %>
+  <div class="input-group">
+    <% Fdn::OrgHierarchy.all.each do |hie| %>
+        <small class="text-navy" title="<%= hie.name %>"><%= hie.short_name %>：
+          <button type='button' class='btn btn-sm btn-rounded' style='background-color:<%= hie.icon %>'></button>
+        </small>
+        &nbsp;
+    <% end %>
+  </div>
+</div>
+<div class="ibox-content">
+  <%= table([{w: 3, t: '组织名称'}, {w: 2, t: '组织机构代码'}, {w: 1, t: '组织类型'}, {w: 1, t: '企业级次'}, {w: 3, t: '所属组织架构'}, {w: 2, t: '操作'}],
+            obj: @organizations,
+            fixed: true,
+            pagi_param_name: 'page') do |org| %>
+      <%= table_tr({c: seq(@organizations, org, params[:page]||1)},
+                   {l: org.name},
+                   {c: org.code},
+                   {c: org.org_type_name},
+                   {c: (org.ent_level_value if org.is_ent?)},
+                   {c: org.using_tree(Time.now)},
+                   {c: action_links([
+                                            {value: '查看', url: fdn_organization_path(org)},
+                                            {value: '编辑', url: edit_fdn_organization_path(org)}
+                                    ])}) %>
+  <% end %>
+</div>

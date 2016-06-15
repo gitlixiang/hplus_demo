@@ -1,0 +1,242 @@
+<script src="/js/plugins/jqgrid/i18n/grid.locale-cn.js"></script>
+<script src="/js/plugins/jqgrid/jquery.jqGrid.min.js"></script>
+<!--<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>-->
+<link href="/css/plugins/jqgrid/ui.jqgrid.css" rel="stylesheet">
+<link href="/css/plugins/jQueryUI/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
+<% Fdn::OrgHierarchy.all.each do |hie| %>
+    <small class="text-navy" title="<%= hie.name %>"><%= hie.short_name %>：
+      <button data-toggle="button" bgc='<%= hie.icon %>' btn_title='<%= hie.short_name %>' class="btn btn-sm btn-rounded check_change" type="button" aria-pressed="false" id='hie_<%= hie.id %>'></button>
+    </small>&nbsp;
+<% end %>
+<%= multiselect_tag("mulit[]",
+                    options_for_select(Fdn::Organization::SEARCH_ENT_ARR, Fdn::Organization::SEARCH_ENT_ARR.map { |a| a[1] }),
+                    {width: '50%'},
+                    {class: 'pull-right', none_selected_text: '请选择显示列'}) %>
+<p>
+<div class="jqGrid_wrapper">
+  <table id="grid_tree"></table>
+</div>
+<!--<div class="row">-->
+<!--<div class="col-lg-12">-->
+<!--<div class="ibox-content">-->
+<!--<div class="file-manager">-->
+<!--<h3>组织架构：</h3>-->
+<!--<div>-->
+<!--
+<% Fdn::OrgHierarchy.all.each do |hie| %>-->
+    <!--<small class="text-navy" title="<%= hie.name %>"><%= hie.short_name %>：<button type='button' class='btn btn-sm btn-rounded' style='background-color:<%= hie.icon %>'></button></small>&nbsp;-->
+    <!--
+<% end %>-->
+<!--</div>-->
+<!--<%#= text_field_tag 'search_tree', '', class: 'form-control', placeholder: '组织名称查询' %>-->
+<!--<div class="ibox-content">-->
+<!--<%#= js_tree_xml_tag('org_tree', fdn_roles_path(:format => :xml)) %>-->
+
+<!--<div id='org_tree' class="test treeview">-->
+<!--</div>-->
+<!--<%= js_tree_org_json_tag('org_tree', '', '', false, 'search_tree') %>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<script>
+    //    $('#org_tree').bind('loaded.jstree', function (e, data) {
+    //        $('#org_tree').find('li').each(function () {
+    //            if ('
+    <%= @org_id %>' == $(this).attr('id')) { //如果节点的ID包含于arr，表示要选中
+    //                $(this).find('a').addClass('jstree-clicked');
+    //            }
+    //        });
+    //    })
+    $(document).ready(function () {
+        $("#grid_tree").jqGrid({
+            treeGrid: true,
+            treeGridModel: 'adjacency',
+            ExpandColumn: 'name',
+            ExpandColClick: true,
+            url: '/fdn/organizations/tree_index.json?org_id=<%= @org_id %>&hierarchy_id=<%= @hierarchy_id %>&eff_time=<%= @eff_time %>&format=json',
+            datatype: "json",
+            mtype: "get",
+            colNames: ["操作", "id", "名称", "代码", "所属组织架构" , "级次", "注册资本", "组织形式", "企业类别", "chan", "kuai", "yu", "nian", "jue"],
+            colModel: [
+                {name: 'act', index: 'act', width: 50, sortable: false, align: 'center'},
+                {name: 'id', index: 'id', width: 0, key: true, hidden: true},
+                {name: 'name', index: 'name', width: 300, sortable: false},
+                {name: 'code', index: 'code', width: 100, sortable: false},
+                {name: 'org_hierarchy', index: 'org_hierarchy', width: 150, sortable: false},
+                {name: 'ent_level_value', index: 'ent_level_value', width: 100, align: 'center', sortable: false},
+                {name: 'reg_amt', index: 'reg_amt', width: 100, align: 'right', sortable: false},
+                {name: 'org_type', index: 'org_type', width: 100, align: 'center', sortable: false},
+                {name: 'ent_type_value', index: 'ent_type_value', width: 100, align: 'center', sortable: false},
+                {name: 'chan', index: 'chan', width: 0, hidden: true},
+                {name: 'kuai', index: 'kuai', width: 0, hidden: true},
+                {name: 'yu', index: 'yu', width: 0, hidden: true},
+                {name: 'nian', index: 'nian', width: 0, hidden: true},
+                {name: 'jue', index: 'jue', width: 0, hidden: true},
+                //            {name:'act', index:'act', width:100, align:'center'}
+            ],
+            jsonReader: {
+                root: "dataRows",
+                repeatitems: false
+            },
+            treeReader: {
+                leaf_field: "isLeaf",
+                parent_id_field: 'parent',
+                level_field: "level",
+                expanded_field: "expanded"
+            },
+            sortname: 'id',
+            height: 'auto',
+            autowidth: true,
+            //rownumbers:true,
+            //rowNum:"-1",
+            shrinkToFit: false
+        });
+//        Array.prototype.contains = function (obj) {
+//            var a = false
+//            var i = this.length;
+//            for (var i = 0; i < this.length; i++) {
+//                if (this[i] == obj) {
+//                    a = true
+//                }
+//            }
+//            return a
+//        };
+        $("input:checkbox").click(function () {
+            if (this.checked) {
+                if (this.value == 'multiselect-all') {
+                    $("input:checkbox").each(function () {
+                        jQuery("#grid_tree").jqGrid('showCol', [this.value]);
+                    })
+                } else {
+                    jQuery("#grid_tree").jqGrid('showCol', [this.value]);
+                }
+            }
+            else {
+                if (this.value == 'multiselect-all') {
+                    $("input:checkbox").each(function () {
+                        jQuery("#grid_tree").jqGrid('hideCol', [this.value]);
+                    })
+                } else {
+                    jQuery("#grid_tree").jqGrid('hideCol', [this.value]);
+                }
+            }
+        });
+        $("a[class|='ui-multiselect-all']").click(function () {
+            $("input:checkbox[name='multiselect_mulit_']").each(function () {
+                jQuery("#grid_tree").jqGrid('showCol', [this.value]);
+            })
+        })
+        $("a[class|='ui-multiselect-none']").click(function () {
+            $("input:checkbox[name='multiselect_mulit_']").each(function () {
+                jQuery("#grid_tree").jqGrid('hideCol', [this.value]);
+            })
+        })
+//        $('.jqGrid_wrapper').bind('resize', function () {
+//            var width = $('.jqGrid_wrapper').width();
+////            $('#table_list_1').setGridWidth(width);
+//            $('#org_tree').setGridWidth(width);
+//        });
+        var btn1 = ''
+        var btn2 = ''
+        var btn3 = ''
+        var btn4 = ''
+        var btn5 = ''
+        $("#hie_1").click(function () {
+            if ($('#hie_1').attr('aria-pressed') == 'false') {
+                var color1 = $('#hie_1').attr('bgc')
+                var title1 = $('#hie_1').attr('btn_title')
+                btn1 = '<button class="btn btn-sm btn-rounded" title="' + title1 + '" style="background-color:' + color1 + '\"></button> '
+                $('#hie_1').css('background', color1)
+            } else {
+                $('#hie_1').css('background', '')
+                btn1 = ''
+            }
+        })
+        $("#hie_2").click(function () {
+            if ($('#hie_2').attr('aria-pressed') == 'false') {
+                var color2 = $('#hie_2').attr('bgc')
+                var title2 = $('#hie_2').attr('btn_title')
+                btn2 = '<button class="btn btn-sm btn-rounded" title="' + title2 + '"  style="background-color:' + color2 + '\"></button> '
+                $('#hie_2').css('background', color2)
+            } else {
+                $('#hie_2').css('background', '')
+                btn2 = ''
+            }
+        })
+        $("#hie_3").click(function () {
+            if ($('#hie_3').attr('aria-pressed') == 'false') {
+                var color3 = $('#hie_3').attr('bgc')
+                var title3 = $('#hie_3').attr('btn_title')
+                btn3 = '<button class="btn btn-sm btn-rounded" title="' + title3 + '"  style="background-color:' + color3 + '\"></button> '
+                $('#hie_3').css('background', color3)
+            } else {
+                $('#hie_3').css('background', '')
+                btn3 = ''
+            }
+        })
+        $("#hie_4").click(function () {
+            if ($('#hie_4').attr('aria-pressed') == 'false') {
+                var color4 = $('#hie_4').attr('bgc')
+                var title4 = $('#hie_4').attr('btn_title')
+                btn4 = '<button class="btn btn-sm btn-rounded" title="' + title4 + '"  style="background-color:' + color4 + '\"></button> '
+                $('#hie_4').css('background', color4)
+            } else {
+                $('#hie_4').css('background', '')
+                btn4 = ''
+            }
+        })
+        $("#hie_5").click(function () {
+            if ($('#hie_5').attr('aria-pressed') == 'false') {
+                var color5 = $('#hie_5').attr('bgc')
+                var title5 = $('#hie_5').attr('btn_title')
+                btn5 = '<button class="btn btn-sm btn-rounded" title="' + title5 + '"  style="background-color:' + color5 + '\"></button> '
+                $('#hie_5').css('background', color5)
+            } else {
+                $('#hie_5').css('background', '')
+                btn5 = ''
+            }
+        })
+        $(".check_change").click(function () {
+            var col = jQuery("#grid_tree").jqGrid('getCol', 'id', false);
+            for (var i = 0; i < col.length; i++) {
+                var rowData = jQuery("#grid_tree").getRowData(col[i]);
+                var chan = jQuery("#grid_tree").jqGrid('getCell', col[i], "chan");
+                var kuai = jQuery("#grid_tree").jqGrid('getCell', col[i], "kuai");
+                var yu = jQuery("#grid_tree").jqGrid('getCell', col[i], "yu");
+                var nian = jQuery("#grid_tree").jqGrid('getCell', col[i], "nian");
+                var jue = jQuery("#grid_tree").jqGrid('getCell', col[i], "jue");
+                var btn = ''
+                if (chan == '是') {
+                    btn = btn + btn1
+                }
+                if (kuai == '是') {
+                    btn = btn + btn2
+                }
+                if (yu == '是') {
+                    btn = btn + btn3
+                }
+                if (nian == '是') {
+                    btn = btn + btn4
+                }
+                if (jue == '是') {
+                    btn = btn + btn5
+                }
+                if (btn.length == 0) {
+                    btn = null
+                }
+                $("#grid_tree").jqGrid('setCell', col[i], "org_hierarchy", btn);
+            }
+        });
+    });
+</script>
+<style type="text/css">
+    .float-e-margins .btn {
+        margin-bottom: 0;
+    }
+
+    #grid_tree tr td {
+        border: 1px solid #d3d3d3
+    }
+</style>

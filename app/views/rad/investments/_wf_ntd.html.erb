@@ -1,0 +1,19 @@
+<div class="ibox-content">
+    <%= table([{w: 4, t: '项目名称'},{w: 3, t: '上一岗'},{w: 2, t: '到岗时间'},{w: 1, t: '操作'}],
+                obj: ntd,
+                fixed: true,
+                pagi_param_name: 'page') do |inv| %>
+          <% instance = Wf::ProcInst.find_by_resource(inv) %>
+          <%# task = Wf::Task.where("PROC_INST_ID_= ? and END_TIME_ is not null", instance.getId).order('END_TIME_ DESC').first %>
+          <% task = Wf::Task.where(PROC_INST_ID_: instance.getId, ASSIGNEE_: current_user.wf_id, END_TIME_: nil).first %>
+          <%# task = Wf::Task.find_by(PROC_INST_ID_: instance.getId, END_TIME_: nil) %>
+          <%= table_tr({c: seq(ntd, inv, params[:page]||1)},
+                       {l: inv.project_name},
+                       {c: task.ent_user_name},
+                       {c: task.START_TIME_.strftime(long_time)},
+                       {c: action_links([
+                              {value: '办理', url: edit_rad_investment_path(inv), url_method: 'get'}
+                       ])}
+                       ) %>
+    <% end %>
+</div>

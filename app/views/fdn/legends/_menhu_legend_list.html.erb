@@ -1,0 +1,12 @@
+<li style="font-size: 20px;padding-top: 20px;color: rgb(245, 81, 81);background: url(/images/icon01.jpg) repeat-x left bottom"><%= @fdn_legend_category.show_list %></li>
+<div>
+  <table style="width: 100%;padding-top: 20px;" cellspacing="3px">
+    <% @fdn_legends.each do |legend| %>
+        <tr>
+          <td valign='bottom' style="background: url(/images/icon01.jpg) repeat-x left bottom"><%= link_to limit_word(legend.title, 28), menhu_show_fdn_legends_path(id: legend.id), title: legend.title %></td>
+          <td valign='bottom' style="background: url(/images/icon01.jpg) repeat-x left bottom"><%= legend.created_at.strftime("%Y-%m-%d") %></td>
+        </tr>
+    <% end %>
+  </table>
+  <%= will_paginate @fdn_legends, :style => 'float:right' %>
+</div>

@@ -1,0 +1,2 @@
+module Pm::StatisticsHelper
+end

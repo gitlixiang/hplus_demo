@@ -1,0 +1,21 @@
+<% can_edit = (current_org.id.to_s==@org_id) %>
+<%= button_div do %>
+    <% if can_edit %>
+        <%= bs_button_window(new_hr_salary_path({org_id: @org_id, year: params[:year], month: params[:month]}), '创建', 'btn-primary btn-sm', 'fa fa-check') %>
+    <% end %>
+<% end %>
+<%= table([{w: 2, t: '名称'}, {w: 2, t: '应发工资'}, {w: 2, t: '应扣金额'}, {w: 2, t: '实发工资'}, {w: 2, t: '操作'}],
+          obj: @hr_salaries,
+          fixed: true,
+          pagi_param_name: 'page') do |salary| %>
+    <%= table_tr({c: @hr_salaries.present? ? seq(@hr_salaries, salary, params[:page]||1) : ''},
+                 {l: bs_link_window(hr_person_path(salary.hr_person), salary.hr_person.full_name)},
+                 {c: salary.gross_salary},
+                 {c: salary.total_deduction},
+                 {c: salary.net_salary},
+                 {c: action_links([{value: '查看', url: hr_salary_path(salary)},
+                                   {value: '修改', url: edit_hr_salary_path(salary)},
+                                   {value: '删除', url: hr_salary_path(salary), url_method: 'delete', confirm: '确定？'}
+                                  ])}
+        ) %>
+<% end %>

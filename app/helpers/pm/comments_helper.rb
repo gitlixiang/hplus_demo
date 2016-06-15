@@ -1,0 +1,2 @@
+module Pm::CommentsHelper
+end

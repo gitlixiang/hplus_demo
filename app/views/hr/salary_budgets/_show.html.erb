@@ -1,0 +1,51 @@
+<% can_edit = current_org.id.to_s==@org_id %>
+<div class="ibox-content">
+  <% if hr_salary_budget %>
+      <% if can_edit %>
+          <%#= button_div() do %>
+              <%#= bs_button_window(edit_hr_salary_budget_path(hr_salary_budget), '编辑预算', '', 'fa fa-edit', width='800px', height='640px') %>
+          <%# end %>
+      <% end %>
+      <%= form_show(hr_salary_budget) do |salary_budget| %>
+          <%= salary_budget.row('1:1') do %>
+              <%= salary_budget.show_method '基本工资合计：', :basic_salary, label_span: 3, value_span: 3 %>
+              <%= salary_budget.show_method '绩效工资：', :pay_for_performance, label_span: 3, value_span: 3 %>
+          <% end %>
+          <%= salary_budget.row('1:1') do %>
+              <%= salary_budget.show_method '加班费：', :total_overtime_pay, label_span: 3, value_span: 3 %>
+          <% end %>
+          <%= salary_budget.row('1:1') do %>
+              <%= salary_budget.show_method '应发工资合计：', :gross_salary, label_span: 3, value_span: 3 %>
+          <% end %>
+          <div class="hr-line-dashed"></div>
+          <%= salary_budget.row('1:1') do %>
+              <%= salary_budget.show_method '社保：', :social_insurance, label_span: 3, value_span: 3 %>
+              <%= salary_budget.show_method '住房公积金：', :housing_fund, label_span: 3, value_span: 3 %>
+          <% end %>
+          <%= salary_budget.row('1:1') do %>
+              <%= salary_budget.show_method '个税：', :personal_income_tax, label_span: 3, value_span: 3 %>
+          <% end %>
+          <%= salary_budget.row('1:1') do %>
+              <%= salary_budget.show_method '应扣金额合计：', :total_deduction, label_span: 3, value_span: 3 %>
+          <% end %>
+          <div class="hr-line-dashed"></div>
+          <%= salary_budget.row('1:1') do %>
+              <%= salary_budget.show_method '实发工资：', :net_salary, label_span: 3, value_span: 3 %>
+          <% end %>
+          <div class="hr-line-dashed"></div>
+          <%= salary_budget.row('1:1') do %>
+              <%= salary_budget.show_method '合计：', :total_budget, label_span: 3, value_span: 3 %>
+          <% end %>
+          <%= salary_budget.row do %>
+              <%= salary_budget.show_method '备注：', :remark, label_span: 3, value_span: 9 %>
+          <% end %>
+      <% end %>
+  <% else %>
+      <% if can_edit %>
+          <%#= button_div() do %>
+              <%#= bs_button_window(new_hr_salary_budget_path({org_id:@org_id,year:params[:year]}), '创建预算', '', 'fa fa-plus', width='800px', height='640px') %>
+          <%# end %>
+      <% end %>
+      无数据
+  <% end %>
+</div>

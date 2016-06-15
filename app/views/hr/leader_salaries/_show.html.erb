@@ -1,0 +1,44 @@
+<div class="ibox-content">
+  <% if hr_leader_salary %>
+      <%= button_div() do %>
+          <%= bs_button_window(edit_hr_leader_salary_path(hr_leader_salary), '编辑预算', '', 'fa fa-edit', width='800px', height='640px') %>
+      <% end %>
+      <%= form_show(hr_leader_salary) do |leader_salary| %>
+          <%= leader_salary.row('1:1') do %>
+              <%= leader_salary.show_method '基本工资合计：', :basic_leader_salary, label_span: 3, value_span: 8 %>
+          <% end %>
+          <%= leader_salary.row('1:1') do %>
+              <%= leader_salary.show_method '绩效工资：', :pay_for_performance, label_span: 3, value_span: 8 %>
+          <% end %>
+          <%= leader_salary.row('1:1') do %>
+              <%= leader_salary.show_method '加班费：', :total_overtime_pay, label_span: 3, value_span: 8 %>
+          <% end %>
+          <%= leader_salary.row('1:1') do %>
+              <%= leader_salary.show_method '应发工资合计：', :gross_leader_salary, label_span: 3, value_span: 8 %>
+          <% end %>
+          <%= leader_salary.row('1:1') do %>
+              <%= leader_salary.show_method '社保：', :social_insurance, label_span: 3, value_span: 8 %>
+          <% end %>
+          <%= leader_salary.row('1:1') do %>
+              <%= leader_salary.show_method '住房公积金：', :housing_fund, label_span: 3, value_span: 8 %>
+          <% end %>
+          <%= leader_salary.row('1:1') do %>
+              <%= leader_salary.show_method '个税：', :personal_income_tax, label_span: 3, value_span: 8 %>
+          <% end %>
+          <%= leader_salary.row('1:1') do %>
+              <%= leader_salary.show_method '应扣金额合计：', :total_deduction, label_span: 3, value_span: 8 %>
+          <% end %>
+          <%= leader_salary.row('1:1') do %>
+              <%= leader_salary.show_method '实发工资：', :net_leader_salary, label_span: 3, value_span: 8 %>
+          <% end %>
+          <%= leader_salary.row('1:1') do %>
+              <%= leader_salary.show_method '备注：', :remark, label_span: 3, value_span: 8 %>
+          <% end %>
+      <% end %>
+  <% else %>
+      <div align="right">
+        <%= bs_button_window(new_hr_leader_salary_path(params), '创建预算', '', 'fa fa-plus', width='800px', height='640px') %>
+      </div>
+      无数据
+  <% end %>
+</div>

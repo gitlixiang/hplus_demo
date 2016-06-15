@@ -1,0 +1,3 @@
+<%= form_for(@fdn_lookup, :html => {:multipart => true}, nav: {}, url: url_for(:controller => 'fdn/lookups', :action => 'update', :id => @fdn_lookup.id)) do |f| %>
+    <%= render :partial => 'fdn/lookups/form', :locals => {:obj => @fdn_lookup, :f => f} %>
+<% end %>

@@ -1,0 +1,10 @@
+<%= javascript_include_tag "highcharts", "lazy_high_charts/exporting", "lazy_high_charts/theme" %>
+
+<%= thumbnails do %>
+    <%= thumbnail(6, nil, bs_button('bn_enter', '进入', url: '/analysis_spaces/ana_hh', type: 'button', class: 'primary')) do %>
+        <%= Fdn::DashboardDomain::Widget.new('lvl_household').to_s(true) %>
+    <% end %>
+    <%= thumbnail(6, nil, bs_button('bn_enter2', '进入', url: '/analysis_spaces/ana_inv', type: 'button', class: 'primary')) do %>
+        <%= Fdn::DashboardDomain::Widget.new('lvl_declare').to_s(true) %>
+    <% end %>
+<% end %>

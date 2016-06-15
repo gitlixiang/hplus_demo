@@ -1,0 +1,83 @@
+<link href="/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title><%= '嘉兴市国资监管信息系统' %></title>
+
+  <link href="/css/base.css" rel="stylesheet" type="text/css"/>
+  <link href="/css/mhstyle.css" rel="stylesheet" type="text/css"/>
+  <script type="text/javascript">
+      function setTab(name, cursel, n, type_code) {
+          for (i = 1; i <= n; i++) {
+              var menu = document.getElementById(name + i);
+              var con = document.getElementById("con_" + name + "_" + i);
+              menu.className = i == cursel ? "hover" : "";
+              con.style.display = i == cursel ? "block" : "none";
+          }
+          var a = document.getElementById(name);
+          a.href = '/fdn/legends/menhu_legend_list?type_code=' + type_code
+      }
+  </script>
+  <script src="/js/jquery1.2.6.pack.js"></script>
+  <script src="/js/plugins/toTop/jquery.toTop.js"></script>
+  <script src="/js/player.js"></script>
+</head>
+<body>
+<div class="big_top">
+  <div class="header">
+    <div class="h_top" style="background-image: url(/images/mainbox2.jpg);background-repeat:no-repeat;background-attachment:fixed;
+            background-size: 100% 30%;">
+      <div class="banner-login-box">
+        <h1 style="color: #ffff00;font-size: 27px;">嘉兴市国有资产监督管理信息系统</h1>
+      </div>
+    </div>
+    <div class="nav">
+      <ul>
+        <li class="li_left"></li>
+        <li><a href="/">首页</a></li>
+        <li class="jiang"></li>
+        <li><a href="/fdn/legends/menhu_legend_list?type_code=2" target="_blank">政策法规</a></li>
+        <li class="jiang"></li>
+        <li><a href="/fdn/legends/menhu_legend_list?type_code=3" target="_blank">信息公开</a></li>
+        <li class="jiang"></li>
+        <li><a href="/fdn/legends/menhu_legend_list?type_code=4" target="_blank">国资监管</a></li>
+        <li class="jiang"></li>
+        <li><a href="/fdn/legends/menhu_legend_list?type_code=5" target="_blank">企业之窗</a></li>
+        <li class="jiang"></li>
+        <li><a href="/fdn/legends/menhu_legend_list?type_code=6" target="_blank">区县国资</a></li>
+        <li class="jiang"></li>
+        <li><a href="/fdn/legends/menhu_legend_list?type_code=7" target="_blank">机关建设</a></li>
+        <li class="select">
+                	<span>
+                    	<select class="select">
+                          <option selected>站内搜索</option>
+                          <option>财政动态</option>
+                        </select>
+                  </span>&#12288;
+          <span><input name="" type="text" class="text" value="请输入关键字" onclick="clearczjDefaultText(this,'请输入关键字')" onkeydown="if(event.keyCode==13) document.all.Button1.focus();"></span>&#12288;
+          <input name="" type="button" class="button" value="搜索">
+        </li>
+        <li class="li_right"></li>
+        <script src="/js/pub.js"></script>
+      </ul>
+    </div>
+  </div>
+</div>
+<%= yield %>
+<div style="clear:both;"></div>
+<a class="to-top" style="z-index: 3000">Top</a>
+<script>
+    $(function () {
+        $('.to-top').toTop();
+    });
+</script>
+<div class="big_bottom" style="">
+  <div class="footer">
+    <p>主办：XX市国资委&#12288;运行管理：XX市国资委信息中心&#12288;</p>
+
+    <p>技术支持：xxx公司</p>
+  </div>
+</div>
+</body>
+</html>

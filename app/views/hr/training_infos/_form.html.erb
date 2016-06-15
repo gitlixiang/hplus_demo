@@ -1,0 +1,28 @@
+<div class="ibox-content">
+  <%= f.row("1") do %>
+      <%= f.control('select', '培训班：', :tc_id, Hr::TrainingCourse.all.map { |tc| [tc.name, tc.id] }, {prompt: '请选择'}, class: "selectpicker") %>
+  <% end %>
+  <%= f.row("1") do %>
+      <%= f.control('text', '课程名称：', :name) %>
+  <% end %>
+  <%= f.row("1:1") do %>
+      <%= f.control('datepicker', '培训日期：', :date) %>
+      <%= f.control('text', '主讲人：', :lecturer) %>
+  <% end %>
+  <%= f.row("1:1") do %>
+      <%= f.control('text', '负责人：', :charge_man) %>
+      <%= f.control('text', '联系方式：', :charge_contact) %>
+  <% end %>
+  <%= f.row("1") do %>
+      <%#= f.control('text', '参与人员：', :people) %>
+      <%= f.control('multiselect', '参与人员：', :people, choices: Hr::EntTalent.training_talent) %>
+  <% end %>
+</div>
+
+<script>
+    $(document).ready(function () {
+//        $('.sel_value:gt(10)').each(function () {
+//            $(this).css('display','none');
+//        });
+    });
+</script>

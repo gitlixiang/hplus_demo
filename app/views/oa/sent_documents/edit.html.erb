@@ -1,0 +1,20 @@
+<% if @task.TASK_DEF_KEY_ == 'ent_user' %>
+    <%= form_for(@oa_sent_document, :html => {:multipart => true}, nav: {btn_bar: [bs_next('提交国资委')].join(' ')}) do |f| %>
+        <%= f.hidden_field :id %>
+        <%= render :partial => "#{@task.TASK_DEF_KEY_}", :locals => {:oa_sent_document => @oa_sent_document, :f => f} %>
+        <%#= render :partial => 'edit_form', :locals => {:rad_investment => @rad_investment, :f => f} %>
+    <% end %>
+<% elsif @task.TASK_DEF_KEY_ == 'leader' %>
+    <%= form_for(@oa_sent_document, :html => {:multipart => true}, nav: {no_save: true, btn_bar: [bs_prev('退回审核岗'), bs_next('办结')].join(' ')}) do |f| %>
+        <%= f.hidden_field :id %>
+        <%= render :partial => "#{@task.TASK_DEF_KEY_}", :locals => {:oa_sent_document => @oa_sent_document, :f => f} %>
+        <%#= render :partial => 'edit_form', :locals => {:rad_investment => @rad_investment, :f => f} %>
+    <% end %>
+<% else %>
+    <%= form_for(@oa_sent_document, :html => {:multipart => true}, nav: {no_save: true, btn_bar: [bs_prev('退回补正'), bs_next('提交复审')].join(' ')}) do |f| %>
+        <%= f.hidden_field :id %>
+        <%= render :partial => "#{@task.TASK_DEF_KEY_}", :locals => {:oa_sent_document => @oa_sent_document, :f => f} %>
+        <%#= render :partial => 'edit_form', :locals => {:rad_investment => @rad_investment, :f => f} %>
+    <% end %>
+<% end %>
+

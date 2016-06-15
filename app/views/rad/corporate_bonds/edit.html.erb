@@ -1,0 +1,24 @@
+<% menu = Fdn::Menu.where(:code => 'rad_corporate_bond').first %>
+<%= nav_bar(menu) do %>
+<% end %>
+<div class="ibox-content">
+  <% if @task.TASK_DEF_KEY_ == 'ent_user' %>
+      <%= form_for(@rad_corporate_bond, :html => {:multipart => true}, nav: {btn_bar: [bs_next('提交下一岗')].join(' '), return_url: rad_corporate_bonds_path}) do |f| %>
+          <%= f.hidden_field :id %>
+          <%= render :partial => "#{@task.TASK_DEF_KEY_}", :locals => {:rad_corporate_bond => @rad_corporate_bond, :f => f} %>
+          <%#= render :partial => 'edit_form', :locals => {:rad_corporate_bond => @rad_corporate_bond, :f => f} %>
+      <% end %>
+  <% elsif @task.TASK_DEF_KEY_ == 'gzw_leader' || @task.TASK_DEF_KEY_ == 'leader' %>
+      <%= form_for(@rad_corporate_bond, :html => {:multipart => true}, nav: {no_save: true, btn_bar: [bs_prev('退回上一岗'), bs_next('办结')].join(' '), return_url: rad_corporate_bonds_path}) do |f| %>
+          <%= f.hidden_field :id %>
+          <%= render :partial => "gzw_leader", :locals => {:rad_corporate_bond => @rad_corporate_bond, :f => f} %>
+          <%#= render :partial => 'edit_form', :locals => {:rad_corporate_bond => @rad_corporate_bond, :f => f} %>
+      <% end %>
+  <% else %>
+      <%= form_for(@rad_corporate_bond, :html => {:multipart => true}, nav: {no_save: true, btn_bar: [bs_prev('退回补正'), bs_next('提交下一岗')].join(' '), return_url: rad_corporate_bonds_path}) do |f| %>
+          <%= f.hidden_field :id %>
+          <%= render :partial => "base_flow", :locals => {:rad_corporate_bond => @rad_corporate_bond, :f => f} %>
+          <%#= render :partial => 'edit_form', :locals => {:rad_corporate_bond => @rad_corporate_bond, :f => f} %>
+      <% end %>
+  <% end %>
+</div>

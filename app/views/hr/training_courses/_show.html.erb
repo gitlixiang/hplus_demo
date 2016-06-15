@@ -1,0 +1,17 @@
+<div class="ibox-content">
+  <%= form_show(hr_training_course) do |u| %>
+      <%= u.row("1:1") do %>
+          <%= u.show_method '名称：', :name %>
+          <%= u.show_method '成立时间：', :set_date %>
+      <% end %>
+      <%= u.row("1:1") do %>
+          <%= u.show_content '培训次数：' do %>
+              <%= hr_training_course.training_infos.size %>
+          <% end %>
+          <%= u.show_method '培训方向：', :content %>
+      <% end %>
+      <%= u.row("1:1") do %>
+          <%= u.show_method '备注：', :memo %>
+      <% end %>
+  <% end %>
+</div>

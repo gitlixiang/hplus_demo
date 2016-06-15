@@ -1,0 +1,10 @@
+<div class="ibox-content">
+  <%= f.row("1:1") do %>
+      <%= f.control('text', '名称：', :name) %>
+      <%= f.control('datepicker', '成立时间：', :set_date) %>
+  <% end %>
+  <%= f.row("1:1") do %>
+      <%= f.control('text', '培训方向：', :content) %>
+      <%= f.control('text', '备注：', :memo) %>
+  <% end %>
+</div>

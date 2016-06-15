@@ -1,0 +1,96 @@
+<%= form_for(@hr_person, nav: {no_save: true, btn_bar: bs_save_tag('保存', 'change_seat')}) do |f| %>
+    <%= f.row('1:1') do %>
+        <%= f.control('text', '姓名:', :full_name, readonly: true) %>
+        <%= f.control('select', '政治面貌:', :political_landscape_code,
+                      @people_5,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '增加减少途径:', :entry_ways_code,
+                      grouped_options_for_select(@people_15,
+                                                 @hr_person.entry_ways_code),
+                      {:prompt => '请选择'}) %>
+        <%= f.control('datepicker', '增加减少时间:', :entry_ways_date) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '健康状况:', :state_of_health,
+                      grouped_options_for_select(@people_6,
+                                                 @hr_person.state_of_health),
+                      {:prompt => '请选择'}) %>
+        <%= f.control('select', '职务层次:', :job_level_id,
+                      @people_7,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '职务名称:', :job_id,
+                      grouped_options_for_select(@people_1,
+                                                 @hr_person.job_id),
+                      {:prompt => '请选择'}) %>
+        <%= f.control('select', '编制类别:', :preparation_class,
+                      @people_8,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '本人身份:', :myself_status,
+                      @people_9,
+                      {:prompt => '请选择'}) %>
+        <%= f.control('select', '全日制学历:', :degree_code,
+                      grouped_options_for_select(@people_10,
+                                                 @hr_person.degree_code),
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '状态:', :job_status_code,
+                      @people_11,
+                      {:prompt => '请选择'}) %>
+        <%= f.control('select', '人员类别:', :people_category_code,
+                      grouped_options_for_select(@people_12,
+                                                 @hr_person.people_category_code),
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '干部类别:', :cadres_category_code,
+                      @people_13,
+                      {:prompt => '请选择'}) %>
+        <%= f.control('select', '所在部门:', :dept_id,
+                      @people_14,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('datepicker', '进单位时间:', :into_unit_date) %>
+        <%= f.control('select', '退出现役军人（武警）标识:', :demob_class_code,
+                      @people_16,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '公务员录用跨地域标识:', :pf_area_flag,
+                      @people_17,
+                      {:prompt => '请选择'}) %>
+        <%= f.control('select', '公务员特殊考试标识:', :pf_sp_exam_flag,
+                      @people_18,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('text', '批准机关及函件号:', :organ_letter) %>
+        <%= f.control('select', '医疗保险状况:', :medical_insurance_code,
+                      @people_19,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '养老保险状况:', :endowment_insurance_code,
+                      @people_20,
+                      {:prompt => '请选择'}) %>
+        <%= f.control('select', '列入公务员法实施范围管理类别标识:', :pf_category_code,
+                      @people_21,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '财政供养状况:', :financial_position_flag,
+                      @people_18,
+                      {:prompt => '请选择'}) %>
+        <%= f.control('select', '统发工资状况:', :payrol_flag,
+                      @people_18,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+
+<% end %>

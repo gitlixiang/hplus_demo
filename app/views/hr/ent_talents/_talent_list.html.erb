@@ -1,0 +1,28 @@
+<div class="file-manager">
+  <%= button_div do %>
+      <% unless !org.is_ent? %>
+          <%= bs_button_window(new_hr_ent_talent_path(ent_id: org.is_ent? ? org.resource_id : nil), '创建', 'btn-primary btn-sm', 'fa fa-check') %>
+      <% end %>
+  <% end %>
+  <div class="ibox-content" style="overflow: auto;max-height: 600px">
+    <%= table(ent_talent_header,
+              obj: hr_ent_talents,
+              fixed: true,
+              pagi_param_name: 'page') do |tal| %>
+        <%= table_tr({c: seq(hr_ent_talents, tal, params[:page]||1)},
+                     {c: tal.name},
+                     {c: tal.age},
+                     {c: tal.sex == 'F' ? '女' : '男'},
+                     {c: tal.work_date},
+                     {c: action_links([
+                                              {value: '查看', url: hr_ent_talent_path(tal)},
+                                              {value: '编辑', url: edit_hr_ent_talent_path(tal)},
+                                              {value: '上移', url: change_seq_hr_ent_talents_path(id: tal.id, change: 'up')},
+                                              {value: '下移', url: change_seq_hr_ent_talents_path(id: tal.id, change: 'down')},
+                                              {value: '删除', url: hr_ent_talent_path(tal), url_method: 'delete', confirm: '确定要删除吗？'}
+                                      ]
+                     )}
+            ) %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<% menu = Fdn::Menu.where(:code => 'training_courses').first %>
+<%= nav_bar(menu) do %>
+    <%= bs_button_window(new_hr_training_course_path, '创建', 'btn-primary btn-sm', 'fa fa-check',) %>
+<% end %>
+<div class="ibox-title">
+  <%= search_form_for(@search, url: hr_training_courses_path, nav_bar: true) do |f| %>
+      <div class="input-group col-md-2">
+        <%= f.control('text', '培训班', :name_cont) %>
+      </div>
+  <% end %>
+</div>
+<div class="ibox-content">
+  <%= table(training_course_header,
+            obj: @hr_training_courses,
+            fixed: true,
+            pagi_param_name: 'page') do |tal| %>
+      <%= table_tr({c: seq(@hr_training_courses, tal, params[:page]||1)},
+                   {c: tal.name},
+                   {c: tal.set_date},
+                   {c: tal.content},
+                   {c: action_links([
+                                            {value: '查看', url: hr_training_course_path(tal)},
+                                            {value: '编辑', url: edit_hr_training_course_path(tal)},
+                                            {value: '删除', url: hr_training_course_path(tal), url_method: 'delete', confirm: '确定要删除吗？'}
+                                    ]
+                   )}
+          ) %>
+  <% end %>
+</div>

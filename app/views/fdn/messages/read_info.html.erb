@@ -1,0 +1,11 @@
+<%= button_div() do %>
+    <%= bs_close %>
+<% end %>
+<%= table([{w: 2, t: "收件人"}, {w: 2, t: "阅读时间"}], no_page: true, cust_row: true, caption: '阅读情况', show_seq: false) do %>
+    <% @messages.each do |msg| %>
+        <%= table_tr({c: msg.receiver.full_name},
+                     {c: msg.read == 0 ? "未读" : msg.read_at.to_s(:time_l)+(msg.trashed_by_receiver == 0 ? "" : "-已被对方删除")}) %>
+    <% end %>
+<% end %>
+
+

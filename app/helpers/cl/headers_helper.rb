@@ -1,0 +1,2 @@
+module Cl::HeadersHelper
+end

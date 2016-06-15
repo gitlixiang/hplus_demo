@@ -1,0 +1,2 @@
+$('#file_resources tr:last').after("<%= j render('fdn/legends/file_resources', :the_file=>@the_file,:index=>@index,:legend=>@fdn_legend) %>");
+$('#<%= dynamic_hidden_count_name(@fdn_legend, 0, 'file_resources') %>').val('<%= @index + 1%>');

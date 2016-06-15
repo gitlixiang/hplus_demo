@@ -1,0 +1,13 @@
+<div class="ibox-content">
+  <%= table([{w: 2, t: '节点名称'}, {w: 2, t: '实际开始时间'}, {w: 2, t: '实际截止时间'}, {w: 4, t: '完成情况'}, {w: 2, t: '完成百分比'}],
+            fixed: true,
+            show_seq: false,
+            obj: pm_progresses) do |progress| %>
+      <%= table_tr({l: progress.node ? limit_word(progress.node, 15) : ''},
+                   {c: progress.start_date},
+                   {c: progress.end_date},
+                   {l: progress.content ? limit_word(progress.content.html_safe, 30) : ''},
+                   {c: progress_bar(progress.percent)}
+          ) %>
+  <% end %>
+</div>

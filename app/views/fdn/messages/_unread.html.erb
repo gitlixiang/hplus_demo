@@ -1,0 +1,13 @@
+<%= table([{w: 1, t: "状态"}, {w: 3, t: "标题"}, {w: 2, t: "发件人"}, {w: 2, t: "日期"}, {w: 2, t: "类型"}, {w: 2, t: "操作"}],
+          obj: messages,
+          pagi_param_name: pagi_param_name,
+          pagi_params: {tab_idx: tab_idx}) do |msg| %>
+    <%= table_tr({c: seq(messages_index, msg, params[:n_page]||1)},
+                 {c: email_tips_img(msg.read==1)},
+                 {l: bs_link_window(fdn_received_message_path(:id => msg.id, :tab_idx => tab_idx), limit_word(msg.subject, 10))},
+                 {c: msg.sender.full_name},
+                 {c: Time.at(msg.created_at).strftime(long_time)}, #msg.created_at.to_s(:time_s)
+                 {c: msg.msg_type_value},
+                 {c: action_links(box_in_links(msg))}) %>
+<% end %>
+

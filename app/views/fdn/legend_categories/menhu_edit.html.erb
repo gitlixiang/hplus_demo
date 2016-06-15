@@ -1,0 +1,5 @@
+<%= form_for(@menhu_show, :html => {:multipart => true}, :url => url_for(controller: 'fdn/legend_categories', action: 'menhu_update',:id=>@menhu_show.id),nav:{}) do |f| %>
+    <%= f.row("1:1") do %>
+          <%= f.control('select', '新闻栏目：', :legend_category_id, Fdn::LegendCategory.all.map { |o| [o.name, o.id] }, {prompt: '请选择'}, class: "selectpicker") %>
+    <% end %>
+<% end %>

@@ -1,0 +1,49 @@
+<%= javascript_include_tag rjs_ent_of_fdn_organizations_path(columns: ['resource_id', 'name']) %>
+<% menu = Fdn::Menu.where(:code => 'rad_corporate_bond').first %>
+<%= nav_bar(menu) do %>
+    <%= bs_button_link_to(new_rad_corporate_bond_path(), '创建', 'btn-primary btn-sm', 'fa fa-check') %>
+<% end %>
+<% if current_user.is_a_JW? %>
+    <div class="wrapper wrapper-content">
+      <div class="ibox-title">
+        <%= search_form_for(@search, url: rad_corporate_bonds_path, nav_bar: true) do |f| %>
+            <div class="input-group col-md-2"><%= f.control 'text', '企业id', 'ent_id_eq', readonly: true %></div>
+            <div class="input-group col-md-2">
+              <%= f.control('autocomplete', '企业名称', :name_cont, 'data-source' => "ents", 'data-mapping' => '{"value": "q_ent_id_eq"}', value: params[:q][:name_cont]) %>
+            </div>
+        <% end %>
+      </div>
+      <div class="ibox-content">
+        <%= table(corporate_bond_header,
+                  obj: @rad_corporate_bonds,
+                  fixed: true,
+                  pagi_param_name: 'page') do |inv| %>
+            <%= table_tr({c: seq(@rad_corporate_bonds, inv, params[:page]||1)},
+                         {l: inv.ent_name},
+                         {c: inv.bond_type},
+                         {c: inv.bond_total},
+                         {c: inv.et_assets},
+                         {c: inv.used},
+                         {c: action_links([
+                                                  {value: '项目监察', url: edit_rad_corporate_bond_path(inv), url_method: 'get'},
+                                                  {value: '项目历史', url: show_his_rad_corporate_bonds_path(id: inv.id), url_method: 'get'}
+                                          ])}
+                ) %>
+        <% end %>
+      </div>
+    </div>
+<% else %>
+    <div class="ibox-content">
+      <%= tabs(@tab_idx) do |t| %>
+          <%= t.tab('待办事项') do %>
+              <%= render 'ntd', rad_corporate_bonds: @ntd %>
+          <% end %>
+          <%= t.tab('在途事项') do %>
+              <%= render 'hd', rad_corporate_bonds: @hd %>
+          <% end %>
+          <%= t.tab('办结事项') do %>
+              <%= render 'fn', rad_corporate_bonds: @f %>
+          <% end %>
+      <% end %>
+    </div>
+<% end %>

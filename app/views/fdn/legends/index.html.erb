@@ -1,0 +1,18 @@
+<% menu = Fdn::Menu.where(:code => 'fdn_legends').first %>
+<%= nav_bar(menu) do %>
+    <%= bs_button_window(new_fdn_legend_path, '创建', 'btn-primary btn-sm', 'fa fa-check',) %>
+<% end %>
+<div class="ibox-content">
+  <%= table([{w: 3, t: '标题'}, {w: 2, t: '类型'}, {w: 1, t: '发布时间'}, {w: 1, t: '发布人'}, {w: 2, t: '操作'}],
+            pagi_param_name: 'legend_page',
+            fixed: true,
+            obj: @fdn_legends) do |legend| %>
+      <%= table_tr({c: seq(@fdn_legends, legend, params[:page]||1)},
+                   {l: action_links([{value: limit_word(legend.title, 20), url: fdn_legend_path(legend)}])},
+                   {c: legend.type_code=='gov' ? '国资动态' : (legend.type_code=='qiye' ? '企业动态' : '业务学习')},
+                   {c: legend.created_at.strftime("%Y-%m-%d")},
+                   {c: legend.creator.full_name},
+                   {c: action_links(index_links(legend))}) %>
+  <% end %>
+</div>
+

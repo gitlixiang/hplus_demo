@@ -1,0 +1,56 @@
+<%# if current_org.is_ent? %>
+<div class="ibox-content">
+  <%= table([{w: 3, t: '投资单位'}, {w: 4, t: '项目名称'}, {w: 2, t: '操作'}],
+            obj: rad_investments,
+            fixed: true,
+            pagi_param_name: 'page') do |inv| %>
+      <%= table_tr({c: seq(rad_investments, inv, params[:page]||1)},
+                   {l: inv.ent.name},
+                   {l: inv.project_name},
+                   if inv.pm_plan.nil? && current_org.is_ent?
+                     {c: action_links([
+                                              {value: '查看', url: rad_investment_path(inv), url_method: 'get'},
+                                              {value: '项目执行', url: new_pm_plan_path(resource_type: 'Rad::Investment', resource_id: inv.id, name: inv.project_name)},
+                                              {value: '项目历史', url: show_his_rad_investments_path(id: inv.id), url_method: 'get'}
+                                      ])}
+                   elsif inv.pm_plan.nil? && !current_org.is_ent?
+                     {c: action_links([
+                                              {value: '查看', url: rad_investment_path(inv), url_method: 'get'},
+                                              {value: '项目历史', url: show_his_rad_investments_path(id: inv.id), url_method: 'get'}
+                                      ])}
+                   else
+                     {c: action_links([
+                                              {value: '查看', url: rad_investment_path(inv), url_method: 'get'},
+                                              {value: '执行记录', url: pm_plan_path(id: inv.pm_plan.id)},
+                                              {value: '项目历史', url: show_his_rad_investments_path(id: inv.id), url_method: 'get'}
+                                      ])}
+                   end
+          ) %>
+  <% end %>
+</div>
+<%# else %>
+<!--<div class="ibox-content">-->
+<%#= table([{w: 2, t: '投资单位'}, {w: 2, t: '项目名称'}, {w: 2, t: '操作'}],
+                obj: rad_investments,
+                fixed: true,
+                pagi_param_name: 'page') do |inv| %>
+<%#= table_tr({c: seq(rad_investments, inv, params[:page]||1)},
+                       {l: inv.ent.name},
+                       {c: inv.project_name},
+                       if inv.pm_plan
+                         {c: action_links([
+                                          {value: '查看', url: rad_investment_path(inv), url_method: 'get'},
+                                          {value: '执行记录', url: pm_plan_path(id: inv.pm_plan.id)},
+                                          {value: '项目历史', url: show_his_rad_investments_path(id: inv.id), url_method: 'get'}
+                                          ])}
+                       else
+
+                         {c: action_links([
+                                          {value: '查看', url: rad_investment_path(inv), url_method: 'get'},
+                                          {value: '项目历史', url: show_his_rad_investments_path(id: inv.id), url_method: 'get'}
+                                          ])}
+                       end
+              ) %>
+<%# end %>
+<!--</div>-->
+<%# end %>

@@ -1,0 +1,173 @@
+<%
+   native_place_code = @hr_person.native_place_code||'320106'
+   province = ChinaCity.province(native_place_code)
+   city = ChinaCity.city(native_place_code)
+   provinces = ChinaCity.list
+   cities = ChinaCity.list(province)
+   districtes = ChinaCity.list(city)
+
+   place_of_birth = @hr_person.place_of_birth||'320106'
+   province2 = ChinaCity.province(place_of_birth)
+   city2 = ChinaCity.city(place_of_birth)
+   provinces2 = ChinaCity.list
+   cities2 = ChinaCity.list(province2)
+   districtes2 = ChinaCity.list(city2)
+%>
+<%= form_for(@hr_person, nav: {}) do |f| %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '考核人员信息:', :assesses_class, @people_0,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('text', '姓名:', :full_name) %>
+        <%= f.control('text', '身份证号:', :id_card_number) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '性别:', :sex, @people_2, {:prompt => '请选择'}) %>
+        <%= f.control('datepicker', '出生年月:', :birth_date) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '民族:', :nationality_code,
+                      @people_3,
+                      {:prompt => '请选择'}) %>
+
+        <%#= f.control('select', '籍贯:', :native_place_code, options_for_select(districtes, district),{}, {prompt: '--地区--',class: 'city-select city-district'}) %>
+        <%= f.controls('籍贯:') do %>
+            <div class='rails-helper city-group input-group'>
+              <%= select_tag :province, options_for_select(provinces, province), prompt: '--省份--', class: 'city-select city-province form-control' %>
+              <%= select_tag :city, options_for_select(cities, city), prompt: '--城市--', class: 'city-select city-city form-control' %>
+              <%= f.select :native_place_code, options_for_select(districtes, native_place_code), {}, prompt: '--地区--', class: 'city-select city-district form-control' %>
+            </div>
+        <% end %>
+
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.controls('出生地:') do %>
+            <div class='rails-helper city-group input-group'>
+              <%= select_tag :province2, options_for_select(provinces2, province2), prompt: '--省份--', class: 'city-select city-province form-control' %>
+              <%= select_tag :city2, options_for_select(cities2, city2), prompt: '--城市--', class: 'city-select city-city form-control' %>
+              <%= f.select :place_of_birth, options_for_select(districtes2, place_of_birth), {}, prompt: '--地区--', class: 'city-select city-district form-control' %>
+            </div>
+        <% end %>
+        <%= f.control('select', '政治面貌:', :political_landscape_code,
+                      @people_5,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('datepicker', '参加工作时间:', :participate_work_time) %>
+        <%= f.control('datepicker', '入党团时间:', :party_date) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '健康状况:', :state_of_health,
+                      grouped_options_for_select(@people_6,
+                                                 @hr_person.state_of_health),
+                      {:prompt => '请选择'}) %>
+        <%= f.control('select', '职务层次:', :job_level_id,
+                      @people_7,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '职务名称:', :job_id,
+                      grouped_options_for_select(@people_1,
+                                                 @hr_person.job_id),
+                      {:prompt => '请选择'}) %>
+        <%= f.control('select', '编制类别:', :preparation_class,
+                      @people_8,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '本人身份:', :myself_status,
+                      @people_9,
+                      {:prompt => '请选择'}) %>
+        <%= f.control('select', '全日制学历:', :degree_code,
+                      grouped_options_for_select(@people_10,
+                                                 @hr_person.degree_code),
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '状态:', :job_status_code,
+                      @people_11,
+                      {:prompt => '请选择'}) %>
+        <%= f.control('select', '人员类别:', :people_category_code,
+                      grouped_options_for_select(@people_12,
+                                                 @hr_person.people_category_code),
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '干部类别:', :cadres_category_code,
+                      @people_13,
+                      {:prompt => '请选择'}) %>
+        <%= f.control('select', '所在部门:', :dept_id,
+                      @people_14,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '增加减少途径:', :entry_ways_code,
+                      grouped_options_for_select(@people_15,
+                                                 @hr_person.entry_ways_code),
+                      {:prompt => '请选择'}) %>
+        <%= f.control('datepicker', '增加减少时间:', :entry_ways_date) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('datepicker', '进单位时间:', :into_unit_date) %>
+        <%= f.control('select', '退出现役军人（武警）标识:', :demob_class_code,
+                      @people_16,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '公务员录用跨地域标识:', :pf_area_flag,
+                      @people_17,
+                      {:prompt => '请选择'}) %>
+        <%= f.control('select', '公务员特殊考试标识:', :pf_sp_exam_flag,
+                      @people_18,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('text', '批准机关及函件号:', :organ_letter) %>
+        <%= f.control('select', '医疗保险状况:', :medical_insurance_code,
+                      @people_19,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '养老保险状况:', :endowment_insurance_code,
+                      @people_20,
+                      {:prompt => '请选择'}) %>
+        <%= f.control('select', '列入公务员法实施范围管理类别标识:', :pf_category_code,
+                      @people_21,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '财政供养状况:', :financial_position_flag,
+                      @people_18,
+                      {:prompt => '请选择'}) %>
+        <%= f.control('select', '统发工资状况:', :payrol_flag,
+                      @people_18,
+                      {:prompt => '请选择'}) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('text', '备注:', :memo) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('text', '现工作单位及职务:', :now_com_title) %>
+        <%= f.control('text', '工作简历:', :resume) %>
+    <% end %>
+
+<% end %>
+<script>
+    $(document).ready(function () {
+        var size = $('.city-group').width();
+        var s = size / 3 - 26;
+        $('#province').width(s + 'px');
+        $('#city').width(s + 'px');
+        $('#hr_person_native_place_code').width(s + 'px');
+    });
+
+    $(document).ready(function () {
+        var size = $('.city-group').width();
+        var s = size / 3 - 26;
+        $('#province2').width(s + 'px');
+        $('#city2').width(s + 'px');
+        $('#hr_person_place_of_birth').width(s + 'px');
+    });
+
+</script>

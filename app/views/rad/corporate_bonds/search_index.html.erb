@@ -1,0 +1,47 @@
+<%= javascript_include_tag rjs_descendants_of_fdn_organizations_path(columns: ['resource_id', 'name']) %>
+<% menu = Fdn::Menu.where(:code => 'corporate_bond_search').first %>
+<%= nav_bar(menu) do %>
+<% end %>
+<div class="wrapper wrapper-content">
+  <div class="ibox-title">
+    <%= search_form_for(@search, url: search_index_rad_corporate_bonds_path, nav_bar: true,btn_bar:bs_export(export_list_rad_corporate_bonds_path(q: params[:q]))+' '+
+              bs_clear(search_index_rad_corporate_bonds_path)) do |f| %>
+        <%= f.control 'hidden', '企业id', 'ent_organization_id_eq', readonly: true %>
+        <div class="input-group col-md-4">
+          <%= text_field_tag(:org_name, @org_name, {placeholder: '点击选择企业', class: "selectpicker form-control", onclick: 'select_org();'}) %>
+          <%#= f.control('text', '企业名称', :ent_organization_name_cont, 'data-source' => "descendants", 'data-mapping' => '{"value": "q_ent_id_eq"}', value: params[:q][:ent_organization_name_cont]) %>
+        </div>
+
+        <script>
+            function select_org() {
+                layer.open({
+                    type: 2,
+                    area: ['700px', '530px'],
+                    fix: false, //不固定
+                    maxmin: true,
+                    content: '<%=layer_select_org_fdn_organizations_path%>'
+                });
+            }
+        </script>
+    <% end %>
+  </div>
+  <div class="ibox-content">
+    <%= table(corporate_bond_search_header,
+              obj: @rad_corporate_bonds,
+              fixed: true,
+              pagi_param_name: 'page') do |inv| %>
+        <%= table_tr({c: seq(@rad_corporate_bonds, inv, params[:page]||1)},
+                     {l: inv.ent_name},
+                     {c: two_decimal(inv.bond_total)},
+                     {c: two_decimal(inv.repay_money)},
+                     {c: action_links([
+                                     {value: ("<i class='fa fa-bar-chart'></i>".html_safe), url: show_analysis_rad_corporate_bonds_path(id: inv.id),title:'分析图表'},
+                                      ])},
+                     {c: action_links([
+                                      {value: '查看', url: rad_corporate_bond_path(inv)},
+                                      {value: '还款记录', url: rad_repayments_path(cor_bond_id: inv.id)}
+                                      ])}
+            ) %>
+    <% end %>
+  </div>
+</div>

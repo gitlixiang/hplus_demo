@@ -1,0 +1,10 @@
+<%= form_for(@fdn_user, nav: {}) do |f| %>
+    <%= tabs(" ", position: 'below') do |t| %>
+        <%= t.tab("基本信息") do %>
+            <%= render :partial => 'form', :locals => {:fdn_user => @fdn_user, :f => f} %>
+        <% end %>
+        <%= t.tab("帐号列表") do %>
+            <%= render :partial => 'jq_list', :locals => {:fdn_user => @fdn_user, :f => f} %>
+        <% end %>
+    <% end %>
+<% end %>

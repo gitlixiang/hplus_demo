@@ -1,0 +1,19 @@
+<%= button_div() do %>
+    <%= bs_close %>
+<% end %>
+<div class="ibox-content">
+  <%= tabs(@tab_idx) do |t| %>
+      <%= t.tab('项目内容') do %>
+          <%= render 'show' , pm_plan: @pm_plan %>
+      <% end %>
+      <%= t.tab('计划进度') do %>
+          <%= render 'pm/plans/node_readonly' , pm_nodes: @pm_plan.pm_nodes %>
+      <% end %>
+      <%= t.tab('实际进度') do %>
+          <%= render 'pm/progresses/list_readonly' , pm_progresses: @pm_plan.pm_progresses.select{|p|p.wf.rec?} %>
+      <% end %>
+      <%= t.tab('批示') do %>
+          <%= render 'pm/comments/comment' , resource: @pm_plan %>
+      <% end %>
+  <% end %>
+</div>

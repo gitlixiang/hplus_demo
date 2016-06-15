@@ -1,0 +1,16 @@
+<% menu = Fdn::Menu.where(:code => 'fdn_legend_categories').first %>
+<%= nav_bar(menu) do %>
+    <%= bs_button_window(new_fdn_legend_category_path, '创建', 'btn-primary btn-sm', 'fa fa-check',) %>
+<% end %>
+<div class="ibox-content">
+  <%= table([{w: 3, t: '栏目分类'}, {w: 1, t: '编码'}, {w: 3, t: '上级分类'}, {w: 1, t: '排序'}, {w: 2, t: '操作'}],
+            fixed: true,
+            obj: @fdn_legend_categories) do |category| %>
+      <%= table_tr({c: seq(@fdn_legend_categories, category, params[:page]||1)},
+                   {l: category.name},
+                   {c: category.code},
+                   {c: category.parent_name},
+                   {c: category.position},
+                   {c: action_links(category_index_links(category))}) %>
+  <% end %>
+</div>

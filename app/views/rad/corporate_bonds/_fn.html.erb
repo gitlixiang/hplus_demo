@@ -1,0 +1,59 @@
+<%# if current_org.is_ent? %>
+<div class="ibox-content">
+  <%= table(corporate_bond_fn_header,
+            obj: rad_corporate_bonds,
+            fixed: true,
+            pagi_param_name: 'page') do |inv| %>
+      <%= table_tr({c: seq(rad_corporate_bonds, inv, params[:page]||1)},
+                   {l: inv.ent_name},
+                   {c: two_decimal(inv.bond_total)},
+                   {c: two_decimal(inv.repayments_total)},
+                   {c: two_decimal(inv.repay_money)},
+                   if inv.rad_repayments.nil? && current_org.is_ent?
+                     {c: action_links([
+                                              {value: '查看', url: rad_corporate_bond_path(inv)},
+                                              {value: '还款', url: new_rad_repayment_path(cor_bond_id: inv.id)}
+                                      ])}
+                   elsif !current_org.is_ent?
+                     {c: action_links([
+                                              {value: '查看', url: rad_corporate_bond_path(inv)},
+                                              {value: '还款记录', url: rad_repayments_path(cor_bond_id: inv.id)}
+                                      ])}
+                   else
+                     {c: action_links([
+                                              {value: '查看', url: rad_corporate_bond_path(inv)},
+                                              {value: '还款', url: new_rad_repayment_path(cor_bond_id: inv.id)},
+                                              {value: '还款记录', url: rad_repayments_path(cor_bond_id: inv.id)}
+                                      ])}
+                   end
+          ) %>
+  <% end %>
+</div>
+<%# else %>
+<!--<div class="ibox-content">-->
+<%#= table([{w: 2, t: '投资单位'}, {w: 2, t: '项目名称'}, {w: 2, t: '操作'}],
+                obj: rad_corporate_bonds,
+                fixed: true,
+                pagi_param_name: 'page') do |inv| %>
+<%#= table_tr({c: seq(rad_corporate_bonds, inv, params[:page]||1)},
+                       {l: inv.ent_name},
+                       {c: inv.bond_type},
+                       {c: inv.distribute_num},
+                       {c: inv.distribute_deadline},
+                       if inv.pm_plan
+                         {c: action_links([
+                                          {value: '查看', url: rad_corporate_bond_path(inv), url_method: 'get'},
+                                          {value: '执行记录', url: pm_plan_path(id: inv.pm_plan.id)},
+                                          {value: '项目历史', url: show_his_rad_corporate_bonds_path(id: inv.id), url_method: 'get'}
+                                          ])}
+                       else
+
+                         {c: action_links([
+                                          {value: '查看', url: rad_corporate_bond_path(inv), url_method: 'get'},
+                                          {value: '项目历史', url: show_his_rad_corporate_bonds_path(id: inv.id), url_method: 'get'}
+                                          ])}
+                       end
+              ) %>
+<%# end %>
+<!--</div>-->
+<%# end %>

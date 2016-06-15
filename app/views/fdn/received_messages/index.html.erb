@@ -1,0 +1,21 @@
+<h1>Listing fdn_received_messages</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @fdn_received_messages.each do |fdn_received_message| %>
+      <tr>
+        <td><%= link_to 'Show', fdn_received_message %></td>
+        <td><%= link_to 'Edit', edit_fdn_received_message_path(fdn_received_message) %></td>
+        <td><%= link_to 'Destroy', fdn_received_message, confirm: 'Are you sure?', method: :delete %></td>
+      </tr>
+  <% end %>
+</table>
+
+<br/>
+
+<%= link_to 'New Received message', new_fdn_received_message_path %>

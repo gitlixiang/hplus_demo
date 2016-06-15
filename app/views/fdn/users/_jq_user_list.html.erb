@@ -1,0 +1,38 @@
+<%= base_fields_for fdn_user do |f| %>
+    <% if type == 'cq_user' %>
+        <%= f.fields_for :cq_users, user, child_index: index do |cq_user_form| %>
+            <%= control_table_tr({c: cq_user_form.text_field(:user_name, class: 'span3')+cq_user_form.hidden_field(:resource_type,:value=>type)},
+                                 {c: cq_user_form.text_field(:memo, class: 'span3')},
+                                 {c: cq_user_form.control('check_box','启用：',:status, checked_value: 'Y', unchecked_value: 'N')},
+                                 {c: remove_line_tag(cq_user_form, url_for(:controller => 'fdn/users', :action => :del_jq_user, :id => user.id, :if_resource => 'yes')), style: 'vertical-align: middle'}) %>
+        <% end %>
+    <% elsif type == 'kb_user' %>
+        <%= f.fields_for :kb_users, user, child_index: index do |kb_user_form| %>
+            <%= control_table_tr({c: kb_user_form.text_field(:user_name, class: 'span3')+kb_user_form.hidden_field(:resource_type,:value=>type)},
+                                 {c: kb_user_form.text_field(:memo, class: 'span3')},
+                                 {c: kb_user_form.control('check_box','启用：',:status, checked_value: 'Y', unchecked_value: 'N')},
+                                 {c: remove_line_tag(kb_user_form, url_for(:controller => 'fdn/users', :action => :del_jq_user, :id => user.id, :if_resource => 'yes')), style: 'vertical-align: middle'}) %>
+        <% end %>
+    <% elsif type == 'nb_user' %>
+        <%= f.fields_for :nb_users, user, child_index: index do |nb_user_form| %>
+            <%= control_table_tr({c: nb_user_form.text_field(:user_name, class: 'span3')+nb_user_form.hidden_field(:resource_type,:value=>type)},
+                                 {c: nb_user_form.text_field(:memo, class: 'span3')},
+                                 {c: nb_user_form.control('check_box','启用：',:status, checked_value: 'Y', unchecked_value: 'N')},
+                                 {c: remove_line_tag(nb_user_form, url_for(:controller => 'fdn/users', :action => :del_jq_user, :id => user.id, :if_resource => 'yes')), style: 'vertical-align: middle'}) %>
+        <% end %>
+    <% elsif type == 'ys_user' %>
+        <%= f.fields_for :ys_users, user, child_index: index do |ys_user_form| %>
+            <%= control_table_tr({c: ys_user_form.text_field(:user_name, class: 'span3')+ys_user_form.hidden_field(:resource_type,:value=>type)},
+                                 {c: ys_user_form.text_field(:memo, class: 'span3')},
+                                 {c: ys_user_form.control('check_box','启用：',:status, checked_value: 'Y', unchecked_value: 'N')},
+                                 {c: remove_line_tag(ys_user_form, url_for(:controller => 'fdn/users', :action => :del_jq_user, :id => user.id, :if_resource => 'yes')), style: 'vertical-align: middle'}) %>
+        <% end %>
+    <% elsif type == 'js_user' %>
+        <%= f.fields_for :js_users, user, child_index: index do |js_user_form| %>
+            <%= control_table_tr({c: js_user_form.text_field(:user_name, class: 'span3')+js_user_form.hidden_field(:resource_type,:value=>type)},
+                                 {c: js_user_form.text_field(:memo, class: 'span3')},
+                                 {c: js_user_form.control('check_box','启用：',:status, checked_value: 'Y', unchecked_value: 'N')},
+                                 {c: remove_line_tag(js_user_form, url_for(:controller => 'fdn/users', :action => :del_jq_user, :id => user.id, :if_resource => 'yes')), style: 'vertical-align: middle'}) %>
+        <% end %>
+    <% end %>
+<% end %>

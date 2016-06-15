@@ -1,0 +1,9 @@
+<%= button_div() do %>
+    <%= bs_close %>
+<% end %>
+<%= render "fdn/messages/show", message: @fdn_received_message.message %>
+<script>
+    top.$("#msg_box_count").text("<%= @msg_count %>");
+</script>
+
+

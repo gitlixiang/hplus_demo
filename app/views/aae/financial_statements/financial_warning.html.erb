@@ -1,0 +1,47 @@
+<%= javascript_include_tag rjs_descendants_of_fdn_organizations_path(columns: ['resource_id', 'name']) %>
+<% menu = Fdn::Menu.where(:code => 'financial_warning').first %>
+<%= nav_bar(menu) do %>
+<% end %>
+<div class="ibox-title">
+  <%= search_form_for(@search, url: financial_warning_aae_financial_statements_path, nav_bar: true) do |f| %>
+      <%# if !current_org.is_ent? %>
+      <%= f.control 'hidden', '企业id', 'enterprise_organization_id_eq', readonly: true %>
+      <div class="input-group col-md-4">
+        <%= text_field_tag(:org_name, @org_name, {placeholder: '点击选择企业', class: "selectpicker form-control", onclick: 'select_org();'}) %>
+        <%#= f.control('autocomplete', '企业名称', :zzz_name, 'data-source' => "ents", 'data-mapping' => '{"value": "q_ent_id_eq"}', value: params[:q][:zzz_name]) %>
+        <script>
+            function select_org() {
+                layer.open({
+                    type: 2,
+                    area: ['700px', '530px'],
+                    fix: false, //不固定
+                    maxmin: true,
+                    content: '<%=layer_select_org_fdn_organizations_path%>'
+                });
+            }
+        </script>
+      </div>
+      <%= f.control 'datepicker', '年份：', 'year_eq', value: @year %>
+      <%#= f.control 'select', '月份', 'month_eq', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], {:prompt => '请选择月份', selected: @month}, class: " ", style: "width:200px" %>
+  <% end %>
+</div>
+<div class="ibox-content">
+  <% Aae::FinancialStatement::COLOR_LEVEL.each do |arr| %>
+      <small class="text-navy"><%= arr[0] %>：
+        <button type='button' class='btn btn-sm btn-rounded <%= arr[1] %>'></button>
+      </small>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+  <% end %>
+  <%= render :partial => 'financial_warning', :locals => {orgs: @orgs, year: @year, month: @month} %>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.date').datepicker({
+            minViewMode: 2,
+            format: 'yyyy',
+            startView: 2,
+            startDate: "2003",
+            autoclose: true
+        });
+    })
+</script>

@@ -1,0 +1,30 @@
+<%= javascript_include_tag 'ckeditor/init' %>
+<%= f.hidden_field :org_id, :value => current_org.id %>
+<div class="ibox-content">
+  <%= f.row('1') do %>
+      <%= f.control('text', '标题：', :title) %>
+  <% end %>
+  <%= f.row() do %>
+      <%= f.control('select', '分类：', :type_code, Fdn::LegendCategory.all.map { |c| [c.name, c.id] }, prompt: '请选择') %>
+  <% end %>
+  <%= f.row() do %>
+      <%= f.control('cktext_area', '内容：', :content) %>
+  <% end %>
+
+  <%= table([{w: 6, l: '图片上传'}, {w: 4, t: '操作'}],
+            id: 'file', caption: '图片(只作用于图片新闻)', obj: f.object.file_resources,
+            parent_obj: f.object, show_seq: false,
+            index_name: 'file', \
+          new_row: add_file_fdn_legends_path(id: f.object.id)) do |obj, index| %>
+      <%= render 'file', :the_file => obj, :index => index, legend: f.object %>
+  <% end %>
+
+  <%= table([{w: 6, l: '文件上传'}, {w: 4, t: '操作'}],
+            id: 'file_resources', caption: '文件', obj: f.object.file,
+            parent_obj: f.object, show_seq: false,
+            index_name: 'file_resources', \
+          new_row: add_file_of_fdn_legends_path(id: f.object.id)) do |obj, index| %>
+      <%= render 'file_resources', :the_file => obj, :index => index, legend: f.object %>
+  <% end %>
+</div>
+

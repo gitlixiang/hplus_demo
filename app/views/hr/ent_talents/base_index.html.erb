@@ -1,0 +1,15 @@
+<% menu = Fdn::Menu.where(:code => 'talent_base').first %>
+<%= nav_bar(menu) do %>
+    <%= bs_button_window(new_fdn_lookup_path(type: 'Hr::Lookups::TalType', type_name: '人才分类'), '创建人员类别', 'btn-primary btn-sm', 'fa fa-check',) %>
+    <%= bs_button_window(new_fdn_lookup_path(type: 'Hr::Lookups::EducationType', type_name: '学历'), '创建学历', 'btn-primary btn-sm', 'fa fa-check',) %>
+<% end %>
+<div class="ibox-content">
+  <%= tabs(@tab_idx) do |t| %>
+      <%= t.tab('人员类别') do %>
+          <%= render 'base_index', obj: @tal_type %>
+      <% end %>
+      <%= t.tab('学历') do %>
+          <%= render 'base_index', obj: @education_type %>
+      <% end %>
+  <% end %>
+</div>

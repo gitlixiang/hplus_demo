@@ -1,0 +1,48 @@
+<div class="ibox-content">
+  <%= tabs() do |t| %>
+      <%= t.tab('负责人信息') do %>
+          <div class="ibox-content">
+            <%= f.hidden_field :ent_id %>
+            <%= f.row("1") do %>
+                <%= f.control('text', "所属企业：", :ent_name, value: hr_ent_manager.ent.name, readonly: true) %>
+            <% end %>
+            <%= f.row("1") do %>
+                <%= f.control('text', "姓名：", :name, class: 'required') %>
+            <% end %>
+            <%= f.row("1") do %>
+                <%#= f.control('text', '职务：', :job_id) %>
+                <%= f.control('select', '职务：', :job_id, Hr::Lookups::JobType.select_y, {prompt: '请选择'}, class: "selectpicker required") %>
+            <% end %>
+          </div>
+      <% end %>
+      <%= t.tab('履职待遇') do %>
+          <div class="ibox-content">
+            <%= f.fields_for :treatment do |t| %>
+                <%= f.row("1") do %>
+                    <%= f.controls("车牌号：") do %>
+                        <%= t.select :car_id, Hr::EntCar.all.map { |o| [o.id_code, o.id] }, {prompt: '请选择'}, class: "selectpicker required form-control" %>
+                    <% end %>
+                <% end %>
+            <% end %>
+            <div class="ibox " id="car_show">
+              <% if !hr_treatment.car_id.blank? %>
+                  <% @car = Hr::EntCar.find hr_treatment.car_id %>
+                  <%= render 'car_show', :car => @car %>
+              <% end %>
+            </div>
+          </div>
+      <% end %>
+      <%= t.tab('业务支出') do %>
+          <div class="ibox-content">
+          </div>
+      <% end %>
+  <% end %>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#hr_ent_manager_treatment_attributes_car_id').change(function () {
+            var car_id = $(this).val()
+            $.jq_remote_get("<%= show_car_hr_ent_managers_path %>", {car_id: car_id, format: 'js'});
+        })
+    });
+</script>

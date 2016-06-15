@@ -1,0 +1,32 @@
+<%= javascript_include_tag rjs_ent_of_fdn_organizations_path(columns: ['resource_id', 'name']) %>
+<div class="ibox-content">
+  <%= f.hidden_field :ent_id %>
+  <%= f.row("1:1") do %>
+      <%= f.control('text', '姓名：', :name) %>
+      <% if current_org.is_ent? %>
+          <%= f.control('autocomplete', '企业名称：', :ent_name, 'data-source' => "ents", 'data-mapping' => '{"value": "hr_ent_talent_ent_id"}', :value => hr_ent_talent.ent_name, :readonly => true) %>
+      <% else %>
+          <%= f.control('autocomplete', '企业名称：', :ent_name, 'data-source' => "ents", 'data-mapping' => '{"value": "hr_ent_talent_ent_id"}', :value => hr_ent_talent.ent_name) %>
+      <% end %>
+  <% end %>
+  <%= f.row("1:1") do %>
+      <%= f.control('select', '性别：', :sex, [['男', 'M'], ['女', 'F']], {prompt: '请选择'}, class: "selectpicker") %>
+      <%= f.control('datepicker', '出生日期：', :birthday) %>
+  <% end %>
+  <%= f.row("1:1") do %>
+      <%= f.control('select', '民族：', :national_code, Fdn::Lookups::Nationality.all.select_y, {prompt: '请选择'}, class: "selectpicker") %>
+      <%= f.control('text', '籍贯：', :native_place_code) %>
+  <% end %>
+  <%= f.row("1:1") do %>
+      <%= f.control('datepicker', '工作时间：', :work_date) %>
+      <%= f.control('select', '人才分类：', :type_code, Hr::Lookups::TalType.all.select_y, {prompt: '请选择'}, class: "selectpicker") %>
+  <% end %>
+  <%= f.row("1:1") do %>
+      <%= f.control('select', '学历：', :education, Hr::Lookups::EducationType.all.select_y, {prompt: '请选择'}, class: "selectpicker") %>
+      <%= f.control('text', '专业技术资质：', :pro_tech_qua) %>
+  <% end %>
+  <%= f.row("1:1") do %>
+      <%= f.control('text', '联系方式：', :phone) %>
+      <%= f.control('text', '排序：', :seq) %>
+  <% end %>
+</div>

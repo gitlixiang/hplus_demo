@@ -1,0 +1,23 @@
+<% menu = Fdn::Menu.where(:code => 'progress').first %>
+<%= nav_bar(menu) do %>
+    <%#= bs_button_window(new_pm_progress_path(plan_id: params[:id]), '创建', 'btn-primary btn-sm', 'fa fa-check') if (current_user.org.id!=1 && @pm_plan.wf.rec?) %>
+    <%= bs_return(pm_progresses_path) %>
+<% end %>
+<div class="wrapper wrapper-content">
+  <div class="ibox-content">
+    <%= table([{w: 1, t: '节点名称'}, {w: 2, t: '计划开始日期'}, {w: 2, t: '计划截止日期'}, {w: 4, t: '节点内容'}, {w: 1, t: '计划完成百分比'}, {w: 2, t: '操作'}],
+              fixed: true,
+              show_seq: false,
+              caption: '计划节点',
+              obj: @pm_plan.pm_nodes) do |node| %>
+        <%= table_tr({c: node.name},
+                     {c: node.start_date},
+                     {c: node.end_date},
+                     {l: node.content ? node.content.html_safe : ''},
+                     {c: node.percent},
+                     {c: action_links(node.pm_progress ? [] : [{value: '填报此节点进度', url: new_pm_progress_path(node_id: node.id)}])}
+            ) %>
+    <% end %>
+  </div>
+  <%= render 'list', pm_progresses: @pm_plan.pm_progresses %>
+</div>

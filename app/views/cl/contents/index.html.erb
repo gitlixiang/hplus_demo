@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Cl Contents</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Row</th>
+    <th>Col</th>
+    <th>Rows</th>
+    <th>Cols</th>
+    <th>Code</th>
+    <th>Header</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @cl_contents.each do |cl_content| %>
+      <tr>
+        <td><%= cl_content.name %></td>
+        <td><%= cl_content.row %></td>
+        <td><%= cl_content.col %></td>
+        <td><%= cl_content.rows %></td>
+        <td><%= cl_content.cols %></td>
+        <td><%= cl_content.code %></td>
+        <td><%= cl_content.header_id %></td>
+        <td><%= link_to 'Show', cl_content %></td>
+        <td><%= link_to 'Edit', edit_cl_content_path(cl_content) %></td>
+        <td><%= link_to 'Destroy', cl_content, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Content', new_cl_content_path %>

@@ -1,0 +1,16 @@
+<%= form_for(@hr_ent_manager, nav: {}) do |f| %>
+    <%#= render :partial => 'form', :locals => {:hr_ent_manager => @hr_ent_manager, :f => f} %>
+    <div class="ibox-content">
+      <%= f.hidden_field :ent_id %>
+      <%= f.row("1") do %>
+          <%= f.control('text', "所属企业：", :ent_name, value: @hr_ent_manager.ent.name, readonly: true) %>
+      <% end %>
+      <%= f.row("1") do %>
+          <%= f.control('text', "姓名：", :name, class: 'required') %>
+      <% end %>
+      <%= f.row("1") do %>
+          <%#= f.control('text', '职务：', :job_id) %>
+          <%= f.control('select', '职务：', :job_id, Hr::Lookups::JobType.select_y, {prompt: '请选择'}, class: "selectpicker required") %>
+      <% end %>
+    </div>
+<% end %>

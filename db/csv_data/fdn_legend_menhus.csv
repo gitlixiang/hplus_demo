@@ -1,0 +1,9 @@
+id,position,title,legend_category_id,memo
+1,toutiao,头条,18,头条
+2,top_right,通知公告,17,通知公告
+3,top1,国资要闻,8,主信息1
+4,top2,热点专题,9,主信息2
+5,top3,领导专栏,10,主信息3
+6,middle1,国资动态,15,信息公开1
+7,middle2,企业动态,16,信息公开2
+8,middle3,政策法规,11,信息公开3

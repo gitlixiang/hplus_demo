@@ -1,0 +1,149 @@
+<div class="ibox-content">
+  <%= form_show(@hr_person_history) do |u| %>
+      <%= u.row('1:1') do %>
+          <%= u.show_method '姓名：', :full_name %>
+          <%#= u.show_method '考核人员信息：', :assesses_class %>
+          <%= u.show_content '考核人员信息：' do %>
+              <%= @hr_person_history.ass_class.try(:name) %>
+          <% end %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%= u.show_method '身份证号：', :id_card_number %>
+          <%= u.show_method '性别：', :sex_han %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%= u.show_method '出生年月：', :birth_date %>
+          <%= u.show_method '年龄：', :age %>
+      <% end %>
+
+      <%= u.row('1:1') do %>
+          <%#= u.show_method '民族：', :nationality_code %>
+          <%= u.show_content '民族：' do %>
+              <%= @hr_person_history.nationality.try(:value) %>
+          <% end %>
+          <%#= u.show_method '籍贯：', :id %>
+          <%= u.show_content '籍贯：' do %>
+              <%= @hr_person_history.native_place.try(:region_name) %>
+          <% end %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%#= u.show_method '出生地：', :id %>
+          <%= u.show_content '出生地：' do %>
+              <%= @hr_person_history.place_birth.try(:region_name) %>
+          <% end %>
+          <%#= u.show_method '政治面貌：', :political_landscape_code %>
+          <%= u.show_content '政治面貌：' do %>
+              <%= @hr_person_history.political_landscape.try(:value) %>
+          <% end %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%= u.show_method '参加工作时间：', :participate_work_time %>
+          <%= u.show_method '入党团时间：', :party_date %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%#= u.show_method '健康状况：', :state_of_health %>
+          <%= u.show_content '健康状况：' do %>
+              <%= @hr_person_history.state_health.try(:value) %>
+          <% end %>
+          <%#= u.show_method '职务层次：', :job_level_id %>
+          <%= u.show_content '职务层次：' do %>
+              <%= @hr_person_history.job_level.try(:name) %>
+          <% end %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%#= u.show_method '职务名称：', :job_id %>
+          <%= u.show_content '职务名称：' do %>
+              <%= @hr_person_history.job.try(:name) %>
+          <% end %>
+          <%#= u.show_method '编制类别：', :preparation_class %>
+          <%= u.show_content '编制类别：' do %>
+              <%= @hr_person_history.preparation.try(:value) %>
+          <% end %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%#= u.show_method '本人身份：', :myself_status %>
+          <%= u.show_content '本人身份：' do %>
+              <%= @hr_person_history.myself.try(:value) %>
+          <% end %>
+          <%#= u.show_method '全日制学历：', :degree_code %>
+          <%= u.show_content '全日制学历：' do %>
+              <%= @hr_person_history.degree.try(:value) %>
+          <% end %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%#= u.show_method '状态：', :job_status_code %>
+          <%= u.show_content '状态：' do %>
+              <%= @hr_person_history.job_status.try(:value) %>
+          <% end %>
+          <%#= u.show_method '人员类别：', :people_category_code %>
+          <%= u.show_content '人员类别：' do %>
+              <%= @hr_person_history.people_category.try(:value) %>
+          <% end %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%#= u.show_method '干部类别：', :cadres_category_code %>
+          <%= u.show_content '干部类别：' do %>
+              <%= @hr_person_history.cadres_category.try(:value) %>
+          <% end %>
+          <%= u.show_method '所在部门：', :dept_id %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%#= u.show_method '增加减少途径：', :entry_ways_code %>
+          <%= u.show_content '增加减少途径：' do %>
+              <%= @hr_person_history.entry_ways.try(:value) %>
+          <% end %>
+          <%= u.show_method '增加减少时间：', :entry_ways_date %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%= u.show_method '进单位时间：', :into_unit_date %>
+          <%#= u.show_method '退出现役军人（武警）标识：', :demob_class_code %>
+          <%= u.show_content '退出现役军人（武警）标识：' do %>
+              <%= @hr_person_history.demob_class.try(:value) %>
+          <% end %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%#= u.show_method '公务员录用跨地域标识：', :pf_area_flag %>
+          <%= u.show_content '公务员录用跨地域标识：' do %>
+              <%= @hr_person_history.pf_area.try(:value) %>
+          <% end %>
+          <%#= u.show_method '公务员特殊考试标识：', :pf_sp_exam_flag %>
+          <%= u.show_content '公务员特殊考试标识：' do %>
+              <%= @hr_person_history.pf_sp_exam.try(:value) %>
+          <% end %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%= u.show_method '批准机关及函件号：', :organ_letter %>
+          <%#= u.show_method '医疗保险状况：', :medical_insurance_code %>
+          <%= u.show_content '医疗保险状况：' do %>
+              <%= @hr_person_history.medical_insurance.try(:value) %>
+          <% end %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%#= u.show_method '养老保险状况：', :endowment_insurance_code %>
+          <%= u.show_content '养老保险状况：' do %>
+              <%= @hr_person_history.endowment_insurance.try(:value) %>
+          <% end %>
+          <%#= u.show_method '列入公务员法实施范围管理类别标识：', :pf_category_code %>
+          <%= u.show_content '列入公务员法实施范围管理类别标识：' do %>
+              <%= @hr_person_history.pf_category.try(:value) %>
+          <% end %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%#= u.show_method '财政供养状况：', :financial_position_flag %>
+          <%= u.show_content '财政供养状况：' do %>
+              <%= @hr_person_history.financial_position.try(:value) %>
+          <% end %>
+          <%#= u.show_method '统发工资状况：', :payrol_flag %>
+          <%= u.show_content '统发工资状况：' do %>
+              <%= @hr_person_history.payrol.try(:value) %>
+          <% end %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%= u.show_method '备注：', :memo %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%= u.show_method '现工作单位及职务：', :now_com_title %>
+          <%= u.show_method '工作简历：', :resume %>
+      <% end %>
+  <% end %>
+</div>

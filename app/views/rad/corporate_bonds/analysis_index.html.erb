@@ -1,0 +1,130 @@
+<%= javascript_include_tag rjs_ent_of_fdn_organizations_path(columns: ['resource_id', 'name']) %>
+<% menu = Fdn::Menu.where(:code => 'corporate_bond_analysis').first %>
+<%= nav_bar(menu) do %>
+<% end %>
+<div class="ibox-title">
+  <%= search_form_for(@search, url: analysis_index_rad_corporate_bonds_path, nav_bar: true) do |f| %>
+      <%= f.control 'hidden', '企业id', 'ent_organization_id_eq', readonly: true %>
+      <div class="input-group col-md-4">
+        <%= text_field_tag(:org_name, @org_name, {placeholder: '点击选择企业', class: "selectpicker form-control", onclick: 'select_org();'}) %>
+        <%#= f.control('autocomplete', '企业名称', :zzz_name, 'data-source' => "ents", 'data-mapping' => '{"value": "q_ent_id_eq"}', value: params[:q][:zzz_name]) %>
+        <script>
+            function select_org() {
+                layer.open({
+                    type: 2,
+                    area: ['700px', '530px'],
+                    fix: false, //不固定
+                    maxmin: true,
+                    content: '<%=layer_select_org_fdn_organizations_path%>'
+                });
+            }
+        </script>
+      </div>
+      <div class="input-group col-md-2"><%= f.control 'datepicker', '发债日期', 'bond_date_gteq' %></div>
+      至
+      <div class="input-group col-md-2"><%= f.control 'datepicker', '发债日期', 'bond_date_lteq' %></div>
+  <% end %>
+</div>
+<div class="form-group">
+  <p class="col-sm-12" style="font-size:15px;letter-spacing: 0.04em;">
+    审批情况：已审批项目<u><%= @fn_data[0][:value] %></u>个；未审批项目<u><%= @fn_data[1][:value] %></u>个
+  </p>
+
+  <p class="col-sm-12" style="font-size:15px;letter-spacing: 0.04em;">
+    债务类型：
+    <% @type_data.each do |t| %><%= t[:name] %>：<u><%= t[:value] %></u>个&nbsp;&nbsp;
+    <% end %>
+  </p>
+
+  <p class="col-sm-12" style="font-size:15px;letter-spacing: 0.04em;">
+    债务资金情况：债务总额<u><%= @bond_total %></u>万元，已还债款<u><%= @repay_money %></u>万元，已还债款占债务总额比例为<u><%= two_decimal(@repay_money / @bond_total *100) %>
+    %</u>
+  </p>
+</div>
+<div class="row">
+  <div class="ibox float-e-margins">
+    <div class="ibox-content">
+      <div class="echarts" id="fn_pie">
+        <%= pie_echart('FnPieChart', 'FnPieOption', 'fn_pie', @fn_legend, '企业发债', @fn_data.to_json, '企业债务审批情况') %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="ibox float-e-margins">
+    <div class="ibox-content">
+      <div class="echarts" id="type_pie">
+        <%= pie_echart('TypePieChart', 'TypePieOption', 'type_pie', @type_legend, '企业发债', @type_data.to_json, '企业债务类型', '', true) %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="ibox float-e-margins">
+    <div class="ibox-content">
+      <div class="echarts" id="used_bar">
+        <%= echart('UsedBarChart', 'UsedBarOption', 'used_bar', @used_legend, @used_data, '债务资金投向', 'bar', '数量') %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="ibox float-e-margins">
+    <div class="ibox-content">
+      <div class="echarts" id="bar">
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    var BarChart = echarts.init(document.getElementById("bar"));
+    var baroption = {
+        title: {
+            text: '债务资金情况',
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow'
+            }
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                dataView: {show: true, readOnly: false},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        legend: {
+            data: ['还款', '债务总额'],
+            x: 'left'
+        },
+        yAxis: {
+            type: 'category',
+            splitLine: {show: false},
+            data: ['还款', '债务总额']
+        },
+        xAxis: {
+            name: '金额(万元)',
+            type: 'value'
+        },
+        series: [
+            {
+                name: '金额',
+                type: 'bar',
+                stack: '总量',
+//                    label: {
+//                        normal: {
+//                            show: true,
+//                            position: 'inside'
+//                        }
+//                    },
+                data: [<%= @repay_money %>, <%= @bond_total %>]
+            }
+        ]
+    };
+    BarChart.setOption(baroption);
+    $(window).resize(BarChart.resize);
+</script>

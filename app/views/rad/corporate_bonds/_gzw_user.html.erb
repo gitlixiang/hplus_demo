@@ -1,0 +1,55 @@
+<div class="ibox-content">
+  <%= tabs(@tab_idx) do |t| %>
+      <%= t.tab('发债内容') do %>
+          <%= render :partial => 'show', :locals => {:rad_corporate_bond => rad_corporate_bond, :f => f} %>
+      <% end %>
+      <%= t.tab('审核意见填写') do %>
+          <div class="ibox-content">
+            <div class="ibox-content">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">业务角度：</label>
+
+                <div class="col-sm-10"><%= text_field_tag 'option1', '', class: 'form-control', row: 4 %></div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">经济角度：</label>
+
+                <div class="col-sm-10"><%= text_field_tag 'option2', '', class: 'form-control', row: 4 %></div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">社会效益：</label>
+
+                <div class="col-sm-10"><%= text_field_tag 'option3', '', class: 'form-control', row: 4 %></div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">角度四：</label>
+
+                <div class="col-sm-10"><%= text_field_tag 'option4', '', class: 'form-control', row: 4 %></div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">角度五：</label>
+
+                <div class="col-sm-10"><%= text_field_tag 'option5', '', class: 'form-control', row: 4 %></div>
+              </div>
+            </div>
+          </div>
+      <% end %>
+      <%= t.tab('审核轨迹') do %>
+          <div class="ibox-content">
+            <% @instance = Wf::ProcInst.find_by_resource(rad_corporate_bond) %>
+            <% @task_list = Wf::Task.where(PROC_INST_ID_: @instance.getId).order('START_TIME_') %>
+            <%= table([{w: 4, t: '办理人'}, {w: 2, t: '到岗时间'}, {w: 2, t: '完成时间'}, {w: 4, t: '审核意见'}],
+                      obj: @task_list,
+                      fixed: true,
+                      pagi_param_name: 'page') do |task| %>
+                <%= table_tr({c: seq(@task_list, task, params[:page]||1)},
+                             {l: task.ent_user_name},
+                             {c: task.START_TIME_.strftime(long_time)},
+                             {c: (task.END_TIME_.strftime(long_time) if task.END_TIME_)},
+                             {c: task.task_opinions.size==0 ? '' : bs_button_window(wf_opinion_rad_investments_path(task_id: task.ID_), '查看审核意见')}
+                    ) %>
+            <% end %>
+          </div>
+      <% end %>
+  <% end %>
+</div>

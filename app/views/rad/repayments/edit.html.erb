@@ -1,0 +1,3 @@
+<%= form_for(@rad_repayment, :html => {:multipart => true}, nav: {}) do |f| %>
+    <%= render :partial => 'form', :locals => {:rad_repayment => @rad_repayment, :f => f} %>
+<% end %>

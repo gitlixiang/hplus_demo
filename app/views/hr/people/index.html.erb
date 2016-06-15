@@ -1,0 +1,37 @@
+<%= nav_bar(Fdn::Menu.find_by(code: 'hr_person')) do %>
+    <%= bs_button_window(new_hr_person_path(), '录入新员工', 'btn-primary btn-sm', 'fa fa-check') %>
+    <%#= bs_button_link_to(cl_headers_path(), 'headers', 'btn-primary btn-sm', 'fa fa-check') %>
+    <%#= bs_button_link_to(cl_contents_path(), 'contents', 'btn-primary btn-sm', 'fa fa-check') %>
+    <%#= bs_button_link_to(wf_models_path(), 'models', 'btn-primary btn-sm', 'fa fa-check') %>
+<% end %>
+<div class="ibox-title">
+  <%= search_form_for(@search, url: hr_people_path, nav_bar: true, btn_bar: bs_export(export_index_hr_people_path(q: params[:q]))) do |f| %>
+      <%= f.row('1') do %>
+          <%= f.control 'text', '姓名', 'full_name_cont', style: 'width:100px' %>
+          <%= f.control('select', '本人身份：', :myself_status_eq, @people_1, {prompt: '本人身份'}, class: 'form-control', style: 'width:120px') %>
+          <%= f.control('select', '职务名称：', :job_id_eq, @people_9, {prompt: '职务名称'}, class: 'form-control', style: 'width:120px') %>
+          <%= f.control('datepicker', '变动日期起始：', :entry_ways_date_gteq, class: 'form-control', style: 'width:120px') %>
+          <%= f.control('datepicker', '变动日期截止：', :entry_ways_date_lteq, class: 'form-control', style: 'width:120px') %>
+      <% end %>
+  <% end %>
+</div>
+<div class="ibox-content">
+  <%= table([{w: 1, t: '姓名'}, {w: 1, t: '性别'}, {w: 1, t: '年龄'}, {w: 2, t: '本人身份'}, {w: 2, t: '职务名称'}, {w: 3, t: '操作'}],
+            obj: @hr_people,
+            fixed: true,
+            pagi_param_name: 'page') do |person| %>
+      <%= table_tr({c: seq(@hr_people, person, params[:page]||1)},
+                   {l: person.full_name},
+                   {c: person.sex_han},
+                   {c: person.age},
+                   {c: person.myself.try(:value)},
+                   {c: person.job.try(:name)},
+                   {c: action_links([
+                                            {value: '查看', url: hr_person_path(person)},
+                                            {value: '修改', url: edit_hr_person_path(person)},
+                                            {value: '职务变动', url: change_seat_hr_person_path(person)},
+                                            {value: '删除', url: hr_person_path(person), url_method: 'delete', confirm: '确定删除？'}
+                                    ])}
+          ) %>
+  <% end %>
+</div>

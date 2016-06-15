@@ -1,0 +1,145 @@
+== README
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
+
+
+Please feel free to use a different markup language if you do not plan to run
+<tt>rake doc:app</tt>.
+
+== H+ plugins
+
+*toastr_notifications
+flash提醒
+
+*nestable_list
+联系人分组（2级）
+
+*timeline_v2
+时间轴，项目跟踪
+
+*forum_main
+论坛
+
+*code_editor
+管理员使用 代码编辑器
+
+*modal_window
+模态窗口
+
+*validation
+jquery表单验证
+
+*tree_view_v2
+jstree
+
+*chat_view
+单人聊天窗口
+
+*mailbox
+收件箱
+
+*mail_detail
+查看邮件
+
+*mail_compose
+写邮件
+
+*widgets
+小工具
+
+**form_
+表单
+
+*layerdate
+日期选择器
+
+*contacts
+联系人列表
+
+*profile
+个人资料
+
+*projects
+项目列表
+
+*project_detail
+项目详情
+
+*file_manager
+文件管理器
+
+*calendar
+日历
+
+*faq
+问题库
+
+*timeline
+比较小巧的时间轴
+
+*pin_board
+标签墙，知识分享
+
+*invoice
+单据
+
+*typography
+文本排版
+
+*icons
+图标
+
+*buttons
+按钮
+
+*tabs_panels
+tab页和面板
+
+*notifications
+通知和提示
+
+*badges_labels
+标签、进度条
+
+*layer
+各种弹框
+
+*tree_view
+树形视图
+
+**table_
+表格
+
+*basic_gallery
+基本图库
+
+*carousel
+图片切换
+
+*webim
+右下角聊天
+
+*css_animation
+css动画
+

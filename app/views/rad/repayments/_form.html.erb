@@ -1,0 +1,14 @@
+<div class="ibox-content">
+  <%= f.hidden_field :cor_bond_id %>
+  <%= f.row("1:1") do %>
+      <%= f.control('datepicker', '还款日期：', :repay_date) %>
+      <%= f.control('text', '还款（本金/万元）：', :repayments) %>
+  <% end %>
+  <%= f.row("1:1") do %>
+      <%= f.control('text', '还款利率(%)：', :repay_rate) %>
+      <%= f.control('text', '还款利息(万元)：', :interest) %>
+  <% end %>
+  <%= f.row("1:1") do %>
+      <%= f.control('text', '资产负债率(%)：', :debt_radio) %>
+  <% end %>
+</div>

@@ -1,0 +1,21 @@
+<% menu = Fdn::Menu.where(:code => 'progress').first %>
+<%= nav_bar(menu) do %>
+    <%#= bs_button_window(new_pm_plan_path, '创建', 'btn-primary btn-sm', 'fa fa-check',)%>
+<% end %>
+<div class="wrapper wrapper-content">
+  <div class="ibox-content">
+    <%= table([{w: 2, t: '项目名称'}, {w: 3, t: '计划进度'}, {w: 1, t: '项目联系人'}, {w: 1, t: '联系方式'}, {w: 2, t: '当前进度'}, {w: 2, t: '操作'}],
+              pagi_param_name: 'plan_page',
+              fixed: true,
+              obj: @pm_plans) do |plan| %>
+        <%= table_tr({c: seq(@pm_plans, plan, params[:page]||1)},
+                     {l: limit_word(plan.name, 10)},
+                     {l: plan.content.html_safe},
+                     {c: plan.contact},
+                     {c: plan.phone},
+                     {c: progress_bar(plan.newest_percent)},
+                     {c: action_links([{value: '查看', url: pm_plan_path(plan)}, {value: '进度列表', url: list_pm_progress_path(plan), url_method: 'get'}])}
+            ) %>
+    <% end %>
+  </div>
+</div>

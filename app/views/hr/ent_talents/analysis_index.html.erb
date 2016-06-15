@@ -1,0 +1,60 @@
+<%= javascript_include_tag rjs_ent_of_fdn_organizations_path(columns: ['resource_id', 'name']) %>
+<% menu = Fdn::Menu.where(:code => 'talent_analysis').first %>
+<%= nav_bar(menu) do %>
+<% end %>
+<div class="row wrapper wrapper-content">
+  <div class="ibox-title">
+    <%= search_form_for(@search, url: analysis_index_hr_ent_talents_path, nav_bar: true, btn_bar: bs_clear(analysis_index_hr_ent_talents_path)) do |f| %>
+        <%= f.control 'hidden', '企业id', 'ent_organization_id_eq', readonly: true %>
+        <div class="input-group col-md-4">
+          <%= text_field_tag(:org_name, @org_name, {placeholder: '点击选择企业', class: "selectpicker form-control", onclick: 'select_org();'}) %>
+          <%#= f.control('autocomplete', '企业名称', :zzz_name, 'data-source' => "ents", 'data-mapping' => '{"value": "q_ent_id_eq"}', value: params[:q][:zzz_name]) %>
+          <script>
+              function select_org() {
+                  layer.open({
+                      type: 2,
+                      area: ['700px', '530px'],
+                      fix: false, //不固定
+                      maxmin: true,
+                      content: '<%=layer_select_org_fdn_organizations_path%>'
+                  });
+              }
+          </script>
+        </div>
+    <% end %>
+  </div>
+  <div class="ibox-content">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <%= high_chart("education", @chart_edu) %>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <%= high_chart("tal_type", @chart_tal) %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <%= high_chart("age", @chart_age) %>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <%= high_chart("sex", @chart_sex) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

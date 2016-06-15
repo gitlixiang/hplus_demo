@@ -1,0 +1,8 @@
+var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+parent.$('#org_id').val('<%= @org_id %>');
+parent.$('#org_name').val('<%= @org_name %>');
+parent.$('#q_ent_organization_id_eq').val('<%= @org_id %>');
+parent.$('#ent_organization_name_cont').val('<%= @org_name %>');
+parent.$('#q_organization_id_eq').val('<%= @org_id %>');
+parent.$('#q_ent_id_eq').val('<%= @org.resource_id %>');
+parent.layer.close(index);

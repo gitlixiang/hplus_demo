@@ -1,0 +1,24 @@
+<% can_edit = (current_org.id.to_s==@org_id) %>
+<%= button_div do %>
+    <% if can_edit %>
+        <%= bs_button_window(new_hr_leader_salary_path({org_id: @org_id, year: params[:year], month: params[:month]}), '创建', 'btn-primary btn-sm', 'fa fa-check') %>
+    <% end %>
+<% end %>
+<div class="ibox-title">
+  <%= table([{w: 2, t: '名称'}, {w: 2, t: '基本年薪'}, {w: 2, t: '绩效年薪'}, {w: 2, t: '其他金额'}, {w: 2, t: '年薪合计'}, {w: 2, t: '操作'}],
+            obj: @hr_leader_salaries,
+            fixed: true,
+            pagi_param_name: 'page') do |leader_salary| %>
+      <%= table_tr({c: @hr_leader_salaries.present? ? seq(@hr_leader_salaries, leader_salary, params[:page]||1) : ''},
+                   {l: leader_salary.hr_person.full_name},
+                   {c: leader_salary.basic_annual_salary},
+                   {c: leader_salary.performance_annual_salary},
+                   {c: leader_salary.other_income},
+                   {c: leader_salary.total},
+                   {c: action_links([{value: '查看', url: hr_leader_salary_path(leader_salary)},
+                                     {value: '修改', url: edit_hr_leader_salary_path(leader_salary)},
+                                     {value: '删除', url: hr_leader_salary_path(leader_salary), url_method: 'delete', confirm: '确定？'}
+                                    ])}
+          ) %>
+  <% end %>
+</div>

@@ -1,0 +1,46 @@
+<%= javascript_include_tag rjs_ent_of_fdn_organizations_path(columns: ['resource_id', 'name']) %>
+<div class="ibox-content">
+  <%= f.hidden_field :ent_id %>
+  <%= f.row("1:1") do %>
+      <% if current_org.is_ent? %>
+          <%= f.control('autocomplete', '企业名称：', :ent_name, 'data-source' => "ents", 'data-mapping' => '{"value": "rad_corporate_bond_ent_id"}', :value => rad_corporate_bond.ent_name, :readonly => true) %>
+      <% else %>
+          <%= f.control('autocomplete', '企业名称：', :ent_name, 'data-source' => "ents", 'data-mapping' => '{"value": "rad_corporate_bond_ent_id"}', :value => rad_corporate_bond.ent_name) %>
+      <% end %>
+  <% end %>
+  <%= f.row("1:1") do %>
+      <%= f.control('text', '债务人：', :bond_name) %>
+      <%= f.control('datepicker', '借债日期：', :bond_date) %>
+  <% end %>
+  <%= f.row("1:1") do %>
+      <%= f.control('select', '债券种类：', :bond_type, Rad::CorporateBond::BOND_TYPE, {prompt: '请选择'}, class: "selectpicker") %>
+      <%= f.control('text', '债务总额(万元)：', :bond_total) %>
+  <% end %>
+  <%= f.row("1:1") do %>
+      <%= f.control('text', '发行价格(万元)：', :distribute_price) %>
+      <%= f.control('text', '发行数量：', :distribute_num) %>
+  <% end %>
+  <%= f.row("1:1") do %>
+      <%= f.control('datepicker', '发行期限：', :distribute_deadline) %>
+      <%= f.control('select', '债务资金投向：', :used, Rad::CorporateBond::USED, {prompt: '请选择'}, class: "selectpicker") %>
+  <% end %>
+  <%= f.row("1:1") do %>
+      <%= f.control('text', '还款总额(万元)：', :repayments_total) %>
+      <%= f.control('text', '企业净资产(万元)：', :et_assets) %>
+  <% end %>
+  <%= f.row("1:1") do %>
+      <%= f.control('datepicker', '还款期限：', :repayments_date) %>
+      <%= f.control('text', '担保情况：', :guarantee_info) %>
+  <% end %>
+  <%= f.row("1:1") do %>
+      <%= f.control('text', '承销机构：', :cooperation_agency) %>
+  <% end %>
+
+  <%= table([{w: 2, l: ''}, {w: 6, l: '文件上传'}, {w: 4, t: '操作'}],
+            id: 'file', caption: '文件', obj: rad_corporate_bond.file_resources, \
+              parent_obj: f.object, show_seq: false, \
+              index_name: 'file', \
+              new_row: add_file_rad_corporate_bonds_path(id: f.object.id)) do |file, index| %>
+      <%= render '/rad/corporate_bonds/file', :the_file => file, :index => index, rad_corporate_bond: rad_corporate_bond %>
+  <% end %>
+</div>

@@ -1,0 +1,52 @@
+<div class="widget-content widget-content-newsbox">
+  <div class="imgNews">
+    <div class="focus">
+      <script type="text/javascript">
+          var focus_width = 240;
+          var focus_height = 190;
+          var text_height = 0;
+          var swf_height = focus_height + text_height;
+          var pics = '', links = '', texts = '';
+          pics += '|assets/index/img01.jpg';
+          links += '|http://www.baidu.com';
+          texts += '|郑州豫甲商贸一企业慰问驻三亚某基地官兵';
+          pics += '|assets/index/img02.jpg';
+          links += '|http://www.baidu.com';
+          texts += '|原副省长、省人大副主任李志斌品鉴水晶舍得';
+          pics += '|assets/index/img03.jpg';
+          links += '|http://www.baidu.com';
+          texts += '|西沙徐司令';
+
+          pics = pics.substring(1);
+          links = links.substring(1);
+          texts = texts.substring(1);
+
+          document.write('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="' + focus_width + '" height="' + swf_height + '">');
+          document.write('<param name="allowScriptAccess" value="sameDomain"><param name="movie" value="assets/index/focus.swf"><param name="quality" value="high"><param name="bgcolor" value="#FFFFFF">');
+          document.write('<param name="menu" value="false"><param name=wmode value="opaque">');
+          document.write('<param name="FlashVars" value="pics=' + pics + '&links=' + links + '&texts=' + texts + '&borderwidth=' + focus_width + '&borderheight=' + focus_height + '&textheight=' + text_height + '">');
+          document.write('<embed src="assets/index/focus.swf" wmode="opaque" FlashVars="pics=' + pics + '&links=' + links + '&texts=' + texts + '&borderwidth=' + focus_width + '&borderheight=' + focus_height + '&textheight=' + text_height + '" menu="false" ?bgcolor="#ffffff" quality="high" width="' + focus_width + '" height="' + swf_height + '" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />');
+          document.write('</object>');
+      </script>
+    </div>
+  </div>
+</div>
+<ul class="tyNewsList tyNewsList2">
+  <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+  <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+  <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+  <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+  <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+  <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+  <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+  <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+  <% @fdn_legends.each do |p| %>
+      <li><span><%= p.updated_at.strftime('%m/%d') %></span>
+        <%= link_to limit_word(p.title), fdn_legends_path(p), :title => "#{p.title}" %>
+      </li>
+  <% end %>
+  <% if @fdn_legends.size < 7 %>
+
+  <% end %>
+</ul>
+</div>

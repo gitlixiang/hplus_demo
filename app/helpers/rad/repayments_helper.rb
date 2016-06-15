@@ -1,0 +1,2 @@
+module Rad::RepaymentsHelper
+end

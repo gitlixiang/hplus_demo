@@ -1,0 +1,290 @@
+<%= datepicker_include_tag %>
+<%#= javascript_include_tag 'ckeditor/init' %>
+<%= javascript_include_tag rjs_investments_of_rad_investments_path(columns: ['id', 'project_name']) %>
+<%= javascript_include_tag rjs_ent_of_fdn_organizations_path(columns: ['resource_id', 'name']) %>
+<div class="ibox-content">
+<link href="/css/plugins/steps/jquery.steps.css" rel="stylesheet">
+<script src="/js/plugins/staps/jquery.steps.min.js"></script>
+<div id="example-basic" class="vertical">
+<h3>决策前</h3>
+<section style="width:100%">
+  <div class="ibox-content" style="width:100%" id="firModal">
+    <%= tabs(0, {id: 'fir_tabs'}) do |t| %>
+        <% i = 1 %>
+        <% j = 1 %>
+        <% Fdn::FileTemplate::EVENT_FIR_TEM.each do |tem| %>
+            <%= t.tab(i.to_s+'.'+tem[1].to_s) do %>
+                <% Fdn::FileTemplate.file_name_list(tem[0]).each do |f_name| %>
+                    <%= table([{w: 1, l: '文件名称'}, {w: 1, l: '处理时间'}, {w: 1, l: '负责人'}, {w: 1, l: '联系方式'}, {w: 2, l: '文件上传'}],
+                              id: 'fir_file', caption: f_name.file_name, obj: f.object.fir_files,
+                              parent_obj: f.object, show_seq: false, fixed: true,
+                              index_name: 'fir_file') do |obj, index| %>
+                        <%= render 'fir_file', :the_file => obj, :index => index, rad_investment: f.object, tem_class: tem[0], tem_file_name: f_name.file_name %>
+                    <% end %>
+                <% end %>
+                <% if j ==1 %>
+                    <%#= f.row("1") do %>
+                    <%#= f.control('select', '发起人：', :person_begin_code, Rad::Lookups::RadJobType.select_y, {prompt: '请选择'}) %>
+                    <%# end %>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label">发起人：</label>
+
+                      <div class="col-sm-9">
+                        <%= f.select :person_begin_code, Rad::Lookups::RadJobType.select_y, {prompt: '请选择'}, class: 'form-control' %>
+                      </div>
+                    </div>
+                <% end %>
+                <% if j ==3 %>
+                    <%= f.row("1") do %>
+                        <%= f.control('select', '收集意见：', :show_type_code, Rad::Lookups::OpinionType.select_y, {prompt: '请选择'}) %>
+                    <% end %>
+                <% end %>
+                <%= button_div('bottom') do %>
+                    <% if j !=1 %>
+                        <button type="button" id="<%= tem[0] %>" class="btn btn-primary <%= tem[0] %>" onclick="show_fir_tab(this,<%= j-2 %>)">上一步</button>
+                    <% end %>
+                    <% if j !=4 %>
+                        <button type="button" id="<%= tem[0] %>" class="btn btn-primary <%= tem[0] %>" onclick="show_fir_tab(this,<%= j %>)">下一步</button>
+                    <% end %>
+                <% end %>
+                <% j += 1 %>
+            <% end %>
+            <% i += 1 %>
+        <% end %>
+    <% end %>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">本项填写完成：</label>
+
+      <div class="col-sm-7">
+        <input type="checkbox" id="first" name="first" class="required">
+      </div>
+    </div>
+  </div>
+</section>
+<h3>决策中</h3>
+<section>
+  <div class="ibox-content" style="width:100%" id="secModal">
+    <%= tabs(0, {id: 'sec_tabs'}) do |t| %>
+        <% i = 1 %>
+        <% j = 1 %>
+        <% Fdn::FileTemplate::EVENT_SEC_TEM.each do |tem| %>
+            <%= t.tab(i.to_s+'.'+tem[1].to_s) do %>
+                <% Fdn::FileTemplate.file_name_list(tem[0]).each do |f_name| %>
+                    <%= table([{w: 1, l: '文件名称'}, {w: 1, l: '处理时间'}, {w: 1, l: '负责人'}, {w: 1, l: '联系方式'}, {w: 2, l: '文件上传'}],
+                              id: 'sec_file', caption: f_name.file_name, obj: f.object.sec_files,
+                              parent_obj: f.object, show_seq: false, fixed: true,
+                              index_name: 'sec_file') do |obj, index| %>
+                        <%= render 'sec_file', :the_file => obj, :index => index, rad_investment: f.object, tem_class: tem[0], tem_file_name: f_name.file_name %>
+                    <% end %>
+                <% end %>
+                <%= button_div('bottom') do %>
+                    <% if j !=1 %>
+                        <button type="button" id="<%= tem[0] %>" class="btn btn-primary <%= tem[0] %>" onclick="show_sec_tab(this,<%= j-2 %>)">上一步</button>
+                    <% end %>
+                    <% if j !=3 %>
+                        <button type="button" id="<%= tem[0] %>" class="btn btn-primary <%= tem[0] %>" onclick="show_sec_tab(this,<%= j %>)">下一步</button>
+                    <% end %>
+                <% end %>
+                <% j += 1 %>
+            <% end %>
+            <% i += 1 %>
+        <% end %>
+    <% end %>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">本项填写完成：</label>
+
+      <div class="col-sm-7">
+        <input type="checkbox" id="second" name="second" class="required">
+      </div>
+    </div>
+  </div>
+</section>
+<h3>决策后</h3>
+<section>
+  <div class="ibox-content">
+    <%= table([{w: 1, l: '文件名称'}, {w: 1, l: '处理时间'}, {w: 1, l: '负责人'}, {w: 1, l: '联系方式'}, {w: 2, l: '文件上传'}],
+              id: 'thr_file', caption: '决策报告', obj: f.object.thr_files,
+              parent_obj: f.object, show_seq: false,
+              index_name: 'thr_file') do |obj, index| %>
+        <%= render 'thr_file', :the_file => obj, :index => index, rad_investment: f.object %>
+    <% end %>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">本页填写完成：</label>
+
+      <div class="col-sm-7">
+        <input type="checkbox" id="third" name="third" class="required">
+      </div>
+    </div>
+  </div>
+</section>
+<h3>项目内容</h3>
+<section>
+  <div class="ibox-content">
+    <%= f.row("1") do %>
+        <%= f.control('number', '计划年份：', :year, :class => "required") %>
+    <% end %>
+    <%= f.row("1") do %>
+        <% if current_org.is_ent? %>
+            <%= f.control('autocomplete', '投资单位：', :ent_name, 'data-source' => "ents", 'data-mapping' => '{"value": "rad_investment_ent_id"}', :readonly => true) %>
+        <% else %>
+            <%= f.control('autocomplete', '投资单位：', :ent_name, 'data-source' => "ents", 'data-mapping' => '{"value": "rad_investment_ent_id"}') %>
+        <% end %>
+    <% end %>
+    <%= f.row("1") do %>
+        <%= f.control('text', '投资单位：', :ent_id, :class => "required", :readonly => true) %>
+    <% end %>
+    <%= f.row("1") do %>
+        <%= f.control('text', '项目名称：', :project_name, :class => "required") %>
+    <% end %>
+    <%= f.row("1") do %>
+        <%= f.control('select', '项目类型：', :project_type, Rad::Lookups::ProjectType.select_y, {prompt: '请选择'}, class: "required") %>
+    <% end %>
+    <%= f.row("1") do %>
+        <%= f.control('autocomplete', '续建项目：', :parent_name, 'data-source' => "investments", 'data-mapping' => '{"value": "rad_investment_parent_id"}', :readonly => true, value: rad_investment.parent_name) %>
+    <% end %>
+    <%= f.row("1") do %>
+        <%= f.control('text', '续建项目：', :parent_id, readonly: true) %>
+    <% end %>
+    <%= f.row("1") do %>
+        <%= f.control('number', '计划总投资额（万元）：', :accounting, :class => "required", :onkeyup => "value=value.replace(/[^0-9.]/g,'')") %>
+    <% end %>
+    <%= f.row("1") do %>
+        <%= f.control('number', '计划本年投资额（万元）：', :year_accounting, :class => "required", :onkeyup => "value=value.replace(/[^0-9.]/g,'')") %>
+    <% end %>
+    <%= f.row("1") do %>
+        <%= f.control('text', '上年投资数（万元）：', :last_year_accounting, readonly: true) %>
+    <% end %>
+    <%= f.row("1") do %>
+        <%= f.control('number', '截止上年总投资数（万元）：', :end_last_year_accounting, readonly: true) %>
+    <% end %>
+    <%= f.row("1:1") do %>
+        <%= f.control('datepicker', '项目起始年份：', :start_year, :class => "required ") %>
+        <%= f.control('datepicker', '项目截止年份：', :end_year, :class => "required ") %>
+    <% end %>
+    <%= f.row("1") do %>
+        <%= f.control('text_area', "备注：", :memo) %>
+    <% end %>
+
+    <%= table([{w: 4, l: '文件名称'}, {w: 2, l: '文件上传'}, {w: 2, t: '已上传'}, {w: 2, t: '操作'}],
+              id: 'file', caption: '其他', obj: f.object.oth_files,
+              parent_obj: f.object, show_seq: false,
+              index_name: 'file', \
+                    new_row: add_file_rad_investments_path(id: f.object.id)) do |obj, index| %>
+        <%= render 'file', :the_file => obj, :index => index, rad_investment: f.object %>
+    <% end %>
+    <script>
+        $(document).ready(function () {
+            $('#rad_investment_start_year').parent().datepicker({
+                autoclose: true,
+                minViewMode: 2,
+                todayHighlight: true,
+                format: 'yyyy'
+            });
+            $('#rad_investment_end_year').parent().datepicker({
+                autoclose: true,
+                minViewMode: 2,
+                todayHighlight: true,
+                format: 'yyyy'
+            });
+            if ($('#rad_investment_project_type').val() == '2' || $('#rad_investment_project_type').val() == '3') {
+                $('#rad_investment_parent_name').removeAttr('readonly', false);
+            }
+            else {
+                $('#rad_investment_parent_name').val("");
+                $('#rad_investment_parent_name').attr('readonly', true);
+            }
+        })
+        $('#rad_investment_project_type').change(function () {
+            if ($(this).val() == '2' || $(this).val() == '3') {
+                $('#rad_investment_parent_name').removeAttr('readonly', false);
+            }
+            else {
+                $('#rad_investment_parent_name').val("");
+                $('#rad_investment_parent_name').attr('readonly', true);
+            }
+        });
+        $('#rad_investment_parent_name').change(function () {
+            if ($('#rad_investment_parent_id').val() != '') {
+                var inv_id = $('#rad_investment_parent_id').val()
+                $.jq_remote_get("<%= show_parent_rad_investments_path %>", {inv_id: inv_id, format: 'js'});
+            } else {
+                $('#rad_investment_accounting').val('')
+                $('#rad_investment_last_year_accounting').val('')
+                $('#rad_investment_end_last_year_accounting').val('')
+            }
+        });
+    </script>
+  </div>
+</section>
+</div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.file_date').datepicker({
+//            inputs: $('.actual_range'),
+            autoclose: 'true',
+            todayHighlight: 'true'
+        });
+        /*隐藏firModal其他的标签页*/
+        $("div#firModal li:gt(0)").each(function () {
+            this.style.display = "none"
+        })
+        /*firModal第一个标签页去除小圆点*/
+        $("div#firModal li:eq(0)").each(function () {
+            this.style.display = "block"
+        })
+        /*隐藏secModal其他的标签页*/
+        $("div#secModal li:gt(0)").each(function () {
+            this.style.display = "none"
+        })
+        /*secModal第一个标签页去除小圆点*/
+        $("div#secModal li:eq(0)").each(function () {
+            this.style.display = "block"
+
+        })
+    })
+    /*firModal点击上一步.下一步显示标签页*/
+    function show_fir_tab(obj, num) {
+        $('div#firModal li:eq(' + num + ')').each(function () {
+            this.style.display = "block";
+            $('#fir_tabs li:eq(' + num + ') a').tab('show');
+        });
+    }
+    /*secModal点击上一步.下一步显示标签页*/
+    function show_sec_tab(obj, num) {
+        $('div#secModal li:eq(' + num + ')').each(function () {
+            this.style.display = "block";
+            $('#sec_tabs li:eq(' + num + ') a').tab('show');
+        });
+    }
+    /*外部的纵向步骤条*/
+    $("#example-basic").steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "slideLeft",
+        autoFocus: true,
+        enableCancelButton: false,
+        enableFinishButton: false,
+        onStepChanging: function (event, currentIndex, newIndex) {
+            // Always allow going backward even if the current step contains invalid fields!
+            if (currentIndex > newIndex) {
+                return true;
+            }
+
+            var form = $('.form-horizontal');
+
+            // Clean up if user went backward before
+            if (currentIndex < newIndex) {
+                // To remove error styles
+                $(".body:eq(" + newIndex + ") label.error", form).remove();
+                $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+            }
+
+            // Disable validation on fields that are disabled or hidden.
+            form.validate().settings.ignore = ":disabled,:hidden";
+
+            // Start validation; Prevent going forward if false
+            return form.valid();
+        }
+    });
+</script>

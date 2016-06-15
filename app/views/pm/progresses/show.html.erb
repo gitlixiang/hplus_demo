@@ -1,0 +1,33 @@
+<%= button_div() do %>
+    <%= bs_close %>
+<% end %>
+<div class="ibox-content">
+  <%= form_show @pm_progress do |progress| %>
+      <div style="padding-right:10% ">
+        <%= progress.row do %>
+            <%= progress.show_method '节点', :node %>
+        <% end %>
+        <%= progress.row do %>
+            <%= progress.show_method '起始时间', :start_date %>
+        <% end %>
+        <%= progress.row do %>
+            <%= progress.show_method '截止时间', :end_date %>
+        <% end %>
+        <%#= progress.row do %>
+        <%#= progress.show_content '已完成情况' do %>
+        <%#= %W(滞后 完成)[@pm_progress.status] %>
+        <%# end %>
+        <%# end %>
+        <%= progress.row do %>
+            <%= progress.show_content '已完成百分比' do %>
+                <%= progress_bar(@pm_progress.percent) %>
+            <% end %>
+        <% end %>
+        <%= progress.row do %>
+            <%= progress.show_content '进展情况' do %>
+                <%= @pm_progress.content.html_safe if @pm_progress.content %>
+            <% end %>
+        <% end %>
+      </div>
+  <% end %>
+</div>

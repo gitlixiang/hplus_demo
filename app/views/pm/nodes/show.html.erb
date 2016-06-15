@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Percent:</strong>
+  <%= @pm_node.percent %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @pm_node.content %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @pm_node.name %>
+</p>
+
+<p>
+  <strong>Plan:</strong>
+  <%= @pm_node.plan_id %>
+</p>
+
+<p>
+  <strong>Sort seq:</strong>
+  <%= @pm_node.sort_seq %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @pm_node.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @pm_node.end_date %>
+</p>
+
+<%= link_to 'Edit', edit_pm_node_path(@pm_node) %> |
+<%= link_to 'Back', pm_nodes_path %>

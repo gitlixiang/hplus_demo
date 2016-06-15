@@ -1,0 +1,10 @@
+<% menu = Fdn::Menu.where(:code => 'rad_corporate_bond').first %>
+<%= nav_bar(menu) do %>
+<% end %>
+<div class="ibox-content">
+  <%= form_for(@rad_corporate_bond, :html => {:multipart => true}, nav: {
+          return_url: rad_corporate_bonds_path
+  }) do |f| %>
+      <%= render :partial => 'form', :locals => {:rad_corporate_bond => @rad_corporate_bond, :f => f} %>
+  <% end %>
+</div>

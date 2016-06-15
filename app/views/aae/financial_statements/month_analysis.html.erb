@@ -1,0 +1,62 @@
+<%= javascript_include_tag rjs_ent_of_fdn_organizations_path(columns: ['resource_id', 'name']) %>
+<%= datepicker_include_tag %>
+<% menu = Fdn::Menu.where(:code => 'month_analysis').first %>
+<%= nav_bar(menu) do %>
+<% end %>
+<div class="ibox-title">
+  <%= search_form_for(@search, url: month_analysis_aae_financial_statements_path, nav_bar: true) do |f| %>
+      <div class="input-group col-md-4">
+        <%= text_field_tag(:org_name, @org_name, {placeholder: '点击选择企业', class: "selectpicker form-control", onclick: 'select_org();'}) %>
+        <%#= f.control('autocomplete', '企业名称', :zzz_name, 'data-source' => "ents", 'data-mapping' => '{"value": "q_ent_id_eq"}', value: params[:q][:zzz_name]) %>
+        <script>
+            function select_org() {
+                layer.open({
+                    type: 2,
+                    area: ['700px', '530px'],
+                    fix: false, //不固定
+                    maxmin: true,
+                    content: '<%=layer_select_org_fdn_organizations_path%>'
+                });
+            }
+        </script>
+      </div>
+      <%= f.control 'hidden', '企业id', 'ent_id_eq', readonly: true %>
+      <%#= f.control('autocomplete', '企业名称', :name_cont, 'data-source' => "ents", 'data-mapping' => '{"value": "q_id_eq"}', value: @name) %>
+      <%= f.control 'datepicker', '年份：', 'year_eq', value: @year %>
+      <%= f.control 'select', '月份', 'month_eq', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], {:prompt => '请选择月份', selected: @month}, class: " ", style: "width:200px" %>
+  <% end %>
+</div>
+<div class="ibox-content">
+  <% @line_css = 'border-right-color:  red; border-right-width: 1px; border-right-style: solid;' %>
+  <%== tabs(@tab_index) do |t| %>
+      <%= t.tab('短期偿债能力') do %>
+          <%= render :partial => 'month_short_term', :locals => {:financial_statement => @aae_financial_statement} %>
+      <% end %>
+      <%= t.tab('长期偿债能力') do %>
+          <%= render :partial => 'month_long_term', :locals => {:financial_statement => @aae_financial_statement} %>
+      <% end %>
+      <%= t.tab('经营业绩考核') do %>
+          <%= render :partial => 'month_performance_evaluation', :locals => {:financial_statement => @aae_financial_statement} %>
+      <% end %>
+      <%= t.tab('发展能力') do %>
+          <%= render :partial => 'month_development_ability', :locals => {:financial_statement => @aae_financial_statement} %>
+      <% end %>
+      <%= t.tab('现金流量结构分析') do %>
+          <%= render :partial => 'month_cash_flow_structure', :locals => {:financial_statement => @aae_financial_statement} %>
+      <% end %>
+      <%= t.tab('经济情况分析') do %>
+          <%= render :partial => 'month_economic_situation', :locals => {:financial_statement => @aae_financial_statement} %>
+      <% end %>
+  <% end %>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.date').datepicker({
+            minViewMode: 2,
+            format: 'yyyy',
+            startView: 2,
+            startDate: "2003",
+            autoclose: true
+        });
+    })
+</script>

@@ -1,0 +1,22 @@
+<%= hidden_field_tag :type ,obj.type %>
+<%= f.row("1:1") do %>
+    <%= f.control("text", "类型名称", :type_name) %>
+<% end %>
+<%= f.row("1:1") do %>
+    <%= f.control("text", "编码", :code, readonly_when_edit: true)%>
+<% end %>
+<%= f.row("1:1") do %>
+    <%= f.control("text", "值的名称", :value) %>
+<% end %>
+<%= f.row("1:1") do %>
+    <%= f.control("check_box", "状态", :status,:checked_value=>'Y',:unchecked_value=>'N') %>
+<% end %>
+<%= f.row("1:1") do %>
+    <%= f.control("text", "排序号", :seq) %>
+<% end %>
+<%= f.row("1:1") do %>
+    <%= f.control("text", "描述", :description) %>
+<% end %>
+<%= f.row("1:1") do %>
+    <%#= f.control("text", "类型", :type, readonly_when_edit: true) %>
+<% end %>

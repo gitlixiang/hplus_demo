@@ -1,0 +1,32 @@
+<a href="<%= url_for('/wf/models/new') %>" class="btn btn-primary">New Model</a>
+
+<table class="table">
+  <tr>
+    <th>getId()</th>
+    <th>getKey()</th>
+    <th>getName()</th>
+    <th>getVersion()</th>
+    <th>getMetaInfo()</th>
+    <th>getDeploymentId()</th>
+    <th>getCategory()</th>
+    <th>getCreateTime()</th>
+    <th>getLastUpdateTime()</th>
+    <th>Modeler</th>
+    <th>Deploy</th>
+  </tr>
+  <% for model in @models %>
+      <tr>
+        <td><%= model.getId() %></td>
+        <td><%= model.getKey() %></td>
+        <td><%= model.getName() %></td>
+        <td><%= model.getVersion() %></td>
+        <td><%= model.getMetaInfo() %></td>
+        <td><%= model.getDeploymentId() %></td>
+        <td><%= model.getCategory() %></td>
+        <td><%= model.getCreateTime() %></td>
+        <td><%= model.getLastUpdateTime() %></td>
+        <td><a href="<%= url_for("/wf/modeler.html?modelId=#{model.getId()}") %>" class="btn">Edit in Modeler</a></td>
+        <td><a href="<%= url_for("/wf/models/#{model.getId()}/deploy") %>" class="btn">Deploy</a></td>
+      </tr>
+  <% end %>
+</table>

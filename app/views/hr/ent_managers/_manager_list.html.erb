@@ -1,0 +1,25 @@
+<div class="ibox-content">
+  <div class="file-manager">
+    <% if @org.is_ent? %>
+        <%= button_div do %>
+            <%= bs_button_window(new_hr_ent_manager_path(org_id: org_id), '创建', 'btn-primary btn-sm', 'fa fa-check') %>
+        <% end %>
+    <% end %>
+    <div class="ibox-content">
+      <%= table([{w: 3, t: '姓名'}, {w: 3, t: '职务'}, {w: 3, t: '操作'}],
+                obj: hr_ent_managers,
+                pagi_param_name: 'page') do |manager| %>
+          <%= table_tr({c: seq(hr_ent_managers, manager, params[:page]||1)},
+                       {l: manager.name},
+                       {c: manager.job.value},
+                       {c: action_links([
+                                                {value: '查看', url: hr_ent_manager_path(manager)},
+                                                {value: '编辑', url: edit_hr_ent_manager_path(manager)},
+                                                {value: '删除', url: destroy_record_hr_ent_manager_path(manager), params: "'org_id': '#{manager.ent.organization.id}'", url_method: 'confirm', :confirm => "确定删除吗？", tips: "企业负责人已删除！"}
+                                        ]
+                       )}
+              ) %>
+      <% end %>
+    </div>
+  </div>
+</div>

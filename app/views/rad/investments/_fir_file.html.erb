@@ -1,0 +1,15 @@
+<% if the_file.file_template.template_class == tem_class && the_file.file_template.file_name == tem_file_name %>
+    <%= base_fields_for rad_investment do |f| %>
+        <%= f.fields_for :fir_files, the_file, child_index: index do |file_form| %>
+            <%= file_form.hidden_field(:file_template_id) %>
+            <%= file_form.fields_for :fdn_event, the_file.fdn_event, child_index: index do |event_form| %>
+                <%= event_form.hidden_field(:resource_type) %>
+                <%= control_table_tr({l: file_form.text_field(:display_name, value: the_file.file_template.template_name, readonly: true, class: 'form-control', title: the_file.file_template.template_name)},
+                                     {l: event_form.text_field(:event_date, class: 'form-control file_date')},
+                                     {l: event_form.text_field(:person_in_charge, class: 'form-control')},
+                                     {l: event_form.text_field(:contact, class: 'form-control')},
+                                     {l: the_file.ffx_file_name == nil ? file_form.file_field(:ffx, class: 'form-control') : file_form.file_field(:ffx, class: 'form-control') + link_to(the_file.ffx_file_name, the_file.ffx.url)}) %>
+            <% end %>
+        <% end %>
+    <% end %>
+<% end %>

@@ -1,0 +1,41 @@
+<div class="widget-content widget-content-newsbox">
+  <div class="imgNews">
+    <div class="yx-rotaion">
+      <ul class="rotaion_list">
+        <% @images.take(5).each do |p| %>
+            <li>
+              <a href="<%= fdn_legend_path(p) %>"><img src="<%= p.file_resources.first.ffx.url %>" alt="<%= limit_word(p.title, 18) %>"></a>
+
+            </li>
+        <% end %>
+        <!--<li><a href="http://sc.chinaz.com/jiaoben/"><img src="assets/index/uploads/1.jpg" alt="美国俄州遭遇龙卷风 已致91人死"></a></li>-->
+        <!--<li><a href="http://sc.chinaz.com/jiaoben/"><img src="assets/index/uploads/2.jpg" alt="深圳路面塌陷形成直径10米大坑"></a></li>-->
+        <!--<li><a href="http://sc.chinaz.com/jiaoben/"><img src="assets/index/uploads/3.jpg" alt='"520" 武汉新人扎堆结婚'></a></li>-->
+        <!--<li><a href="http://sc.chinaz.com/jiaoben/"><img src="assets/index/uploads/4.jpg" alt="暴雨突袭广州 南沙上演科幻大片"></a></li>-->
+        <!--<li><a href="http://sc.chinaz.com/jiaoben/"><img src="assets/index/uploads/5.jpg" alt="上海美博会模特赤身才会博眼球"></a></li>-->
+      </ul>
+    </div>
+  </div>
+  <ul class="tyNewsList tyNewsList2">
+    <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+    <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+    <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+    <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+    <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+    <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+    <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+    <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+    <% @articles.take(7).each do |p| %>
+        <li><span><%= p.updated_at.strftime('%m/%d') %></span>
+          <%= link_to limit_word(p.title, 17), fdn_legend_path(p), :title => "#{p.title}" %>
+          <% if p.content.include? '<img alt' %>
+              <%= image_tag('/assets/themes/default/icons/photo.png', height: '12', width: '12') %>
+          <% else %>
+          <% end %>
+        </li>
+    <% end %>
+  </ul>
+</div>
+<script type="text/javascript">
+    $(".yx-rotaion").yx_rotaion({auto: true});
+</script>

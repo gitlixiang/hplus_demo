@@ -1,0 +1,36 @@
+<%= form_for(@hr_salary_budget, nav: {}) do |f| %>
+    <%= f.hidden_field :org_id %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '年份：', :year, @years) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '基本工资合计：', :basic_salary, label_span: 3, value_span: 8, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '绩效工资合计：', :pay_for_performance, label_span: 3, value_span: 8, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '加班费合计：', :total_overtime_pay, label_span: 3, value_span: 8, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '应发工资合计：', :gross_salary, label_span: 3, value_span: 8, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '社保：', :social_insurance, label_span: 3, value_span: 8, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '住房公积金：', :housing_fund, label_span: 3, value_span: 8, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '个税：', :personal_income_tax, label_span: 3, value_span: 8, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '应扣金额合计：', :total_deduction, label_span: 3, value_span: 8, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '实发工资：', :net_salary, label_span: 3, value_span: 8, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('text_area', '备注：', :remark, label_span: 3, value_span: 8) %>
+    <% end %>
+<% end %>

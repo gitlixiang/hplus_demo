@@ -1,0 +1,2 @@
+$('#file tr:last').after("<%= j render('rad/corporate_bonds/file', :the_file=>@the_file,:index=>@index,:rad_corporate_bond=>@rad_corporate_bond) %>");
+$('#<%= dynamic_hidden_count_name(@rad_corporate_bond, 0, 'file') %>').val('<%= @index + 1%>');

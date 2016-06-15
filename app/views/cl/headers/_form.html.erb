@@ -1,0 +1,26 @@
+<%= form_for(@cl_header, nav: {}) do |f| %>
+    <div class="ibox-content">
+      <%= f.row('1:1') do %>
+          <%= f.control('text', '名称:', :name) %>
+          <%= f.control('text', '代码:', :code) %>
+      <% end %>
+      <%= f.row('1:1') do %>
+          <%= f.control('text', '业务模型:', :resource_type) %>
+          <%= f.control('number', '排序:', :order) %>
+      <% end %>
+      <%#= f.fields_for :cl_contents do |content| %>
+      <%#= content.row('1:1') do %>
+      <%#= content.control('text', '名称:', :name) %>
+      <%#= content.control('text', '代码:', :code) %>
+      <%# end %>
+      <%#= content.row('1:1') do %>
+      <%#= content.control('number', '行：', :row ) %>
+      <%#= content.control('number', '列：', :col ) %>
+      <%# end %>
+      <%#= content.row('1:1') do %>
+      <%#= content.control('number', '行数：', :rows ) %>
+      <%#= content.control('number', '列数：', :cols ) %>
+      <%# end %>
+      <%# end %>
+    </div>
+<% end %>

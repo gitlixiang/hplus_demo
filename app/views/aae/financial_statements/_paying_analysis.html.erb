@@ -1,0 +1,96 @@
+<div class="row">
+  <div class="col-sm-6">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <%= render('analysis_spaces/line', line: @attr1, name: @name1) %>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <%= render('analysis_spaces/line', line: @attr3, name: @name3) %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ibox-content">
+  <div class="row">
+    <div class="col-md-3" style="padding-right: 0;padding-left: 0">
+      <%= table(financial_analysis_name_header,
+                show_seq: false,
+                fixed: true) do %>
+          <tr class="">
+            <td class="text-left">流动比率*</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">速动比率</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">资产负债率(%)*</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">权益比率*</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">权益乘数*</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">产权比率*</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">有形净值负债率</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">利息保障倍数</td>
+          </tr>
+      <% end %>
+    </div>
+    <div class="col-md-9" style="padding-right: 0;padding-left: 0;overflow-x: auto;">
+      <%= table(financial_analysis_data_header(@x_axis),
+                show_seq: false,
+                class: 'scroll_layer') do %>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(0) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr1 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(1) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr2 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(2) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr3 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(3) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr4 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(4) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr5 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(5) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr6 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(6) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr7 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(7) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr9 if fs.indicator %></td>
+            <% end %>
+          </tr>
+      <% end %>
+    </div>
+  </div>
+</div>

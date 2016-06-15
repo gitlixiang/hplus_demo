@@ -1,0 +1,17 @@
+<%= jstree_include_tag %>
+<table width="100%" border="0">
+  <tr>
+    <td style="text-align: left;">
+      <%= link_to_function image_tag('themes/default/icons/report_user.png')+"(通讯组)", "parent.showModal('通讯组', '/fdn/user_groups/new?user_ids='+ $('#children_node_ids').val() + '&user_names=' + $('#children_node_names').val() ,'800','300')", :title => "保存通讯组" %>&nbsp;&nbsp;
+    </td>
+    <td style="text-align: right;">
+      <%= link_to_function image_tag('themes/default/icons/email_go.png')+"(通知)", "parent.showModal('通知', '/fdn/messages/new?msg_type=msg&user_ids='+ $('#children_node_ids').val() + '&user_names=' + $('#children_node_names').val() ,'800','460')", :title => "发送通知" %>&nbsp;&nbsp;
+      <%= link_to_function image_tag('themes/default/icons/phone.png')+"(短信)", "parent.showModal('手机', '/fdn/messages/new?msg_type=sms&user_ids='+ $('#children_node_ids').val() + '&user_names=' + $('#children_node_names').val() ,'800','460')", :title => "发送手机短信" %>
+    </td>
+  </tr>
+</table>
+<hr/>
+<%= hidden_field_tag "children[node_ids]", "" %>
+<%= hidden_field_tag "children[node_names]", "" %>
+<div id="div_tree"></div>
+<%= js_tree_xml_tag("div_tree", url_for(:controller => "fdn/users", :action => :dept_user_treeload, :id => 0, :root_class => 1), "", "", nil, true, "fdn.getUserFromTree('div_tree','children_node_ids','children_node_names')", false) %>

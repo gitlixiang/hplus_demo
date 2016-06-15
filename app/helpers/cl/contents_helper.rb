@@ -1,0 +1,2 @@
+module Cl::ContentsHelper
+end

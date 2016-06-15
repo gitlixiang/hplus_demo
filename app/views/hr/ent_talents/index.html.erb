@@ -1,0 +1,41 @@
+<%= javascript_include_tag rjs_ent_of_fdn_organizations_path(columns: ['resource_id', 'name']) %>
+<% menu = Fdn::Menu.where(:code => 'hr_ent_talent').first %>
+<%= nav_bar(menu) do %>
+    <%#= bs_button_window(new_hr_ent_talent_path, '创建', 'btn-primary btn-sm', 'fa fa-check',) %>
+    <%#= bs_button_window(new_fdn_menu_path, '创建', 'btn-primary btn-sm', 'fa fa-check',)%>
+<% end %>
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <div class="col-sm-5">
+      <div class="ibox float-e-margins">
+        <div class="ibox-content">
+          <div class="file-manager">
+            <h3>组织架构：</h3>
+            <%= text_field_tag 'search_tree', '', class: 'form-control', placeholder: '组织名称查询' %>
+            <div class="ibox-content" style="padding-left:0;padding-top:2px">
+              <%#= js_tree_xml_tag('org_tree', fdn_roles_path(:format => :xml)) %>
+
+              <div id='org_tree' class="test treeview" style="overflow: auto;max-height: 600px">
+              </div>
+              <%= js_tree_org_json_tag('org_tree', url_for(:controller => 'hr/ent_talents', :action => :detail_refresh), 'org_id', true, 'search_tree') %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-7">
+      <div class="ibox float-e-margins" id="detail_show">
+        <%= render 'talent_list', :hr_ent_talents => @hr_ent_talents, :org => current_org %>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    $('#org_tree').bind('loaded.jstree', function (e, data) {
+        $('#org_tree').find('li').each(function () {
+            if ('<%= @org_id %>' == $(this).attr('id')) { //如果节点的ID包含于arr，表示要选中
+                $(this).find('a').addClass('jstree-clicked');
+            }
+        });
+    })
+</script>

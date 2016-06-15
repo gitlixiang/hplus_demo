@@ -1,0 +1,3 @@
+<%= form_for(@pm_progress, :html => {:multipart => true}, nav: {}) do |f| %>
+    <%= render :partial => 'form', :locals => {:progress => @pm_progress, :f => f} %>
+<% end %>

@@ -1,0 +1,7 @@
+<h1>Models#New</h1>
+
+<%= form_tag('/wf/models', nav_bar: true, class: 'form-inline', method: 'post') do %>
+    <div class="input-group col-md-2"><%= text_field_tag(:name, '', {placeholder: 'name'}) %> </div>
+    <div class="input-group col-md-2"><%= text_field_tag(:category, '', {placeholder: 'category'}) %> </div>
+    <div class="input-group col-md-1"><%= bs_search %> </div>
+<% end %>

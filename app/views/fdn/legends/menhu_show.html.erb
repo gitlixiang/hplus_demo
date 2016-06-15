@@ -1,0 +1,31 @@
+<div class="show_news">
+  <table style="width: auto">
+    <tr>
+      <div style="width: 20%;margin-left: 5px;min-height: 600px;border-right: 4px solid rgb(56, 148, 209)" class="pull-left" id='menu_list'>
+        <%= render 'menhu_list' %>
+      </div>
+      <div style="width: 75%;margin:0 5px" class="pull-right" id='legend'>
+        <%= render 'menhu_show' %>
+      </div>
+      <!--<td  style="width: 100px" >-->
+      <!--<%#= render 'menhu_list' %>-->
+      <!--</td>-->
+      <!--<td  style="width: 500px" >-->
+      <!--<%#= render 'menhu_show' %>-->
+      <!--</td>-->
+    </tr>
+  </table>
+</div>
+<script>
+    $(document).ready(function () {
+        var height1 = $('#legend').height();
+        var height2 = $('#menu_list').height();
+        if (height1 >= height2) {
+            $('#menu_list').css('height', height1);
+            $('.show_news').css('height', height1);
+        } else {
+            $('#legend').css('height', height2);
+            $('.show_news').css('height', height2);
+        }
+    })
+</script>

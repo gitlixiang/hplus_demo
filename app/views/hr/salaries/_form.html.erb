@@ -1,0 +1,74 @@
+<%= form_for(@hr_salary, nav: {}) do |f| %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '姓名：', :person_id, @people.map { |t| [t.full_name, t.id] }) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('select', '年：', :year, (Time.now.year-5..Time.now.year+1).to_a) %>
+        <%= f.control('select', '月：', :month, (1..12).to_a) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '岗位工资：', :post_salary, step: 0.01, min: 0) %>
+        <%= f.control('number', '全勤奖：', :full_attendance_bonus, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '补助：', :allowance, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '基本工资合计：', :basic_salary, step: 0.01, min: 0) %>
+    <% end %>
+    <div class="hr-line-dashed"></div>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '绩效标准：', :performance_standards, step: 0.01, min: 0) %>
+        <%= f.control('number', '绩效比例：', :performance_percent, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '绩效工资合计：', :pay_for_performance, step: 0.01, min: 0) %>
+    <% end %>
+    <div class="hr-line-dashed"></div>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '平时加班工时：', :overtime_hours, step: 0.01, min: 0) %>
+        <%= f.control('number', '平时加班金额：', :overtime_pay, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '假日加班工时：', :holiday_overtime_hours, step: 0.01, min: 0) %>
+        <%= f.control('number', '假日加班金额：', :holiday_overtime_pay, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '加班费合计：', :total_overtime_pay, step: 0.01, min: 0) %>
+    <% end %>
+    <div class="hr-line-solid"></div>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '应发工资合计：', :gross_salary, step: 0.01, min: 0) %>
+    <% end %>
+    <div class="hr-line-solid"></div>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '社保：', :social_insurance, step: 0.01, min: 0) %>
+        <%= f.control('number', '住房公积金：', :housing_fund, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '个税：', :personal_income_tax, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '请假天数：', :leave_days) %>
+        <%= f.control('number', '请假扣款：', :leave, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '迟到次数：', :late_times) %>
+        <%= f.control('number', '迟到扣款：', :late, step: 0.01, min: 0) %>
+    <% end %>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '其他扣款：', :other_deduction, step: 0.01, min: 0) %>
+    <% end %>
+    <div class="hr-line-solid"></div>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '应扣金额合计：', :total_deduction, step: 0.01, min: 0) %>
+    <% end %>
+    <div class="hr-line-solid"></div>
+    <%= f.row('1:1') do %>
+        <%= f.control('number', '实发工资：', :net_salary, step: 0.01, min: 0) %>
+    <% end %>
+    <div class="hr-line-solid"></div>
+    <%= f.row('1:1') do %>
+        <%= f.control('text_area', '备注：', :remark, rowspan: 2, colspan: 4) %>
+    <% end %>
+<% end %>

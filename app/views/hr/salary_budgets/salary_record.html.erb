@@ -1,0 +1,27 @@
+<%= nav_bar(Fdn::Menu.find_by(code: 'salary_budget_record')) do %>
+<% end %>
+<div class="ibox-content">
+  <%= table([{w: 2, t: '企业名称'}, {w: 1, t: '年份'}, {w: 1, t: '基本工资'}, {w: 1, t: '绩效工资'}, {w: 1, t: '社保'}, {w: 1, t: '住房公积金'}, {w: 2, t: '合计'}, {w: 2, t: '操作'}],
+            obj: @hr_salary_budgets,
+            fixed: true,
+            pagi_param_name: 'page') do |salary_budget| %>
+      <% link = [{value: '查看', url: hr_salary_budget_path(salary_budget)},
+                 {value: '备案', url: hr_salary_budget_path(salary_budget)},
+                 {value: '退回', url: hr_salary_budget_path(salary_budget)}
+      ] %>
+      <%= table_tr({c: @hr_salary_budgets.present? ? seq(@hr_salary_budgets, salary_budget, params[:page]||1) : ''},
+                   {c: salary_budget.fdn_organization.name},
+                   {c: salary_budget.year},
+                   {r: salary_budget.basic_salary},
+                   {r: salary_budget.pay_for_performance},
+                   {r: salary_budget.social_insurance},
+                   {r: salary_budget.housing_fund},
+                   {r: salary_budget.total_budget},
+                   {c: if seq(@hr_salary_budgets, salary_budget, params[:page]||1) < 3
+                         action_links(link)
+                       else
+                         action_links(link.shift(1))
+                       end}
+          ) %>
+  <% end %>
+</div>

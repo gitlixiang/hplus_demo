@@ -1,0 +1,3 @@
+<%= form_for(@fdn_legend_category, :html => {:multipart => true}, nav: {}) do |f| %>
+    <%= render :partial => 'form', :locals => {:fdn_legend_category => @fdn_legend_category, :f => f} %>
+<% end %>

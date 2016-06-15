@@ -1,0 +1,7 @@
+<%= base_fields_for rad_investment do |f| %>
+    <%= f.fields_for :jw_opinions, opinion, child_index: index do |opi_form| %>
+        <%= control_table_tr({l: opi_form.text_field(:display_name)},
+                             {l: opi_form.file_field(:ffx)}
+            ) %>
+    <% end %>
+<% end %>

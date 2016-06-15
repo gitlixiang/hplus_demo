@@ -1,0 +1,3 @@
+<%= form_for(@oa_recv_document, :html => {:multipart => true}, nav: {}) do |f| %>
+    <%= render :partial => 'form', :locals => {:oa_recv_document => @oa_recv_document, :f => f} %>
+<% end %>

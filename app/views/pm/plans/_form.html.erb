@@ -1,0 +1,33 @@
+<%= javascript_include_tag 'ckeditor/init' %>
+<%#= javascript_include_tag 'ckeditor/override' %>
+<%= datepicker_include_tag %>
+<%= f.hidden_field :resource_id %>
+<%= f.hidden_field :resource_type %>
+<div class="ibox-content">
+  <%= f.row('1') do %>
+      <%= f.control('text', '项目名称：', :name, class: 'required') %>
+  <% end %>
+
+  <%= f.row('1:1') do %>
+      <%= f.control('text', '项目联系人：', :contact, class: 'required') %>
+      <%= f.control('text', '联系方式：', :phone, class: 'required') %>
+  <% end %>
+
+  <%#= f.row('1') do %>
+  <%#= f.control('number', '阶段数：', :stage, class:'required', min:1) %>
+  <%# end %>
+
+  <%= f.row() do %>
+      <%= f.control('text_area', '计划进度简述：', :content, rows: 5, class: 'span10') %>
+  <% end %>
+
+  <%= f.row('1') do %>
+      <%= table([{w: 2, t: '节点名称'}, {w: 2, t: '计划开始日期'}, {w: 2, t: '计划截止日期'}, {w: 3, t: '节点内容'}, {w: 2, t: '计划完成总百分比'}, {w: 1, t: '操作'}],
+                id: 'node', caption: '计划节点', obj: f.object.pm_nodes,
+                parent_obj: f.object, show_seq: false,
+                index_name: 'node',
+                new_row: add_node_pm_plans_path(id: f.object.id)) do |obj, index| %>
+          <%= render 'node', :the_node => obj, :index => index, pm_plan: f.object %>
+      <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,20 @@
+<div class="widget-content">
+  <ul class="tyNewsList">
+    <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+    <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+    <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+    <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+    <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+    <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+    <!--<li><span>12/01</span><a href="关于收缴全年党费的通知" href="#">关于收缴全年党费的通知</a></li>-->
+    <% @fdn_legends.each do |p| %>
+        <li>
+          <%= link_to limit_word(p.title, 25), fdn_legend_path(p), :title => "#{p.title}" %>
+          <% if p.content.include? '<img alt' %>
+              <%= image_tag('/assets/themes/default/icons/photo.png', height: '12', width: '12') %>
+          <% else %>
+          <% end %>
+        </li>
+    <% end %>
+  </ul>
+</div>

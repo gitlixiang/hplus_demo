@@ -1,0 +1,2 @@
+$('#node tr:last').after("<%= j render('pm/plans/node', :the_node=>@the_node,:index=>@index,:pm_plan=>@pm_plan) %>");
+$('#<%= dynamic_hidden_count_name( @pm_plan, 0, 'node') %>').val('<%= @index + 1%>');

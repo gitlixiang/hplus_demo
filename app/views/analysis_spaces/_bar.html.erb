@@ -1,0 +1,13 @@
+<table>
+  <tr>
+    <td style="text-align: center">
+      <% if bar.nil? %>
+          暂无信息统计
+      <% else %>
+          <%= high_chart(name, bar) do |c| %>
+              <%= raw "options.tooltip.formatter = function() { return this.x + ': '+ this.y + '#{type}';};" %>
+          <% end %>
+      <% end %>
+    </td>
+  </tr>
+</table>

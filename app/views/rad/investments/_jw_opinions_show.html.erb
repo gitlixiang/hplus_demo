@@ -1,0 +1,30 @@
+<%= time_line('决策前') do %>
+    <%= table([{w: 1, t: '序号'}, {w: 2, l: '文件名称'}, {w: 8, l: '监察意见'}],
+              show_seq: false, caption: "决策前监察意见") do %>
+        <% @rad_investment.fir_files.each do |file| %>
+            <%= table_tr({r: @rad_investment.fir_files.index(file)+1},
+                         {l: file.file_template.template_name},
+                         {l: file.file_desc}) %>
+        <% end %>
+    <% end %>
+<% end %>
+<%= time_line('决策中') do %>
+    <%= table([{w: 1, t: '序号'}, {w: 2, l: '文件名称'}, {w: 8, l: '监察意见'}],
+              show_seq: false, caption: "决策中监察意见") do %>
+        <% @rad_investment.sec_files.each do |file| %>
+            <%= table_tr({r: @rad_investment.sec_files.index(file)+1},
+                         {l: file.file_template.template_name},
+                         {l: file.file_desc}) %>
+        <% end %>
+    <% end %>
+<% end %>
+<%= time_line('决策后') do %>
+    <%= table([{w: 1, t: '序号'}, {w: 2, l: '文件名称'}, {w: 8, l: '监察意见'}],
+              show_seq: false, caption: "决策后监察意见") do %>
+        <% @rad_investment.thr_files.each do |file| %>
+            <%= table_tr({r: @rad_investment.thr_files.index(file)+1},
+                         {l: file.file_template.template_name},
+                         {l: file.file_desc}) %>
+        <% end %>
+    <% end %>
+<% end %>

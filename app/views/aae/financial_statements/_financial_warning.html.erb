@@ -1,0 +1,47 @@
+<div class="ibox-content" id="abc">
+  <%= table(table_analysis_header,
+            show_seq: false,
+            fixed: true,
+            id: 'fw',
+            caption: @year.to_s+'年'+@month.to_s+'月财务分析预警') do %>
+      <% orgs.each do |org| %>
+          <% @financial_statement = Aae::FinancialStatement.by_year(year).by_ent_id(org.resource_id).order('month DESC')#.first  %>
+          <% @financial_statement.each do |financial_statement| %>
+              <% @indicator = financial_statement.nil? ? nil : financial_statement.indicator %>
+              <% if @indicator %>
+                  <tr class="">
+                    <td style="width: 200px"><%= org.name %></td>
+                    <td><%= financial_statement.month %></td>
+                    <% @indicator.warning_css.each do |css| %>
+                        <% if !css.blank? %>
+                            <td class="text-center ">
+                              <button type="button" class="btn <%= css %>  btn-sm btn-rounded"></button>
+                            </td>
+                        <% else %>
+                            <td class="text-center "></td>
+                        <% end %>
+                    <% end %>
+                  </tr>
+              <% end %>
+          <% end %>
+      <% end %>
+  <% end %>
+</div>
+<style>
+    #abc {
+        overflow-X: scroll;
+        /*margin: 0px auto;*/
+        /*margin-left: 20px;*/
+        margin-bottom: 20px;
+    }
+
+    #fw {
+        width: 1500px;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $("#fw th").removeClass("col-xs-1");
+        $("#fw td").removeClass("col-xs-1")
+    })
+</script>

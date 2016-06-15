@@ -1,0 +1,12 @@
+<% Fdn::OrgHierarchy.all.each do |hie| %>
+    <%= javascript_include_tag rjs_tree_all_of_fdn_organizations_path(columns: ['id', 'name'], hie_id: hie.id, hie_name: hie.code) %>
+<% end %>
+<%= form_for(@obj, :url => {:controller => 'fdn/organizations', :action => :update, :id => @obj.id}, :html => {:multipart => true},
+             nav: {}) do |f| %>
+    <%= hidden_field_tag :type, @type %>
+    <% if @type == 'ENT' %>
+        <%= render 'form', obj: @obj, organization: @obj.organization, f: f %>
+    <% else %>
+        <%= render 'form2', obj: @obj, organization: @obj.organization, f: f %>
+    <% end %>
+<% end %>

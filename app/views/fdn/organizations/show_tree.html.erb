@@ -1,0 +1,43 @@
+<script src="/js/plugins/jqgrid/i18n/grid.locale-cn.js"></script>
+<script src="/js/plugins/jqgrid/jquery.jqGrid.min.js"></script>
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+<link href="/css/plugins/jqgrid/ui.jqgrid.css" rel="stylesheet">
+<link href="/css/plugins/jQueryUI/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
+<%= button_div() do %>
+    <%= bs_close %>
+<% end %>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox-content">
+      <div class="file-manager">
+        <h3>组织架构：</h3>
+
+        <div>
+          <% Fdn::OrgHierarchy.all.each do |hie| %>
+              <small class="text-navy" title="<%= hie.name %>"><%= hie.short_name %>：
+                <button type='button' class='btn btn-sm btn-rounded' style='background-color:<%= hie.icon %>'></button>
+              </small>
+              &nbsp;
+          <% end %>
+        </div>
+        <%#= text_field_tag 'search_tree', '', class: 'form-control', placeholder: '组织名称查询' %>
+        <div class="ibox-content">
+          <%#= js_tree_xml_tag('org_tree', fdn_roles_path(:format => :xml)) %>
+
+          <div id='org_tree' class="test treeview" style="overflow: auto;max-height: 600px">
+          </div>
+          <%= js_tree_org_json_tag('org_tree', '', '', false, 'search_tree') %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    $('#org_tree').bind('loaded.jstree', function (e, data) {
+        $('#org_tree').find('li').each(function () {
+            if ('<%= @org_id %>' == $(this).attr('id')) { //如果节点的ID包含于arr，表示要选中
+                $(this).find('a').addClass('jstree-clicked');
+            }
+        });
+    })
+</script>

@@ -1,0 +1,21 @@
+<% menu = Fdn::Menu.where(:code => 'notification').first %>
+<%= nav_bar(menu) do %>
+    <%= bs_button_window(new_fdn_message_path, '创建', 'btn-primary btn-sm', 'fa fa-check') %>
+<% end %>
+<%= tabs(@tab_idx) do |b| %>
+    <% b.tab('未读信息(工作提醒/个人收件)') do %>
+        <%= render 'unread', :messages => @unread, :messages_index => @unread_index, pagi_param_name: "unread_page", tab_idx: 0 %>
+    <% end %>
+    <% b.tab('收件箱') do %>
+        <%= render 'box_in', :messages => @user_msgs, :messages_index => @user_msgs_index, pagi_param_name: "user_page", tab_idx: 1 %>
+    <% end %>
+    <%# b.tab('上市公司') do %>
+    <%#= render 'box_in', :messages=>@listed_comp_msgs, :messages_index=>@listed_comp_msgs_index, pagi_param_name:"comp_page", tab_idx:3 %>
+    <%# end %>
+    <% b.tab('发件箱') do %>
+        <%= render 'box_out', :messages => @messages_out, :messages_index => @messages_out_index, tab_idx: 3 %>
+    <% end %>
+    <% b.tab('办件通知') do %>
+        <%= render 'box_in', :messages => @process_msgs, :messages_index => @process_msgs_index, pagi_param_name: "process_page", tab_idx: 4 %>
+    <% end %>
+<% end %>

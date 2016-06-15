@@ -1,0 +1,6 @@
+$('#<%= @table_id %> tr:last').after("<%= j render(:partial => 'fdn/users/jq_user_list',
+:locals => {:user => @jq_user,
+            :index => @index,
+            :fdn_user => @fdn_user,:type=>@type}
+            )%>");
+$('#<%= dynamic_hidden_count_name(@fdn_user, 0, @index_name)%>').val('<%= @index+1%>');

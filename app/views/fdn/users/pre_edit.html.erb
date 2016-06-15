@@ -1,0 +1,137 @@
+<%= form_for(@fdn_user, :html => {:multipart => true}, :url => url_for(controller: 'fdn/users', action: 'pre_update', :id => @fdn_user.id), nav: {}) do |f| %>
+    <div class="ibox-content">
+      <%= f.fields_for :user_information do |inf_form| %>
+          <%= f.row("1:1") do %>
+              <%= f.control('text', "帐号：", :username, readonly_when_edit: true) %>
+          <% end %>
+          <%= f.row("1:1") do %>
+              <%= f.controls('姓名：') do %>
+                  <%= inf_form.text_field :full_name, class: 'form-control' %>
+              <% end %>
+              <%= f.controls('职务：') do %>
+                  <%= inf_form.text_field :post, class: 'form-control' %>
+              <% end %>
+          <% end %>
+          <%= f.row("1:1") do %>
+              <%= f.controls('办公电话：') do %>
+                  <%= inf_form.text_field :tel, class: 'form-control', :onkeyup => "value=value.replace(/[^0-9-]/g,'')" %>
+              <% end %>
+              <%= f.controls('手机：') do %>
+                  <%= inf_form.text_field :mobile, class: 'form-control', :onkeyup => "value=value.replace(/[^0-9-]/g,'')" %>
+              <% end %>
+          <% end %>
+          <%= f.row("1:1") do %>
+              <%= f.controls('传真：') do %>
+                  <%= inf_form.text_field :fax, class: 'form-control', :onkeyup => "value=value.replace(/[^0-9-]/g,'')" %>
+              <% end %>
+              <%= f.controls('Email：') do %>
+                  <%= inf_form.text_field :email, class: 'form-control' %>
+              <% end %>
+          <% end %>
+          <%= f.row("1:1") do %>
+              <%= f.controls('其他：') do %>
+                  <%= inf_form.text_field :memo, class: 'form-control' %>
+              <% end %>
+          <% end %>
+          <%= f.row("1:1") do %>
+              <%= f.controls('当前头像：') do %>
+                  <% if @fdn_user.user_information.file_resources.count==0 %>
+                      <%= image_tag "/img/profile_small.jpg", :style => 'width:40px;height:40px' %>
+                  <% else %>
+                      <%= image_tag current_user.user_information.file_resources.last.ffx.url, :style => 'width:40px;height:40px' %>
+                  <% end %>
+              <% end %>
+          <% end %>
+          <%= inf_form.fields_for :file_resources, @file, child_index: 0 do |file_form| %>
+
+              <%= f.row("1:1") do %>
+                  <%= f.controls('头像上传：') do %>
+                      <%= file_form.file_field :ffx %>
+                  <% end %>
+              <% end %>
+              <!--<div class="col-md-5">-->
+              <!--<div class="image-crop">-->
+              <!--<img src="/img/a3.jpg">-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--<div class="col-md-5">-->
+              <!--<h4>图片预览：</h4>-->
+              <!--<div class="img-preview img-preview-sm"></div>-->
+              <!--<div class="btn-group">-->
+              <!--<label title="上传图片" for="inputImage" class="btn btn-primary">-->
+              <!--</label>-->
+              <!--<label title="下载图片" id="download" class="btn btn-primary">下载</label>-->
+              <!--</div>-->
+              <!--<div class="btn-group">-->
+              <!--<button class="btn btn-white" id="zoomIn" type="button">放大</button>-->
+              <!--<button class="btn btn-white" id="zoomOut" type="button">缩小</button>-->
+              <!--<button class="btn btn-white" id="rotateLeft" type="button">左旋转</button>-->
+              <!--<button class="btn btn-white" id="rotateRight" type="button">右旋转</button>-->
+              <!--<button class="btn btn-warning" id="setDrag" type="button">裁剪</button>-->
+              <!--</div>-->
+              <!--</div>-->
+              <script>
+                  //              var $image = $(".image-crop > img")
+                  //                  $($image).cropper({
+                  //                      aspectRatio: 1.618,
+                  //                      preview: ".img-preview",
+                  //                      done: function (data) {
+                  //                          // 输出结果
+                  //                      }
+                  //                  });
+                  //
+                  //                  var $inputImage = $("#fdn_user_user_information_attributes_file_resources_attributes_0_ffx");
+                  //                  if (window.FileReader) {
+                  //                      $inputImage.change(function () {
+                  //                          var fileReader = new FileReader(),
+                  //                              files = this.files,
+                  //                              file;
+                  //
+                  //                          if (!files.length) {
+                  //                              return;
+                  //                          }
+                  //
+                  //                          file = files[0];
+                  //
+                  //                          if (/^image\/\w+$/.test(file.type)) {
+                  //                              fileReader.readAsDataURL(file);
+                  //                              fileReader.onload = function () {
+                  //                                  $inputImage.val("");
+                  //                                  $image.cropper("reset", true).cropper("replace", this.result);
+                  //                              };
+                  //                          } else {
+                  //                              showMessage("请选择图片文件");
+                  //                          }
+                  //                      });
+                  //                  } else {
+                  //                      $inputImage.addClass("hide");
+                  //                  }
+                  //
+                  //                  $("#download").click(function () {
+                  //                      window.open($image.cropper("getDataURL"));
+                  //                  });
+                  //
+                  //                  $("#zoomIn").click(function () {
+                  //                      $image.cropper("zoom", 0.1);
+                  //                  });
+                  //
+                  //                  $("#zoomOut").click(function () {
+                  //                      $image.cropper("zoom", -0.1);
+                  //                  });
+                  //
+                  //                  $("#rotateLeft").click(function () {
+                  //                      $image.cropper("rotate", 45);
+                  //                  });
+                  //
+                  //                  $("#rotateRight").click(function () {
+                  //                      $image.cropper("rotate", -45);
+                  //                  });
+                  //
+                  //                  $("#setDrag").click(function () {
+                  //                      $image.cropper("setDragMode", "crop");
+                  //                  });
+              </script>
+          <% end %>
+      <% end %>
+    </div>
+<% end %>

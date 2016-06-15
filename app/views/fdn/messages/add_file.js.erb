@@ -1,0 +1,2 @@
+$('#file_table tr:last').after("<%= j render('file', :upload_file=>@file,:index=>@index, :msg=>@message) %>");
+$('#<%= dynamic_hidden_count_name(@file, 0, 'paper')%>').val('<%= @index.to_i + 1%>');

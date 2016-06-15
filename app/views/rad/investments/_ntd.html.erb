@@ -1,0 +1,21 @@
+<div class="ibox-content">
+  <%= table([{w: 3, t: '投资单位'}, {w: 4, t: '项目名称'}, {w: 2, t: '操作'}],
+            obj: rad_investments,
+            fixed: true,
+            pagi_param_name: 'page') do |inv| %>
+      <%= table_tr({c: seq(rad_investments, inv, params[:page]||1)},
+                   {l: inv.ent.name},
+                   {l: inv.project_name},
+                   if inv.status == 'locked'
+                     {c: action_links([
+                                              {value: '办理', url: edit_rad_investment_path(inv), url_method: 'get'}
+                                      ])}
+                   else
+                     {c: action_links([
+                                              {value: '办理', url: edit_rad_investment_path(inv), url_method: 'get'},
+                                              {value: '删除', url: rad_investment_path(inv), url_method: 'delete', :confirm => "确定删除吗？"}
+                                      ])}
+                   end
+          ) %>
+  <% end %>
+</div>

@@ -1,0 +1,51 @@
+<%= javascript_include_tag rjs_descendants_of_fdn_organizations_path(columns: ['resource_id', 'name']) %>
+<% menu = Fdn::Menu.where(:code => 'hr_ent_talent').first %>
+<%= nav_bar(menu) do %>
+<% end %>
+<div class="ibox-title">
+  <%= search_form_for(@search, url: search_index_hr_ent_talents_path, nav_bar: true, btn_bar: bs_export(export_list_hr_ent_talents_path(q: params[:q]))+' '+
+          bs_clear(search_index_hr_ent_talents_path)) do |f| %>
+      <%= f.control 'hidden', '企业id', 'ent_organization_id_eq', readonly: true %>
+
+      <%= f.row('1') do %>
+          <%= text_field_tag(:org_name, @org_name, {placeholder: '点击选择企业', class: "selectpicker form-control", onclick: 'select_org();'}) %>
+          <script>
+              function select_org() {
+                  layer.open({
+                      type: 2,
+                      area: ['700px', '530px'],
+                      fix: false, //不固定
+                      maxmin: true,
+                      content: '<%=layer_select_org_fdn_organizations_path%>'
+                  });
+              }
+          </script>
+          <%= f.control 'text', '姓名', 'name_cont' %>
+      <% end %>
+      <%= f.row('1') do %>
+          <%= f.control('select', '民族：', :national_code_eq, Fdn::Lookups::Nationality.all.select_y, {prompt: '民族'}, class: "chosen-select", style: "width:80px") %>
+          <%= f.control('select', '性别：', :sex_eq, Fdn::Lookup::SEX_LOOKUP, {prompt: '性别'}, class: "chosen-select", style: "width:80px") %>
+          <%= f.control('select', '学历：', :education_eq, Hr::Lookups::EducationType.all.select_y, {prompt: '学历'}, class: "chosen-select", style: "width:80px") %>
+          <%= f.control('select', '人才分类：', :type_code_eq, Hr::Lookups::TalType.all.select_y, {prompt: '人才分类'}, class: "chosen-select", style: "width:120px") %>
+      <% end %>
+      &nbsp;
+  <% end %>
+</div>
+<div class="ibox-content">
+  <%= table(search_ent_talent_header,
+            obj: @hr_ent_talents,
+            fixed: true,
+            pagi_param_name: 'page') do |tal| %>
+      <%= table_tr({c: seq(@hr_ent_talents, tal, params[:page]||1)},
+                   {c: tal.name},
+                   {l: tal.ent_name},
+                   {c: tal.age},
+                   {c: tal.sex == 'F' ? '女' : '男'},
+                   {c: tal.work_date},
+                   {c: action_links([
+                                            {value: '查看', url: hr_ent_talent_path(tal)}
+                                    ]
+                   )}
+          ) %>
+  <% end %>
+</div>

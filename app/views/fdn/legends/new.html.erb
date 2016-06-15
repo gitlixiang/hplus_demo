@@ -1,0 +1,6 @@
+<script>
+    $("input[id=fdn_legend_type_code]:eq(0)").attr("checked", 'checked');
+</script>
+<%= form_for(@fdn_legend, :html => {:multipart => true}, nav: {}) do |f| %>
+    <%= render :partial => 'form', :locals => {:legend => @fdn_legend, :f => f} %>
+<% end %>

@@ -1,0 +1,360 @@
+<% menu = Fdn::Menu.where(:code => 'early_warning').first %>
+<%= nav_bar(menu) do %>
+<% end %>
+<div class="ibox-title">
+  <%= form_tag(hr_early_warnings_path, nav_bar: true, class: 'form-inline', method: 'get') do %>
+      <%= hidden_field_tag :org_id, @org_id %>
+      <div class="input-group col-md-2"><%= text_field_tag(:org_name, @org_name, {placeholder: '点击选择企业', class: "selectpicker form-control", onclick: 'select_org();'}) %> </div>
+      <div class="input-group col-md-2"><%= select_tag(:year, options_for_select(@years, @year), {class: "selectpicker form-control"}) %> </div>
+      <div class="input-group col-md-3"><%= select_tag(:child, options_for_select([%w(不包含承资公司 N), %w(包含承资公司 Y)], @child), {class: "selectpicker form-control"}) %> </div>
+      <div class="input-group col-md-1"><%= bs_search %> </div>
+  <% end %>
+</div>
+
+<div class="col-sm-12">
+  <div class="ibox float-e-margins">
+    <div class="ibox-content">
+      <ul>
+        <li>截止<%= @salaries.maximum(:month) %>
+          月已使用预算<b><%= sum1 = (@data.sum - @data.last).round(2) %><%#=@salaries.sum(:gross_salary).to_f.round(2)%></b>元
+        </li>
+        <li>平均每月<b><%= jun = (@salaries.sum(:gross_salary)/(@salaries.maximum(:month)||0)).to_f.round(2) %></b>元</li>
+        <li>根据已填报的月均预算,预计至年底使用预算<b><%= sum2 = @data.last.round(2) %>
+          <% all = (jun*12).to_f.round(2) %></b>元
+        </li>
+        <li><b><%= all>@budget ? '超出预算'+(all-@budget).to_f.round(2).to_s : '剩余预算'+(sum2-sum1).to_f.round(2).to_s %></b>元
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-12">
+  <div class="ibox float-e-margins">
+    <div class="ibox-content">
+      <div class="echarts" id="echarts-pie-chart"></div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="ibox float-e-margins">
+    <div class="ibox-content">
+      <div class="echarts" id="echarts-line-chart"></div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="ibox float-e-margins">
+    <div class="ibox-content">
+      <div class="echarts" id="echarts-bar-chart"></div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="ibox float-e-margins">
+    <div class="ibox-content">
+      <div class="echarts" id="echarts-scatter-chart"></div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+    function select_org() {
+        layer.open({
+            type: 2,
+            area: ['700px', '530px'],
+            fix: false, //不固定
+            maxmin: true,
+            content: '<%=layer_select_org_fdn_organizations_path%>'
+        });
+    }
+</script>
+<script>
+    var pieChart = echarts.init(document.getElementById("echarts-pie-chart"));
+    var pie_option = {
+        title: {
+            text: '职工工资使用情况'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            },
+            formatter: function (params) {
+                var tar = params[1];
+                return tar.name + '<br/>' + tar.seriesName + ' : ' + tar.value;
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '5%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            splitLine: {show: false},
+            data: <%= raw @months %>
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: '辅助',
+                type: 'bar',
+                stack: '总量',
+                itemStyle: {
+                    normal: {
+                        barBorderColor: 'rgba(0,0,0,0)',
+                        color: 'rgba(0,0,0,0)'
+                    },
+                    emphasis: {
+                        barBorderColor: 'rgba(0,0,0,0)',
+                        color: 'rgba(0,0,0,0)'
+                    }
+                },
+                data: <%=raw @data_help%>
+            },
+            {
+                name: '职工工资总额',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'inside'
+                    }
+                },
+                data: <%=raw @data%>
+            }
+        ]
+    };
+
+    pieChart.setOption(pie_option);
+    $(window).resize(pieChart.resize);
+
+    var lineChart = echarts.init(document.getElementById("echarts-line-chart"));
+    var lineoption = {
+        title: {
+            text: '近五年预算和实际发放工资情况'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['预算', '实际']
+        },
+        grid: {
+            left: '3%',
+            right: '5%',
+            bottom: '3%',
+            containLabel: true
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: false,
+                data: <%=raw @line_years%>
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value} 元'
+                }
+            }
+        ],
+        series: [
+            {
+                name: '预算',
+                type: 'line',
+                data:<%=raw @line_budgets%>,
+                markPoint: {
+                    data: [
+                        {type: 'max', name: '最大值'},
+                        {type: 'min', name: '最小值'}
+                    ]
+                },
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            },
+            {
+                name: '实际',
+                type: 'line',
+                data:<%=raw @line_salaries%>,
+                markPoint: {
+                    data: [
+                        {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
+                    ]
+                },
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
+    lineChart.setOption(lineoption);
+    $(window).resize(lineChart.resize);
+
+    var barChart = echarts.init(document.getElementById("echarts-bar-chart"));
+    bar_option = {
+        title: {
+            text: '职工工资各项发放情况'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        legend: {
+            data: ['预算', '已发放']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: <%=raw @kinds%>
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: '已发放',
+                type: 'bar',
+                data:<%=raw @left%>
+            },
+            {
+                name: '预算',
+                type: 'bar',
+                data:<%=raw @right%>
+            }
+        ]
+    };
+    barChart.setOption(bar_option);
+    $(window).resize(barChart.resize);
+
+    var scatterChart = echarts.init(document.getElementById("echarts-scatter-chart"));
+    var scatteroption = {
+        title: {
+            text: '职工男性女性年龄工资分布'
+        },
+        tooltip: {
+            trigger: 'axis',
+            showDelay: 0,
+            axisPointer: {
+                type: 'cross',
+                lineStyle: {
+                    type: 'dashed',
+                    width: 1
+                }
+            }
+        },
+        legend: {
+            data: ['女性', '男性']
+        },
+        grid: {
+            left: '3%',
+            right: '5%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'value',
+                scale: true,
+                axisLabel: {
+                    formatter: '{value} 岁'
+                }
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                scale: true,
+                axisLabel: {
+                    formatter: '{value} 元'
+                }
+            }
+        ],
+        series: [
+            {
+                name: '女性',
+                type: 'scatter',
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function (params) {
+                        if (params.value.length > 1) {
+                            return params.seriesName + ' :<br/>'
+                                    + params.value[0] + '岁 '
+                                    + params.value[1] + '元 ';
+                        }
+                        else {
+                            return params.seriesName + ' :<br/>'
+                                    + params.name + ' : '
+                                    + params.value + '元 ';
+                        }
+                    }
+                },
+                data: <%=raw @female%>,
+                markPoint: {
+                    data: [
+                        {type: 'max', name: '最大值'},
+                        {type: 'min', name: '最小值'}
+                    ]
+                },
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            },
+            {
+                name: '男性',
+                type: 'scatter',
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function (params) {
+                        if (params.value.length > 1) {
+                            return params.seriesName + ' :<br/>'
+                                    + params.value[0] + '岁 '
+                                    + params.value[1] + '元 ';
+                        }
+                        else {
+                            return params.seriesName + ' :<br/>'
+                                    + params.name + ' : '
+                                    + params.value + '元 ';
+                        }
+                    }
+                },
+                data: <%=raw @male%>,
+                markPoint: {
+                    data: [
+                        {type: 'max', name: '最大值'},
+                        {type: 'min', name: '最小值'}
+                    ]
+                },
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
+    scatterChart.setOption(scatteroption);
+    $(window).resize(scatterChart.resize);
+
+</script>

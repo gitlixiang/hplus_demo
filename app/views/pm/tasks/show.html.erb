@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @pm_task.name %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @pm_task.content %>
+</p>
+
+<p>
+  <strong>Org:</strong>
+  <%= @pm_task.org_id %>
+</p>
+
+<p>
+  <strong>Resource:</strong>
+  <%= @pm_task.resource %>
+</p>
+
+<%= link_to 'Edit', edit_pm_task_path(@pm_task) %> |
+<%= link_to 'Back', pm_tasks_path %>

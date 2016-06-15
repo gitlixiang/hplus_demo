@@ -1,0 +1,77 @@
+<% menu = Fdn::Menu.where(:code => 'rad_investment').first %>
+<%= nav_bar(menu) do %>
+    <%= bs_return(rad_investments_path) %>
+<% end %>
+<div class="ibox-content">
+  <div class="ibox-content timeline"></div>
+  <%= time_line('企业决策前') do %>
+      <%= table([{w: 1, t: '序号'}, {w: 2, l: '文件名称'}, {w: 2, l: '处理时间'}, {w: 6, l: '监察意见'}],
+                show_seq: false) do %>
+          <% @rad_investment.fir_files.each do |file| %>
+              <%= table_tr({r: @rad_investment.fir_files.index(file)+1},
+                           {l: file.file_template.template_name},
+                           {c: file.fdn_event.event_date},
+                           {l: file.file_desc}) %>
+          <% end %>
+      <% end %>
+  <% end %>
+  <%= time_line('企业决策中') do %>
+      <%= table([{w: 1, t: '序号'}, {w: 2, l: '文件名称'}, {w: 2, l: '处理时间'}, {w: 6, l: '监察意见'}],
+                show_seq: false) do %>
+          <% @rad_investment.sec_files.each do |file| %>
+              <%= table_tr({r: @rad_investment.sec_files.index(file)+1},
+                           {l: file.file_template.template_name},
+                           {c: file.fdn_event.event_date},
+                           {l: file.file_desc}) %>
+          <% end %>
+      <% end %>
+  <% end %>
+  <%= time_line('企业决策后') do %>
+      <%= table([{w: 1, t: '序号'}, {w: 2, l: '文件名称'}, {w: 2, l: '处理时间'}, {w: 6, l: '监察意见'}],
+                show_seq: false) do %>
+          <% @rad_investment.thr_files.each do |file| %>
+              <%= table_tr({r: @rad_investment.thr_files.index(file)+1},
+                           {l: file.file_template.template_name},
+                           {c: file.fdn_event.event_date},
+                           {l: file.file_desc}) %>
+          <% end %>
+      <% end %>
+  <% end %>
+
+  <% @instance = Wf::ProcInst.find_by_resource(@rad_investment) %>
+  <% @task_list = Wf::Task.where(PROC_INST_ID_: @instance.getId).order('START_TIME_') %>
+  <% @task_list.each do |task| %>
+      <%= time_line('业务流程') do %>
+          <p class="m-b-xs"><strong>办理人：<%= task.ent_user_name %></strong></p>
+
+          <p class="m-b-xs"><strong>办理时间：<%= task.START_TIME_.strftime(normal_date) if task.START_TIME_ %>
+            至<%= task.END_TIME_.strftime(normal_date) if task.END_TIME_ %></strong></p>
+          <% if task.task_opinions.size != 0 %>
+              <p><%= bs_button_window(wf_opinion_rad_investments_path(task_id: task.ID_), '查看审核意见') %></p>
+          <% end %>
+      <% end %>
+  <% end %>
+  <% @pm_plan = @rad_investment.pm_plan %>
+  <% if @pm_plan %>
+      <%= time_line('项目执行') do %>
+          <p class="m-b-xs"><strong>项目执行计划</strong></p>
+          <!--<p class="m-b-xs"><strong>计划时间：<%#= @pm_plan.created_at.strftime(normal_date) %></strong></p>-->
+          <p><%= bs_button_window(pm_plan_path(@pm_plan), '查看内容') %></p>
+      <% end %>
+
+      <% if @pm_plan.pm_progresses.size != 0 %>
+          <% @pm_plan.pm_progresses.each do |pro| %>
+              <%= time_line('执行节点') do %>
+                  <p class="m-b-xs"><strong>项目执行节点</strong></p>
+
+                  <p class="m-b-xs"><strong>时间范围：<%= pro.start_date.strftime(normal_date) %>
+                    至<%= pro.end_date.strftime(normal_date) %></strong></p>
+
+                  <p><%= bs_button_window(pm_progress_path(pro), '查看内容') %></p>
+              <% end %>
+          <% end %>
+      <% end %>
+  <% end %>
+</div>
+</div>
+<br/>

@@ -1,0 +1,21 @@
+<%= form_show(@rad_repayment) do |r| %>
+    <%= r.row("1:1") do %>
+        <%= r.show_method('还款日期', :repay_date) %>
+        <%= r.show_content '还款(本金/万元)' do %>
+            <%= two_decimal(@rad_repayment.repayments) %>
+        <% end %>
+    <% end %>
+    <%= r.row("1:1") do %>
+        <%= r.show_content '还款利率(%)' do %>
+            <%= two_decimal(@rad_repayment.repay_rate) %>
+        <% end %>
+        <%= r.show_content '还款利息(万元)' do %>
+            <%= two_decimal(@rad_repayment.interest) %>
+        <% end %>
+    <% end %>
+    <%= r.row("1:1") do %>
+        <%= r.show_content '资产负债率(%)' do %>
+            <%= two_decimal(@rad_repayment.debt_radio) %>
+        <% end %>
+    <% end %>
+<% end %>

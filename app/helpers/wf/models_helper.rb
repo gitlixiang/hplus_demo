@@ -1,0 +1,2 @@
+module Wf::ModelsHelper
+end

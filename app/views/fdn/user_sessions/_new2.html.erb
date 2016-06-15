@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>无标题文档</title>
+  <link href="css/base.css" rel="stylesheet" type="text/css"/>
+  <link href="css/mhstyle.css" rel="stylesheet" type="text/css"/>
+  <script type="text/javascript">
+      function setTab(name, cursel, n) {
+          for (i = 1; i <= n; i++) {
+              var menu = document.getElementById(name + i);
+              var con = document.getElementById("con_" + name + "_" + i);
+              menu.className = i == cursel ? "hover" : "";
+              con.style.display = i == cursel ? "block" : "none";
+          }
+      }
+  </script>
+  <script src="js/jquery1.2.6.pack.js"></script>
+  <script src="/js/plugins/toTop/jquery.toTop.js"></script>
+  <script src="js/player.js"></script>
+</head>
+
+<body>
+<div class="big_top">
+  <div class="header">
+    <div class="h_top" style="background-image: url(/images/mainbox2.jpg);background-repeat:no-repeat;background-attachment:fixed;
+            background-size: 100% 30%;">
+      <div class="banner-box">
+        <h1 style="color: #ffff00;font-size: 28;">嘉兴市国有资产监督管理信息系统</h1>
+      </div>
+    </div>
+    <div class="nav">
+      <ul>
+        <li class="li_left"></li>
+        <li><a href="#">首页</a></li>
+        <li class="jiang"></li>
+        <li><a href="#">财政动态</a></li>
+        <li class="jiang"></li>
+        <li><a href="#">信息公开</a></li>
+        <li class="jiang"></li>
+        <li><a href="#">网上办事</a></li>
+        <li class="jiang"></li>
+        <li><a href="#">公众互动</a></li>
+        <li class="jiang"></li>
+        <li><a href="#">专题专栏</a></li>
+        <li class="jiang"></li>
+        <li><a href="#">效能建设</a></li>
+        <li class="select">
+                	<span>
+                    	<select class="select">
+                          <option selected>站内搜索</option>
+                          <option>财政动态</option>
+                        </select>
+                  </span>&#12288;
+          <span><input name="" type="text" class="text" value="请输入关键字" onclick="clearczjDefaultText(this,'请输入关键字')" onkeydown="if(event.keyCode==13) document.all.Button1.focus();"></span>&#12288;
+          <input name="" type="button" class="button" value="搜索">
+        </li>
+        <li class="li_right"></li>
+        <script src="js/pub.js"></script>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="big_middle">
+
+<div class="top_news">
+  <div class="news_img">
+    <div id="czjimgnews">
+      <div id="czjimgnewsContent">
+        <div style="opacity: 0; z-index: 0;">
+          <a href="#" target="_blank"><span>嘉兴市注协和评协党委召开换届选举大会</span><img src="images/W020130407572662101760.jpg"></a>
+        </div>
+        <div class="smask" style="opacity: 1; z-index: 1;">
+          <a href="#" target="_blank"><span>市财政信息中心荣获“嘉兴青年五四奖...</span><img src="images/W020131107362654688295.jpg"></a>
+        </div>
+        <div class="smask" style="opacity: 0; z-index: 0;">
+          <a href="#" target="_blank"><span>市财政局举办行政事业单位国有资产管...</span><img src="images/W020131129403664787980.jpg"></a>
+        </div>
+        <div class="smask" style="opacity: 0; z-index: 0;">
+          <a href="#" target="_blank"><span>我市农村代理会计人员岗位培训班顺利...</span><img src="images/W020131203526665035863.jpg"></a>
+        </div>
+      </div>
+      <ul id="czjimgnewsNav">
+        <li class=""><a>
+          <img src="images/W020130407572662101760.jpg" width="59" height="45"></a></li>
+        <li class="current"><a>
+          <img src="images/W020131107362654688295.jpg" width="59" height="45"></a></li>
+        <li class=""><a>
+          <img src="images/W020131129403664787980.jpg" width="59" height="45"></a></li>
+        <li class="nbg"><a>
+          <img src="images/W020131203526665035863.jpg" width="59" height="45"></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="news_wrap">
+    <div class="tn_first">
+      <div>
+        <h3><a>我市设专项资金缓解农民融资难</a></h3>
+        <span>近日，市财政局、市金融办联合印发了《嘉兴市农村房屋抵押融资风险补偿专项资金管理暂行办法》（厦财农〔20…<a href="/czxw/ttxw/2014/09/15/67955.html" target="_blank">&gt;&gt;
+          详细信息</a></span>
+      </div>
+    </div>
+    <div class="news_txt">
+      <div class="news_txt_tit">
+        <ul>
+          <li id="two1" class=" hover fn-left" onmouseover="setTab('two',1,2)"><a href="#">国资动态</a></li>
+          <li id="two2" class="fn-left" onmouseover="setTab('two',2,2)"><a href="#">市政新闻</a></li>
+          <a href="#" class="more">[更多]</a>
+        </ul>
+      </div>
+      <div class="news_con">
+        <div class="news_list" id="con_two_1" style="display: block;">
+          <ul>
+            <li><a href="#">非税系统第八批单位上线，全市已有七成用票单位在线开票</a><span>2015-6-8</span></li>
+            <li><a href="#">非税系统第八批单位上线，全市已有</a><span>2015-6-8</span></li>
+            <li><a href="#">非税系统第八批单位上线，全市已有</a><span>2015-6-8</span></li>
+            <li><a href="#">非税系统第八批单位上线，全市已有</a><span>2015-6-8</span></li>
+            <li><a href="#">非税系统第八批单位上线，全市已有</a><span>2015-6-8</span></li>
+          </ul>
+        </div>
+        <div class="news_list" id="con_two_2" style="display: none;">
+          <ul>
+            <li><a href="#">非税系统第八批单位上线，全市已有七成用票单位在线开票</a><span>2015-6-8</span></li>
+            <li><a href="#">非税系统第八批单位上线，全市已有1</a><span>2015-6-8</span></li>
+            <li><a href="#">非税系统第八批单位上线，全市已有1</a><span>2015-6-8</span></li>
+            <li><a href="#">非税系统第八批单位上线，全市已有1</a><span>2015-6-8</span></li>
+            <li><a href="#">非税系统第八批单位上线，全市已有1</a><span>2015-6-8</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tzgg_wrap">
+    <div class="tzgg_tit"><h3>通知公告</h3><a href="#" class="more">[更多]</a></div>
+    <div class="tzgg">
+      <ul>
+        <li><a href="#">非税系统第八批单位上线，全市已有</a><span>2015-6-8</span></li>
+        <li><a href="#">非税系统第八批单位上线，全市已有</a><span></span></li>
+        <li><a href="#">非税系统第八批单位上线，全市已有</a><span></span></li>
+        <li><a href="#">非税系统第八批单位上线，全市已有</a><span></span></li>
+        <li><a href="#">非税系统第八批单位上线，全市已有</a><span></span></li>
+        <li><a href="#">非税系统第八批单位上线，全市已有</a><span></span></li>
+        <li><a href="#">非税系统第八批单位上线，全市已有</a><span></span></li>
+        <li><a href="#">非税系统第八批单位上线，全市已有</a><span></span></li>
+        <li><a href="#">非税系统第八批单位上线，全市已有</a><span></span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="openinfo">
+  <div class="oi_tit"></div>
+  <div class="oi_left fn-left">
+    <div class="zwxxgk_wrap">
+      <% if current_user %>
+          <h2>欢迎您！</h2>
+          <ul>
+            <li><span><a href=""><i class="fa fa-building-o"></i> <%= current_org.name %></a></span></li>
+            <li><span><a href=""><i class="fa fa-user"></i> <%= current_user.full_name %></a></span></li>
+            <li><span><a target="blank" href="/main/index"><i class="fa fa-sign-in"></i> 国资监管系统入口</a></span></li>
+            <li>
+              <span><a href="<%= quit_fdn_user_session_path(1) %>" onclick="return confirm('确定退出吗？')">
+                <i class="fa fa-sign-out"></i> 退出
+              </a>
+              </span>
+            </li>
+          </ul>
+      <% else %>
+          <h2>系统登录</h2>
+          <%= form_for @user_session, class: 'm-t', role: 'form' do |f| %>
+              <div class="form-group" style="padding-top: 4px;">
+                <%= f.text_field :org_code, :class => "form-control", :placeholder => "机构代码", :required => "" %>
+              </div>
+              <div class="form-group">
+                <%= f.text_field :username, :class => "form-control", :placeholder => "用户名", :required => "" %>
+              </div>
+              <div class="form-group">
+                <%= f.password_field :password, :class => "form-control", :placeholder => "密码", :required => "" %>
+              </div>
+              <%= show_simple_captcha(:input_html => {:class => 'form-control', 'aria-describedby' => 'basic-addon2'}) %>
+              <% unless flash[:notice].nil? %>
+                  <div class="form-group">
+                    <%= flash[:notice] %>
+                  </div>
+              <% end %>
+              <button type="submit" class="btn-primary full-width">登 录</button>
+          <% end %>
+          <style type="text/css">
+              .form-group {
+                  padding-bottom: 4px;
+              }
+
+              .input-group {
+                  padding-bottom: 4px;
+              }
+
+              #captcha {
+                  width: 70%;
+              }
+          </style>
+      <% end %>
+    </div>
+  </div>
+  <div class="oi_middle fn-left">
+    <div class="xxgk_wrap">
+      <div class="xxgk_tit">
+        <ul>
+          <li id="one1" class="hover fn-left" onmouseover="setTab('one',1,3)"><a href="#">企业动态</a></li>
+          <li id="one2" class="fn-left" onmouseover="setTab('one',2,3)"><a href="#">业务学习</a></li>
+          <li id="one3" class="fn-left" onmouseover="setTab('one',3,3)"><a href="#">法规文件</a></li>
+          <a href="#" class="more">[更多]</a>
+        </ul>
+      </div>
+      <div class="xxgk">
+        <div class="xxgk_list" id="con_one_1" style="display: block;">
+          <ul>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况</a><span>2015-6-8</span></li>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况</a><span>2015-6-8</span></li>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况</a><span>2015-6-8</span></li>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况</a><span>2015-6-8</span></li>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况</a><span>2015-6-8</span></li>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况</a><span>2015-6-8</span></li>
+          </ul>
+        </div>
+        <div class="xxgk_list" id="con_one_2" style="display: none;">
+          <ul>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况1</a><span>2015-6-8</span></li>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况1</a><span>2015-6-8</span></li>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况1</a><span>2015-6-8</span></li>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况1</a><span>2015-6-8</span></li>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况1</a><span>2015-6-8</span></li>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况</a><span>2015-6-8</span></li>
+          </ul>
+        </div>
+        <div class="xxgk_list" id="con_one_3" style="display: none;">
+          <ul>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况2</a><span>2015-6-8</span></li>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况2</a><span>2015-6-8</span></li>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况2</a><span>2015-6-8</span></li>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况2</a><span>2015-6-8</span></li>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况2</a><span>2015-6-8</span></li>
+            <li><a href="#">2014年1-8月份嘉兴财政收支情况</a><span>2015-6-8</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="oi_right fn-right">
+    <ul>
+      <li><a href="#"><img src="images/20130823145833803380.jpg"></a></li>
+      <li><a href="#"><img src="images/20131125160625132513.jpg"></a></li>
+      <li><a href="#"><img src="images/20131125160895349534.jpg"></a></li>
+    </ul>
+  </div>
+</div>
+
+
+<div class="wsbs_wrap">
+  <div class="wsbs_tit"></div>
+  <div class="wsbs">
+    <div class="wsbs_con">
+      <div class="w_con_l"><a href="#"><img src="images/wsbs.jpg"></a></div>
+      <div class="w_con_r">
+        <div class="w_tit">
+          <ul>
+            <li id="three1" class="hover fn-left" onmouseover="setTab('three',1,3)"><a href="#">办事程序</a></li>
+            <li id="three2" class="fn-left" onmouseover="setTab('three',2,3)"><a href="#">文件下载</a></li>
+            <li id="three3" class="fn-left" onmouseover="setTab('three',3,3)"><a href="#">常见问题</a></li>
+            <a href="#" class="more">[更多]</a>
+          </ul>
+        </div>
+        <div class="w_txt">
+          <div class="w_txt_c" id="con_three_1" style="display: block;">
+            <ul>
+              <li><a href="#">嘉兴市财政局关于组织参加财政部开展行政事业单位内部控制知识竞赛活动的…</a><span>2015-6-8</span></li>
+              <li><a href="#">嘉兴市财政局关于组织参加财政部开展行政事业单位内部控制知识竞赛活动的…</a><span>2015-6-8</span></li>
+              <li><a href="#">嘉兴市财政局关于组织参加财政部开展行政事业单位内部控制知识竞赛活动的…</a><span>2015-6-8</span></li>
+              <li><a href="#">嘉兴市财政局关于组织参加财政部开展行政事业单位内部控制知识竞赛活动的…</a><span>2015-6-8</span></li>
+              <li><a href="#">嘉兴市财政局关于组织参加财政部开展行政事业单位内部控制知识竞赛活动的…</a><span>2015-6-8</span></li>
+            </ul>
+          </div>
+          <div class="w_txt_c" id="con_three_2" style="display: none;">
+            <ul>
+              <li><a href="#">嘉兴市财政局关于组织参加财政部开展1</a><span>2015-6-8</span></li>
+            </ul>
+          </div>
+          <div class="w_txt_c" id="con_three_3" style="display:none;">
+            <ul>
+              <li><a href="#">嘉兴市财政局关于组织参加财政部开展2</a><span>2015-6-8</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fwdt_con">
+      <div class="f_con_l"><a href="#"><img src="images/fwdt.jpg"></a></div>
+      <div class="f_con_r">
+        <div class="f_left">
+          <div class="f_left_tit"><a href="#">便民查询</a></div>
+          <div class="f_left_con">
+            <ul>
+              <li><a href="#">会计人员信用查询</a></li>
+              <li><a href="#">中介机构信用查询</a></li>
+              <li><a href="#">代理记帐机构信息</a></li>
+              <li><a href="#">网上审批办理情况</a></li>
+              <li><a href="#">市民健康信息系统</a></li>
+              <li><a href="#">非税票据真伪验证</a></li>
+              <li><a href="#">交警网上违法查询</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="f_right">
+          <div class="f_right_tit"><a href="#" class="wssp">网上审批</a><a href="#" class="more">[更多]</a></div>
+          <div class="f_right_con">
+            <ul>
+              <li><a href="#">政府采购非公开招标方式申请</a></li>
+              <li><a href="#">政府采购非公开招标方式申请</a></li>
+              <li><a href="#">政府采购非公开招标方式申请</a></li>
+              <li><a href="#">政府采购非公开招标方式申请</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flink_wrap">
+  <div class="flink_tit">
+    <ul>
+      <li id="six1" onmouseover="setTab('six',1,5)" class="hover">中央省市区政府</li>
+      <li id="six2" onmouseover="setTab('six',2,5)">省级部门单位</li>
+      <li id="six3" onmouseover="setTab('six',3,5)">省内各市政府</li>
+      <li id="six4" onmouseover="setTab('six',4,5)">市级部门单位</li>
+      <li id="six5" onmouseover="setTab('six',5,5)">其他相关网站</li>
+    </ul>
+  </div>
+  <div class="flink_list">
+    <div id="con_six_1" style="display: block;">
+      <ul>
+        <li><a href="#">市人民政府办公网</a></li>
+        <li><a href="#">市人民政府办公网</a></li>
+        <li><a href="#">市人民政府办公网</a></li>
+        <li><a href="#">市人民政府办公网</a></li>
+        <li><a href="#">市人民政府办公网</a></li>
+        <li><a href="#">市人民政府办公网</a></li>
+        <div class="fn-clear"></div>
+      </ul>
+    </div>
+    <div id="con_six_2" style="display: none;">
+      <ul>
+        <li><a href="#">市人民政府办公网2</a></li>
+        <li><a href="#">市人民政府办公网2</a></li>
+        <li><a href="#">市人民政府办公网2</a></li>
+        <li><a href="#">市人民政府办公网2</a></li>
+        <li><a href="#">市人民政府办公网2</a></li>
+        <li><a href="#">市人民政府办公网2</a></li>
+        <div class="fn-clear"></div>
+      </ul>
+    </div>
+    <div id="con_six_3" style="display: none;">
+      <ul>
+        <li><a href="#">市人民政府办公网3</a></li>
+        <li><a href="#">市人民政府办公网3</a></li>
+        <li><a href="#">市人民政府办公网3</a></li>
+        <li><a href="#">市人民政府办公网3</a></li>
+        <li><a href="#">市人民政府办公网3</a></li>
+        <li><a href="#">市人民政府办公网3</a></li>
+        <div class="fn-clear"></div>
+      </ul>
+    </div>
+    <div id="con_six_4" style="display: none;">
+      <ul>
+        <li><a href="#">市人民政府办公网4</a></li>
+        <li><a href="#">市人民政府办公网4</a></li>
+        <li><a href="#">市人民政府办公网4</a></li>
+        <li><a href="#">市人民政府办公网4</a></li>
+        <li><a href="#">市人民政府办公网4</a></li>
+        <li><a href="#">市人民政府办公网4</a></li>
+        <div class="fn-clear"></div>
+      </ul>
+    </div>
+    <div id="con_six_5" style="display: none;">
+      <ul>
+        <li><a href="#">市人民政府办公网5</a></li>
+        <li><a href="#">市人民政府办公网5</a></li>
+        <li><a href="#">市人民政府办公网5</a></li>
+        <li><a href="#">市人民政府办公网5</a></li>
+        <li><a href="#">市人民政府办公网5</a></li>
+        <li><a href="#">市人民政府办公网5</a></li>
+        <div class="fn-clear"></div>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+<div style="clear:both;"></div>
+<a class="to-top">Top</a>
+<script>
+    $(function () {
+        $('.to-top').toTop();
+    });
+</script>
+<div class="big_bottom">
+  <div class="footer">
+    <p>主办：XX市国资委&#12288;运行管理：XX市国资委信息中心&#12288;</p>
+
+    <p>技术支持：xxx公司</p>
+  </div>
+</div>
+</body>
+</html>

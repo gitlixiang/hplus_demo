@@ -1,0 +1,22 @@
+<%= nav_bar(Fdn::Menu.find_by(code: 'salary_budget')) do %>
+    <%= bs_button_window(new_cl_header_path(), '创建', 'btn-primary btn-sm', 'fa fa-check') %>
+<% end %>
+<div class="ibox-title">
+  <%= table([{w: 2, t: '名称'}, {w: 2, t: '业务模型'}, {w: 2, t: '代码'}, {w: 2, t: '排序'}, {w: 3, t: '操作'}],
+            obj: @cl_headers,
+            fixed: true,
+            pagi_param_name: 'page') do |head| %>
+      <%= table_tr({c: seq(@cl_headers, head, params[:page]||1)},
+                   {l: head.name},
+                   {c: head.resource_type},
+                   {c: head.code},
+                   {c: head.order},
+                   {c: action_links([
+                                            {value: '查看', url: cl_header_path(head)},
+                                            {value: '修改', url: edit_cl_header_path(head)},
+                                            {value: '设置内容', url: set_content_cl_header_path(head)},
+                                            {value: '删除', url: cl_header_path(head), url_method: 'delete', confirm: '确定？'}
+                                    ])}
+          ) %>
+  <% end %>
+</div>

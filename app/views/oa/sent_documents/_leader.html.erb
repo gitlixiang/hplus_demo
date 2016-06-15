@@ -1,0 +1,25 @@
+<div class="ibox-content">
+  <%= tabs(@tab_idx) do |t| %>
+      <%= t.tab('发文内容') do %>
+          <h2 class="text-center"><%= req('南京市人民政府国有资产监督管理委员会文件') %></h2>
+          <%= render :partial => 'show', :locals => {:oa_sent_document => @oa_sent_document} %>
+      <% end %>
+      <%= t.tab('审核轨迹') do %>
+          <div class="ibox-content">
+            <% @instance = Wf::ProcInst.find_by_resource(@oa_sent_document) %>
+            <% @task_list = Wf::Task.where(PROC_INST_ID_: @instance.getId).order('START_TIME_') %>
+            <%= table([{w: 4, t: '办理人'}, {w: 2, t: '到岗时间'}, {w: 2, t: '完成时间'}, {w: 4, t: '审核意见'}],
+                      obj: @task_list,
+                      fixed: true,
+                      pagi_param_name: 'page') do |task| %>
+                <%= table_tr({c: seq(@task_list, task, params[:page]||1)},
+                             {l: task.ent_user_name},
+                             {c: task.START_TIME_.strftime(long_time)},
+                             {c: (task.END_TIME_.strftime(long_time) if task.END_TIME_)},
+                             {c: task.task_opinions.size==0 ? '' : bs_button_window(wf_opinion_rad_investments_path(task_id: task.ID_), '查看审核意见')}
+                    ) %>
+            <% end %>
+          </div>
+      <% end %>
+  <% end %>
+</div>

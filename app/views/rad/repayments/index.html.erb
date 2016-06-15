@@ -1,0 +1,13 @@
+<%= table([{w: 2, t: '还款日期'}, {w: 2, t: '还款金额(万元)'}, {w: 2, t: '利息(万元)'}, {w: 2, t: '资产负债率(%)'}, {w: 2, t: '操作'}],
+          obj: @rad_repayments,
+          pagi_param_name: 'q_page') do |repay| %>
+    <%= table_tr({c: seq(@rad_repayments, repay, params[:q_page]||1)},
+                 {c: repay.repay_date},
+                 {r: two_decimal(repay.money)},
+                 {r: two_decimal(repay.interest)},
+                 {c: two_decimal(repay.debt_radio)},
+                 {c: action_links([
+                                          {value: '查看', url: rad_repayment_path(repay)}]
+                 )}
+        ) %>
+<% end %>

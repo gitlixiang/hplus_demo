@@ -1,0 +1,23 @@
+<%= form_tag(url_for(:action => 'show_version', :id => @fdn_org_hierarchy.id), :method => :get) do %>
+    <table class="tyTab03" style="margin-top: 0; padding-top: 0;">
+      <tbody>
+      <tr>
+        <td width="20%" style="text-align: right">名称：</td>
+        <td width="30%" style="text-align: left"><%= @fdn_org_hierarchy.name %></td>
+        <td width="20%" style="text-align: right">代码：</td>
+        <td width="30%" style="text-align: left"><%= @fdn_org_hierarchy.code %></td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="tyTab03" style="margin-top: 0; padding-top: 0;">
+      <tbody>
+      版本：<%= select_tag :ver, options_from_collection_for_select(@fdn_org_hierarchy.org_hie_versions, 'ver', 'ver', @ver) %>
+      <%= submit_tag '查询' %>
+      <div id="div_tree"></div>
+      <%= js_tree_for_org_xml_tag("div_tree", url_for(:action => :treeload, :hie_id => @fdn_org_hierarchy.id, :ver => @ver)) %>
+      </tbody>
+    </table>
+    <div class="titleButton">
+      <%= jq_button_to("返回", "return_back", url_for(:action => :index)) %>
+    </div>
+<% end %>

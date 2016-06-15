@@ -1,0 +1,189 @@
+<div class="ibox-content">
+  <%= form_show(@rad_investment) do |r| %>
+      <%= tabs(@tab_idx) do |t| %>
+          <%= t.tab('企业决策') do %>
+              <div class="ibox-content">
+                <%= time_line(@rad_investment.before_date) do %>
+                    <h2><strong>决策前</strong></h2>
+                    <%= tabs(0, {id: 'fir_tabs'}) do |t| %>
+                        <% i = 1 %>
+                        <% j = 1 %>
+                        <% Fdn::FileTemplate::EVENT_FIR_TEM.each do |tem| %>
+                            <%= t.tab(i.to_s+'.'+tem[1].to_s) do %>
+                                <% Fdn::FileTemplate.file_name_list(tem[0]).each do |f_name| %>
+                                    <%= table([{w: 1, t: '序号'}, {w: 2, t: '文件'}, {w: 2, l: '处理时间'}, {w: 1, l: '负责人'}, {w: 2, l: '联系方式'}, {w: 2, t: '文件下载'}],
+                                              show_seq: false, caption: f_name.file_name) do %>
+                                        <% @rad_investment.fir_files.each do |file| %>
+                                            <% if file.file_template.template_class == tem[0] && file.file_template.file_name == f_name.file_name %>
+                                                <%= table_tr({r: @rad_investment.fir_files.index(file)+1},
+                                                             {l: file.file_template.template_name},
+                                                             {l: file.fdn_event.event_date},
+                                                             {l: file.fdn_event.person_in_charge},
+                                                             {l: file.fdn_event.contact},
+                                                             {l: (file.id != nil && file.ffx_file_size && file.ffx_file_size >= 0) ? link_to(file.ffx_file_name, file.ffx.url) : '空'}) %>
+                                            <% end %>
+                                        <% end %>
+                                    <% end %>
+                                <% end %>
+                                <% if j == 1 %>
+                                    <div class="form-group">
+                                      <label class="col-sm-3 text-right">决策发起人：</label>
+
+                                      <div class="col-sm-9"><%= @rad_investment.person_begin.value if @rad_investment.person_begin_code %></div>
+                                    </div>
+                                <% end %>
+                                <% if j == 3 %>
+                                    <div class="form-group">
+                                      <label class="col-sm-3 text-right">收集意见方式：</label>
+
+                                      <div class="col-sm-9"><%= @rad_investment.show_type.value if @rad_investment.show_type_code %></div>
+                                    </div>
+                                <% end %>
+                                <% j += 1 %>
+                            <% end %>
+                            <% i += 1 %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+                <%= time_line(@rad_investment.middle_date) do %>
+                    <h2><strong>决策中</strong></h2>
+                    <%= tabs(0, {id: 'sec_tabs'}) do |t| %>
+                        <% i = 1 %>
+                        <% j = 1 %>
+                        <% Fdn::FileTemplate::EVENT_SEC_TEM.each do |tem| %>
+                            <%= t.tab(i.to_s+'.'+tem[1].to_s) do %>
+                                <% Fdn::FileTemplate.file_name_list(tem[0]).each do |f_name| %>
+                                    <%= table([{w: 1, t: '序号'}, {w: 2, t: '文件'}, {w: 2, l: '处理时间'}, {w: 1, l: '负责人'}, {w: 2, l: '联系方式'}, {w: 2, t: '文件下载'}],
+                                              show_seq: false, caption: f_name.file_name) do %>
+                                        <% @rad_investment.sec_files.each do |file| %>
+                                            <% if file.file_template.template_class == tem[0] && file.file_template.file_name == f_name.file_name %>
+                                                <%= table_tr({r: @rad_investment.sec_files.index(file)+1},
+                                                             {l: file.file_template.template_name},
+                                                             {l: file.fdn_event.event_date},
+                                                             {l: file.fdn_event.person_in_charge},
+                                                             {l: file.fdn_event.contact},
+                                                             {l: (file.id != nil && file.ffx_file_size && file.ffx_file_size >= 0) ? link_to(file.ffx_file_name, file.ffx.url) : '空'}) %>
+                                            <% end %>
+                                        <% end %>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                            <% i += 1 %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+                <%= time_line(@rad_investment.after_date) do %>
+                    <h2><strong>决策后</strong></h2>
+                    <%= table([{w: 1, t: '序号'}, {w: 2, t: '文件'}, {w: 2, l: '处理时间'}, {w: 1, l: '负责人'}, {w: 2, l: '联系方式'}, {w: 2, t: '文件下载'}],
+                              show_seq: false, caption: '决策报告') do %>
+                        <% @rad_investment.thr_files.each do |file| %>
+                            <%= table_tr({r: @rad_investment.thr_files.index(file)+1},
+                                         {l: file.file_template.template_name},
+                                         {l: file.fdn_event.event_date},
+                                         {l: file.fdn_event.person_in_charge},
+                                         {l: file.fdn_event.contact},
+                                         {l: (file.id != nil && file.ffx_file_size && file.ffx_file_size >= 0) ? link_to(file.ffx_file_name, file.ffx.url) : '空'}) %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+              </div>
+          <% end %>
+          <%= t.tab('项目内容') do %>
+              <div class="ibox-content">
+                <%= r.row("1") do %>
+                    <%= r.show_method '计划年份：', :year, label_span: 3, value_span: 9 %>
+                <% end %>
+                <%= r.row("1") do %>
+                    <%= r.show_method '投资单位：', :ent_name, label_span: 3, value_span: 9 %>
+                <% end %>
+                <%= r.row("1") do %>
+                    <%= r.show_method '项目名称：', :project_name, label_span: 3, value_span: 9 %>
+                <% end %>
+                <%= r.row("1:1") do %>
+                    <%= r.show_content '项目类型：', label_span: 3, value_span: 3 do %>
+                        <%= @rad_investment.pro_type.value if @rad_investment.project_type %>
+                    <% end %>
+                    <%= r.show_content '续建项目：', label_span: 3, value_span: 3 do %>
+                        <%= @rad_investment.parent.project_name if @rad_investment.parent_id %>
+                    <% end %>
+                <% end %>
+                <%= r.row("1:1") do %>
+                    <%= r.show_method '计划总投资额（万元）：', :accounting, label_span: 3, value_span: 3 %>
+                    <%= r.show_method '计划本年投资额（万元）：', :year_accounting, label_span: 3, value_span: 3 %>
+                <% end %>
+                <%= r.row("1:1") do %>
+                    <%= r.show_method '上年投资数（万元）：', :last_year_accounting, label_span: 3, value_span: 3 %>
+                    <%= r.show_method '截止上年总投资数（万元）：', :end_last_year_accounting, label_span: 3, value_span: 3 %>
+                <% end %>
+                <%= r.row("1:1") do %>
+                    <%= r.show_method '项目起始年份：', :start_year, label_span: 3, value_span: 3 %>
+                    <%= r.show_method '项目截止年份：', :end_year, label_span: 3, value_span: 3 %>
+                <% end %>
+                <%= r.row("1") do %>
+                    <%= r.show_method '备注：', :memo, label_span: 3, value_span: 9 %>
+                <% end %>
+                <% if @rad_investment.oth_files.size != 0 %>
+                    <center>
+                      <%= table([{w: 4, t: '序号'}, {w: 8, t: '文件'}], show_seq: false) do %>
+                          <% @rad_investment.oth_files.each do |file| %>
+                              <%= table_tr({r: @rad_investment.oth_files.index(file)+1}, {l: (file.id != nil && file.ffx_file_size && file.ffx_file_size >= 0) ? link_to(file.ffx_file_name, file.ffx.url) : '空'}) %>
+                          <% end %>
+                      <% end %>
+                    </center>
+                <% end %>
+              </div>
+          <% end %>
+          <%= t.tab('纪委监察意见') do %>
+              <div class="ibox-content" id="jw_opinion">
+                <%= render 'jw_opinions_show', :rad_investment => @rad_investment %>
+              </div>
+          <% end %>
+          <%= t.tab('审核意见填写') do %>
+              <div class="ibox-content">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">业务角度：</label>
+
+                  <div class="col-sm-10"><%= text_field_tag 'option1', '', class: 'form-control', row: 4 %></div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">经济角度：</label>
+
+                  <div class="col-sm-10"><%= text_field_tag 'option2', '', class: 'form-control', row: 4 %></div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">社会效益：</label>
+
+                  <div class="col-sm-10"><%= text_field_tag 'option3', '', class: 'form-control', row: 4 %></div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">角度四：</label>
+
+                  <div class="col-sm-10"><%= text_field_tag 'option4', '', class: 'form-control', row: 4 %></div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">角度五：</label>
+
+                  <div class="col-sm-10"><%= text_field_tag 'option5', '', class: 'form-control', row: 4 %></div>
+                </div>
+              </div>
+          <% end %>
+          <%= t.tab('审核轨迹') do %>
+              <div class="ibox-content">
+                <% @instance = Wf::ProcInst.find_by_resource(@rad_investment) %>
+                <% @task_list = Wf::Task.where(PROC_INST_ID_: @instance.id).order('START_TIME_') %>
+                <%= table([{w: 4, t: '办理人'}, {w: 2, t: '到岗时间'}, {w: 2, t: '完成时间'}, {w: 4, t: '审核意见'}],
+                          obj: @task_list,
+                          fixed: true,
+                          pagi_param_name: 'page') do |task| %>
+                    <%= table_tr({c: seq(@task_list, task, params[:page]||1)},
+                                 {l: task.ent_user_name},
+                                 {c: task.START_TIME_.strftime(long_time)},
+                                 {c: (task.END_TIME_.strftime(long_time) if task.END_TIME_)},
+                                 {c: task.task_opinions.size==0 ? '' : bs_button_window(wf_opinion_rad_investments_path(task_id: task.ID_), '查看审核意见')}
+                        ) %>
+                <% end %>
+              </div>
+          <% end %>
+      <% end %>
+  <% end %>
+</div>

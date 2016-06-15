@@ -1,0 +1,220 @@
+<%= handsontable_js_tag %>
+<%= handsontable_css_tag %>
+<%= button_div do %>
+    <%= bs_button('ajaxComplete', '完成', '', 'fa fa-file') %>
+<% end %>
+<div class="ibox-title">
+<div id="content"></div>
+<script>
+    $(document).ready(function () {
+
+        var container = document.getElementById('content');
+
+        var headerRenderer = function (instance, td, row, col, prop, value, cellProperties) {
+            Handsontable.renderers.TextRenderer.apply(this, arguments);
+            td.style.fontWeight = 'bold';
+            td.style.textAlign = 'center';
+        };
+
+        var diffRenderer = function (instance, td, row, col, prop, value, cellProperties) {
+            Handsontable.cellTypes['formula'].renderer.apply(this, arguments);
+            td.style.backgroundColor = '#c3f89c';
+            if (col === 1) {
+                td.style.textAlign = 'center';
+            }
+        };
+
+        var incomeOrExpensesRenderer = function (instance, td, row, col, prop, value, cellProperties) {
+            Handsontable.cellTypes['formula'].renderer.apply(this, arguments);
+            td.style.fontWeight = 'bold';
+            if (col === 1) {
+                td.style.textAlign = 'center';
+            }
+            td.style.backgroundColor = '#BDD7EE'
+        };
+
+        var parkRenderer = function (instance, td, row, col, prop, value, cellProperties) {
+            Handsontable.cellTypes['formula'].renderer.apply(this, arguments);
+            td.style.fontWeight = 'bold';
+            if (col === 1) {
+                td.style.textAlign = 'center';
+            }
+            td.style.backgroundColor = '#FF0000'
+        };
+
+//        function negativeValueRenderer(instance, td, row, col, prop, value, cellProperties) {
+//            Handsontable.renderers.TextRenderer.apply(this, arguments);
+//            if (!value || value === '') {
+//                td.innerHTML = " ";
+//            }
+//        }
+//        Handsontable.renderers.registerRenderer('negativeValueRenderer', negativeValueRenderer);
+
+//        var boldAndAlignRenderer = function (instance, td, row, col, prop, value, cellProperties) {
+//            Handsontable.renderers.TextRenderer.apply(this, arguments);
+//            td.style.fontWeight = 'bold';
+//            td.style.verticalAlign = 'middle';
+//            td.style.textAlign = 'left';
+//        };
+
+        var personalData = <%= raw(@data)%>;
+        var merge_cells = <%= raw @merges%>;
+//          console.log(merge_cells);
+//        var merge_cells = [
+//            {row: 0, col: 2, rowspan: 1, colspan: 44},
+//            {row: 1, col: 45, rowspan: 3, colspan: 1}
+//        ];
+//        for (var i = 3; i <= 33; i++) {
+//            merge_cells.push({row: 2, col: i, rowspan: 2, colspan: 1});
+//        }
+////        上年同期增减
+//        merge_cells.push({row: 2, col: 35, rowspan: 1, colspan: 2});
+//        merge_cells.push({row: 2, col: 37, rowspan: 1, colspan: 2});
+
+//        对齐
+        var align_cells = <%= raw @aligns%>;
+//        for (var i = 0; i <= 33; i++) {
+//            align_cells.push({row: 2, col: i, className: "htCenter htMiddle"});
+//        }
+//        align_cells.push({row: 1, col: 0, className: "htCenter htMiddle"});
+        var comment_cells = <%= raw @comments%>;
+
+
+        var hot = new Handsontable(container, {
+            data: personalData,
+            height: window.innerHeight - 60,
+//            fixedRowsTop: 4,
+//            fixedColumnsLeft: 2,
+            manualRowResize: true,
+            manualColumnResize: true,
+            colHeaders: true,
+            rowHeaders: true,
+            formulas: true,
+            comments: true,
+            manualColumnMove: true,
+            manualRowMove: true,
+            stretchH: 'all', //none
+            contextMenu: true,
+            mergeCells: true,
+//            colHeaders:
+            <%#= raw (0..44).to_a%>,
+            sortIndicator: true,
+            columnSorting: true,
+            autoColumnSize: true,
+            observeChanges: true,
+//            minSpareCols: 5,
+//            minSpareRows: 5,
+
+            cells: function (row, col, prop) {
+                var cellProperties = {};
+
+//                if ([1, 2, 3].indexOf(row) !== -1 && col >= 1) {
+//                    cellProperties.readOnly = true;
+//                }
+
+//                if ([0, 1, 2].indexOf(row) !== -1 && col >= 0) {
+//                    cellProperties.renderer = headerRenderer;
+//                }
+
+//                var scale_cells =
+                <%#= raw(@scale_cells) %>;
+//                if (scale_cells.length > 0 && (scale_cells.indexOf(row) !== -1 && col >= 0)) {
+//                    cellProperties.renderer = diffRenderer;
+//                }
+//
+//                var group_cells =
+                <%#= raw(@group_cells) %>;
+//                if (group_cells.length > 0 && (group_cells.indexOf(row) !== -1 && col >= 0)) {
+//                    cellProperties.renderer = incomeOrExpensesRenderer;
+//                }
+//
+//                var park_cells =
+                <%#= raw(@park_cells) %>;
+//                if (park_cells.length > 0 && (park_cells.indexOf(row) !== -1 && col >= 0)) {
+//                    cellProperties.renderer = parkRenderer;
+//                }
+//
+//                if (row > 2 && col >= 2 && col <= 43) {
+//                    cellProperties.type = 'numeric';
+//                    cellProperties.format = '0,0.00';
+//                }
+//                cellProperties.renderer = "negativeValueRenderer";
+                return cellProperties;
+            },
+            mergeCells: merge_cells,
+            cell: align_cells.concat(comment_cells)
+        });
+
+        $('#ajaxComplete').click(function () {
+            var merge_ary = hot.mergeCells.mergedCellInfoCollection;
+            var merge_result = [];
+            var align_result = [];
+            var comment_result = [];
+//              var cl_cells = [];
+            for (x in merge_ary) {
+                merge_result.push(JSON.stringify(merge_ary[x]));
+            }
+            var dd = hot.getData();
+            for (var i = 0; i < dd.length; i++) {
+                var row = dd[i];
+                for (var j = 0; j < row.length; j++) {
+                    var cellMeta = hot.getCellMeta(i, j);
+                    var className = cellMeta['className'];
+                    var comment = cellMeta['comment'];
+                    var align_obj = {row: i, col: j, className: className};
+                    var comment_obj = {row: i, col: j, comment: comment};
+                    align_result.push(JSON.stringify(align_obj));
+                    comment_result.push(JSON.stringify(comment_obj));
+//                      cl_cells.push(JSON.stringify(cellMeta));
+                }
+            }
+//              console.log(cl_cells);
+//              for (x in hot.getCellMeta(1, 1)) {
+//                  console.log(x);
+//                  console.log(hot.getCellMeta(1, 1)[x]);
+//              }
+//              row col physicalRow physicalCol prop instance className constructor data
+//              width dataSchema height startRows startCols rowHeaders colHeaders
+//              colWidths rowHeights columns cells cell comments customBorders
+//              minRows minCols maxRows maxCols minSpareRows minSpareCols
+//              allowInsertRow allowInsertColumn allowRemoveRow allowRemoveColumn
+//              multiSelect fillHandle fixedRowsTop fixedRowsBottom fixedColumnsLeft
+//              outsideClickDeselects enterBeginEditing enterMoves tabMoves autoWrapRow
+//              autoWrapCol copyROwsLimit copyColsLimit pasteMode persistentState
+//              currentRowClassName currentColClassName tableClassName stretchH isEmptyRow
+//              isEmptyCol observeDOMVisibility allowInvalid invalidCellClassName placeholder
+//              placeholderCellClassName readOnlyCellClassName renderer commentedCellClassName
+//              fragmentSelection readOnly skipColumnOnPaste search type copyable editor autoComplete
+//              visibleRows trimDropdown debug wordWrap noWordWrapClassName contextMenu contextMenuCopyPaste
+//              copyPaste undo columnSorting manualColumnMove manualColumnResize manualRowMove
+//              manualRowResize mergeCells viewportRowRenderingOffset viewportColumnRenderingOffset
+//              validator disableVisualSelection sortIndicator manualColumnFreeze
+//              trimWhitespace settings source title checkedTemplate uncheckedTemplate label format
+//              language selectOptions autoColumnSize autoRowSize dateFormat correctFormat
+//              defaultDate strict renderAllRows formulas observeChanges
+//            console.log(hot.mergeCells.mergedCellInfoCollection);
+//            alert(hot.mergeCells.mergedCellInfoCollection[0]);
+//            alert(hot.mergeCells.mergedCellInfoCollection[0].col);
+//            alert(hot.mergeCells.mergedCellInfoCollection[0].row);
+//            alert(hot.mergeCells.mergedCellInfoCollection[0].colspan);
+//            alert(hot.mergeCells.mergedCellInfoCollection[0].rowspan);
+            $.post("/cl/headers/get_content", {
+                'id': '<%= @cl_header.id %>',
+                'data[]': hot.getData(),
+                'merge_result[]': merge_result,
+                'align_result[]': align_result,
+                'comment_result[]': comment_result
+            });
+//            $.post("/cl/headers/get_content", {'data[]': hot.getData()});
+        });
+//
+//        $('#bn_search').click(function () {
+//            $.get("/ns/ratepays/dv_groups_data", {year: $('#year').val(), month: $('#month').val()}, function (data) {
+//                hot.loadData(JSON.parse(data['data']));
+//            });
+//        });
+        //        var data = JSON.stringify(hot.getData());
+    });
+
+</script>
+</div>

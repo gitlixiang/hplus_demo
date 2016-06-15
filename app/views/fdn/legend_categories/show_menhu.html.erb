@@ -1,0 +1,14 @@
+<% menu = Fdn::Menu.where(:code => 'fdn_legend_menhu').first %>
+<%= nav_bar(menu) do %>
+<% end %>
+<div class="ibox-content">
+  <%= table([{w: 1, t: '位置'}, {w: 3, t: '描述'}, {w: 2, t: '栏目'}, {w: 2, t: '操作'}],
+            fixed: true,
+            obj: @show_list) do |m| %>
+      <%= table_tr({c: seq(@show_list, m, params[:page]||1)},
+                   {l: m.position},
+                   {l: m.memo},
+                   {c: m.category_name},
+                   {c: action_links([{value: '编辑', url: menhu_edit_fdn_legend_category_path(id: m.id)}])}) %>
+  <% end %>
+</div>

@@ -1,0 +1,3 @@
+<%= form_for(@hr_ent_manager, nav: {}) do |f| %>
+    <%= render :partial => 'form', :locals => {:hr_ent_manager => @hr_ent_manager, :hr_treatment => @hr_treatment, :f => f} %>
+<% end %>

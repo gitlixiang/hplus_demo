@@ -1,0 +1,18 @@
+<%= form_for(@fdn_received_message) do |f| %>
+    <% if @fdn_received_message.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@fdn_received_message.errors.count, "error") %> prohibited this fdn_received_message from
+            being saved:</h2>
+
+          <ul>
+            <% @fdn_received_message.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

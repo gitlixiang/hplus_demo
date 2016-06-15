@@ -1,0 +1,25 @@
+<%= javascript_include_tag "lazy_high_charts/highcharts", "lazy_high_charts/exporting", "lazy_high_charts/highcharts-more" %>
+<%= hidden_field_tag(:year, params[:year]) %>
+<%= hidden_field_tag(:month, params[:month]) %>
+<%= hidden_field_tag(:ent_id, params[:ent_id]) %>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <%= render('analysis_spaces/line', line: @attr43, name: @name43) %>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <%= render('analysis_spaces/line', line: @speed43, name: @speed_name43) %>
+        </div>
+      </div>
+    </div>
+    　
+  </div>
+</div>

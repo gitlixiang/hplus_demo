@@ -1,0 +1,40 @@
+= table([{w: 3, l: '指标名称'}, {w: 2, t: '指标值'}, {w: 2, t: '去年同期'}, {w: 2, t: '变动比率'}, {w: 2, t: '上月指标'}, {w: 2, t: '变动比率'}],\
+               show_seq: false,\
+               caption: @year.to_s+'年'+@month.to_s+'月财务分析指标') do
+                =table_tr({l: bs_link_window(url_for(:controller => "aae/financial_statements", :action=>:month_economic_situation, :year=>@year, :month=>@month, :ent_id=>@ent_id),'经济情况分析')})
+                =table_tr({l: '<div class="forum-item-title">&nbsp;&nbsp;&nbsp;销售净利率(100%)</div><div"><small class="text-navy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"比率越高业绩越好"</small></div>'.html_safe},\
+                             {c: @indicator.nil?? "": @indicator.indicator_attr25.nil? ? "" : format("%.2f",@indicator.indicator_attr25),style: @line_css,:class=>(@indicator.check_attr(23) if !@indicator.nil?)},\
+                             {c: @indicator_last_year.nil?? "": @indicator_last_year.indicator_attr25.nil? ? "" : format("%.2f",@indicator_last_year.indicator_attr25),:class=>(@indicator_last_year.check_attr(23) if !@indicator_last_year.nil?)},\
+                             {c: @indicator.nil?? '0%' : @indicator.year_compare(@indicator_last_year,"indicator_attr25"),style: @line_css},\
+                             {c: @indicator_last_month.nil?? "": @indicator_last_month.indicator_attr25.nil? ? "" : format("%.2f",@indicator_last_month.indicator_attr25),:class=>(@indicator_last_month.check_attr(23) if !@indicator_last_month.nil?)},\
+                             {c: @indicator.nil?? '0%' : @indicator.month_compare(@indicator_last_month,"indicator_attr25")})
+                =table_tr({l: '<div>&nbsp;&nbsp;&nbsp;资产净利率(100%)</div><div><small class="text-navy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"该指标越高资产利用越好"</small></div>'.html_safe},\
+                             {c: @indicator.nil?? "": @indicator.indicator_attr26.nil? ? "" : format("%.2f",@indicator.indicator_attr26),style: @line_css,:class=>(@indicator.check_attr(24) if !@indicator.nil?)},\
+                             {c: @indicator_last_year.nil?? "": @indicator_last_year.indicator_attr26.nil? ? "" : format("%.2f",@indicator_last_year.indicator_attr26),:class=>(@indicator_last_year.check_attr(24) if !@indicator_last_year.nil?)},\
+                             {c: @indicator.nil?? '0%' : @indicator.year_compare(@indicator_last_year,"indicator_attr26"),style: @line_css},\
+                             {c: @indicator_last_month.nil?? "": @indicator_last_month.indicator_attr26.nil? ? "" : format("%.2f",@indicator_last_month.indicator_attr26),:class=>(@indicator_last_month.check_attr(24) if !@indicator_last_month.nil?)},\
+                             {c: @indicator.nil?? '0%' : @indicator.month_compare(@indicator_last_month,"indicator_attr26")})
+                =table_tr({l: '<div>&nbsp;&nbsp;&nbsp;资本金净利率(100%)</div><div><small class="text-navy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"指标越高说明企业活力能力越强"</small></div>'.html_safe},\
+                              {c: @indicator.nil?? "": @indicator.indicator_attr27.nil? ? "" : format("%.2f",@indicator.indicator_attr27),style: @line_css,:class=>(@indicator.check_attr(25) if !@indicator.nil?)},\
+                              {c: @indicator_last_year.nil?? "": @indicator_last_year.indicator_attr27.nil? ? "" : format("%.2f",@indicator_last_year.indicator_attr27),:class=>(@indicator_last_year.check_attr(25) if !@indicator_last_year.nil?)},\
+                              {c: @indicator.nil?? '0%' : @indicator.year_compare(@indicator_last_year,"indicator_attr27"),style: @line_css},\
+                              {c: @indicator_last_month.nil?? "": @indicator_last_month.indicator_attr27.nil? ? "" : format("%.2f",@indicator_last_month.indicator_attr27),:class=>(@indicator_last_month.check_attr(25) if !@indicator_last_month.nil?)},\
+                              {c: @indicator.nil?? '0%' : @indicator.month_compare(@indicator_last_month,"indicator_attr27")})
+                =table_tr({l: '<div>&nbsp;&nbsp;&nbsp;净资收益率(100%)</div><div><small class="text-navy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"比率越高，活力水平越高"</small></div>'.html_safe},\
+                              {c: @indicator.nil?? "": @indicator.indicator_attr28.nil? ? "" : format("%.2f",@indicator.indicator_attr28),style: @line_css,:class=>(@indicator.check_attr(26) if !@indicator.nil?)},\
+                              {c: @indicator_last_year.nil?? "": @indicator_last_year.indicator_attr28.nil? ? "" : format("%.2f",@indicator_last_year.indicator_attr28),:class=>(@indicator_last_year.check_attr(26) if !@indicator_last_year.nil?)},\
+                              {c: @indicator.nil?? '0%' : @indicator.year_compare(@indicator_last_year,"indicator_attr28"),style: @line_css},\
+                              {c: @indicator_last_month.nil?? "": @indicator_last_month.indicator_attr28.nil? ? "" : format("%.2f",@indicator_last_month.indicator_attr28),:class=>(@indicator_last_month.check_attr(26) if !@indicator_last_month.nil?)},\
+                              {c: @indicator.nil?? '0%' : @indicator.month_compare(@indicator_last_month,"indicator_attr28")})
+                =table_tr({l: '<div>&nbsp;&nbsp;&nbsp;盈余现金保障倍数</div><div><small class="text-navy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"该指标越大，说明净利润对现金的贡献越大"</small></div>'.html_safe},\
+                              {c: @indicator.nil?? "": @indicator.indicator_attr29.nil? ? "" : format("%.2f",@indicator.indicator_attr29),style: @line_css,:class=>(@indicator.check_attr(27) if !@indicator.nil?)},\
+                              {c: @indicator_last_year.nil?? "": @indicator_last_year.indicator_attr29.nil? ? "" : format("%.2f",@indicator_last_year.indicator_attr29),:class=>(@indicator_last_year.check_attr(27) if !@indicator_last_year.nil?)},\
+                              {c: @indicator.nil?? '0%' : @indicator.year_compare(@indicator_last_year,"indicator_attr29"),style: @line_css},\
+                              {c: @indicator_last_month.nil?? "": @indicator_last_month.indicator_attr29.nil? ? "" : format("%.2f",@indicator_last_month.indicator_attr29),:class=>(@indicator_last_month.check_attr(27) if !@indicator_last_month.nil?)},\
+                              {c: @indicator.nil?? '0%' : @indicator.month_compare(@indicator_last_month,"indicator_attr29")})
+                =table_tr({l: '<div>&nbsp;&nbsp;&nbsp;资本保值增值率(100%)</div><div><small class="text-navy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"指标小于１，资本受到侵蚀；等于１资本保值；大于１，资本增值"</small></div>'.html_safe},\
+                              {c: @indicator.nil?? "": @indicator.indicator_attr30.nil? ? "" : format("%.2f",@indicator.indicator_attr30),style: @line_css,:class=>(@indicator.check_attr(28) if !@indicator.nil?)},\
+                              {c: @indicator_last_year.nil?? "": @indicator_last_year.indicator_attr30.nil? ? "" : format("%.2f",@indicator_last_year.indicator_attr30),:class=>(@indicator_last_year.check_attr(28) if !@indicator_last_year.nil?)},\
+                              {c: @indicator.nil?? '0%' : @indicator.year_compare(@indicator_last_year,"indicator_attr30"),style: @line_css},\
+                              {c: @indicator_last_month.nil?? "": @indicator_last_month.indicator_attr30.nil? ? "" : format("%.2f",@indicator_last_month.indicator_attr30),:class=>(@indicator_last_month.check_attr(28) if !@indicator_last_month.nil?)},\
+                              {c: @indicator.nil?? '0%' : @indicator.month_compare(@indicator_last_month,"indicator_attr30")})

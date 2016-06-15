@@ -1,0 +1,20 @@
+<%= button_div() do %>
+    <%= bs_close %>
+<% end %>
+<div class="ibox-content">
+  <%= form_show(@hr_ent_manager) do |u| %>
+      <%= u.row('1') do %>
+          <%= u.show_content '所属企业：' do %>
+              <%= @hr_ent_manager.ent.name %>
+          <% end %>
+      <% end %>
+      <%= u.row("1") do %>
+          <%= u.show_method '姓名：', :name %>
+      <% end %>
+      <%= u.row('1') do %>
+          <%= u.show_content '职务：' do %>
+              <%= @hr_ent_manager.job.value %>
+          <% end %>
+      <% end %>
+  <% end %>
+</div>

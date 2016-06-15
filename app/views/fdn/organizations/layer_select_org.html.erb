@@ -1,0 +1,21 @@
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <div class="col-sm-5">
+      <div class="ibox float-e-margins">
+        <div class="ibox-content">
+          <div class="file-manager">
+            <h3>点击名称选择企业：</h3>
+            <%= text_field_tag 'search_tree', '', class: 'form-control', placeholder: '组织名称查询' %>
+            <div class="ibox-content" style="padding-left:0;padding-top:2px">
+              <%#= js_tree_xml_tag('org_tree', fdn_roles_path(:format => :xml)) %>
+
+              <div id='org_tree' class="test treeview" style="overflow: auto;max-height: 600px">
+              </div>
+              <%= js_tree_org_json_tag('org_tree', url_for(:controller => 'fdn/organizations', :action => :layer_select_org_js), 'org_id', true, 'search_tree') %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

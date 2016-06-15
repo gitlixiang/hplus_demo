@@ -1,0 +1,10 @@
+<% menu = Fdn::Menu.where(:code => 'talent_reviewed').first %>
+<%= nav_bar(menu) do %>
+<% end %>
+<div class="ibox-content">
+  <%= tabs(@tab_idx) do |t| %>
+      <%= t.tab('待审核人才') do %>
+          <%= render 'ntd', talent: @ent_talents_ntd %>
+      <% end %>
+  <% end %>
+</div>

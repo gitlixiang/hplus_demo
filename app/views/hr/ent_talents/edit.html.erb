@@ -1,0 +1,3 @@
+<%= form_for(@hr_ent_talent, :html => {:multipart => true}, nav: {}) do |f| %>
+    <%= render :partial => 'form', :locals => {:hr_ent_talent => @hr_ent_talent, :f => f} %>
+<% end %>

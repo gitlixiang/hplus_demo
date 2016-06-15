@@ -1,0 +1,43 @@
+<div class="ibox-content">
+  <%= form_show(hr_ent_talent) do |u| %>
+      <%= u.row("1:1") do %>
+          <%= u.show_method '姓名：', :name %>
+          <%= u.show_content '所属企业：' do %>
+              <%= hr_ent_talent.ent_name %>
+          <% end %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%= u.show_content '性别：' do %>
+              <%= hr_ent_talent.sex == 'F' ? '女' : '男' %>
+          <% end %>
+          <%= u.show_content '年龄：' do %>
+              <%= hr_ent_talent.age %>
+          <% end %>
+      <% end %>
+      <%= u.row("1:1") do %>
+          <%= u.show_content '民族：' do %>
+              <%= hr_ent_talent.nationality.value if hr_ent_talent.nationality %>
+          <% end %>
+          <%= u.show_content '籍贯：' do %>
+              <%= hr_ent_talent.native_place_code %>
+          <% end %>
+      <% end %>
+      <%= u.row("1:1") do %>
+          <%= u.show_method '工作时间：', :work_date %>
+          <%= u.show_content '人才分类：' do %>
+              <%= hr_ent_talent.tal_type.value if hr_ent_talent.tal_type.value %>
+          <% end %>
+      <% end %>
+      <%= u.row("1:1") do %>
+          <%= u.show_content '学历：' do %>
+              <%= hr_ent_talent.education_type.value if hr_ent_talent.education_type %>
+          <% end %>
+          <%= u.show_content '专业技术资质：' do %>
+              <%= hr_ent_talent.pro_tech_qua %>
+          <% end %>
+      <% end %>
+      <%= u.row("1:1") do %>
+          <%= u.show_method '联系方式：', :phone %>
+      <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,57 @@
+<%= datepicker_include_tag %>
+<div class="ibox-content">
+  <%= f.hidden_field :ent_id %>
+  <%= f.row("1") do %>
+      <%= f.control('text', "所属企业：", :ent_name, value: hr_ent_car.ent.name, readonly: true) %>
+  <% end %>
+  <%= f.row("1") do %>
+      <%= f.control('text', "车牌号：", :id_code, class: 'required') %>
+  <% end %>
+  <%= f.row("1") do %>
+      <%= f.control('text', "排量：", :displacement, :onkeyup => "value=value.replace(/[^0-9.]/g,'')") %>
+  <% end %>
+  <%= f.row("1") do %>
+      <%= f.control('select', '车辆状态：', :car_status, Hr::Lookups::CarStatus.select_y, {prompt: '请选择'}, class: "required selectpicker") %>
+  <% end %>
+  <%= f.row("1") do %>
+      <%= f.control('select', '购买/租用：', :is_rent, Hr::Lookups::RentType.select_y, {prompt: '请选择'}, class: "selectpicker") %>
+  <% end %>
+  <%= f.row("1") do %>
+      <%= f.control('text', "购买价格（元）：", :total_price, readonly: true, :onkeyup => "value=value.replace(/[^0-9.]/g,'')") %>
+  <% end %>
+  <%= f.row("1") do %>
+      <%= f.control('datepicker', "购买日期：", :buy_date, readonly: true) %>
+  <% end %>
+  <%= f.row("1") do %>
+      <%= f.control('text', "租用价格（元/年）：", :rent_price, readonly: true, :onkeyup => "value=value.replace(/[^0-9.]/g,'')") %>
+  <% end %>
+  <%= f.row("1") do %>
+      <%= f.control('text', "备注：", :memo) %>
+  <% end %>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#hr_ent_car_is_rent').change(function () {
+            if ($(this).val() == '1') {
+                $('#hr_ent_car_rent_price').val("");
+                $('#hr_ent_car_total_price').removeAttr('readonly', false);
+                $('#hr_ent_car_buy_date').removeAttr('readonly', false);
+                $('#hr_ent_car_rent_price').attr('readonly', true);
+            }
+            else if ($(this).val() == '2') {
+                $('#hr_ent_car_total_price').val("");
+                $('#hr_ent_car_buy_date').val("");
+                $('#hr_ent_car_total_price').attr('readonly', true);
+                $('#hr_ent_car_buy_date').attr('readonly', true);
+                $('#hr_ent_car_rent_price').removeAttr('readonly', false);
+            } else {
+                $('#hr_ent_car_total_price').val("");
+                $('#hr_ent_car_buy_date').val("");
+                $('#hr_ent_car_rent_price').val("");
+                $('#hr_ent_car_total_price').attr('readonly', true);
+                $('#hr_ent_car_buy_date').attr('readonly', true);
+                $('#hr_ent_car_rent_price').attr('readonly', true);
+            }
+        })
+    });
+</script>

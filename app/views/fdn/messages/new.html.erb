@@ -1,0 +1,70 @@
+<%= ztree_include_tag %>
+<script type="text/javascript">
+    function check_subject() {
+        if ($("#to_user_ids_").val() == null) {
+            alert('请选择发送用户!');
+            return false;
+        }
+        else if ($('#fdn_message_subject').val() == '') {
+            alert('请输入主题!');
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+</script>
+<%= form_for(@message, :html => {:multipart => true, :onsubmit => "return check_subject();"}, nav: {}) do |f| %>
+    <%= hidden_field_tag "msg_type", @msg_type %>
+    <div class="ibox-content">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">发送人：</label>
+
+        <div class="col-sm-10">
+          <%= current_user.full_name %>
+        </div>
+      </div>
+      <%= f.row() do %>
+          <%= f.controls("收件人：") do %>
+              <%= multiselect_tag("to_user_ids[]", grouped_options_for_select(@group_opinions, @user_ids), {:class => "jq_multiselect  form-control required", :width => '100%'}, {}) %>
+              <%#= ztree_default_demo('citySel','fdn_message_subject','tree_search',@node) %>
+          <% end %>
+      <% end %>
+      <%= f.row() do %>
+          <%= f.control('text', '主题：', :subject, class: 'required') %>
+      <% end %>
+      <%= f.row() do %>
+          <%= f.control('cktext_area', '内容：', :body) %>
+      <% end %>
+    </div>
+    <table class="tyTab03" style="margin-top: 0; padding-top: 0;">
+
+      <%= table([{w: 10, t: '文件上传'}, {w: 2, t: '操作'}],
+                id: 'file_table',
+                obj: @message.file_resources,
+                parent_obj: @message,
+                show_seq: false,
+                new_row: url_for(:controller => "fdn/messages",
+                                 :action => :add_file)) do |obj, index| %>
+          <%= render 'file', :upload_file => obj, :index => index, :msg => @message %>
+      <% end %>
+      <% if @act == "forward" %>
+          <% @old_message.file_resources.each do |file| %>
+              <tr>
+                <td style="text-align: right">转发附件:</td>
+                <td colspan="3" style="text-align: left">
+                  <%= hidden_field_tag "send_file[]", file.id %><%= link_to file.ffx_file_name, file.ffx.url %>
+                </td>
+              </tr>
+          <% end %>
+          <% @old_message.forward_file_resources.each do |file| %>
+              <tr>
+                <td style="text-align: right">转发附件:</td>
+                <td colspan="3" style="text-align: left">
+                  <%= hidden_field_tag "send_file[]", file.id %><%= link_to file.ffx_file_name, file.ffx.url %>
+                </td>
+              </tr>
+          <% end %>
+      <% end %>
+    </table>
+<% end %>

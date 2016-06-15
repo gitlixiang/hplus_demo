@@ -1,0 +1,77 @@
+<%= javascript_include_tag rjs_descendants_of_fdn_organizations_path(columns: ['resource_id', 'name']) %>
+<% menu = Fdn::Menu.where(:code => 'financial_analysis').first %>
+<%= nav_bar(menu) do %>
+<% end %>
+<div class="ibox-title">
+  <%= search_form_for(@search, url: financial_analysis_aae_financial_statements_path, nav_bar: true) do |f| %>
+      <%#= f.control 'hidden', '企业id', 'id_eq', readonly: true, value: @ent_id %>
+      <%#= f.control('autocomplete', '企业名称', :name_cont, 'data-source' => "descendants", 'data-mapping' => '{"value": "q_id_eq"}', value: @name) %>
+      <%= f.control 'hidden', '企业id', 'organization_id_eq', readonly: true %>
+      <div class="input-group col-md-4">
+        <%= text_field_tag(:org_name, @org_name, {placeholder: '点击选择企业', class: "selectpicker form-control", onclick: 'select_org();'}) %>
+        <%#= f.control('autocomplete', '企业名称', :zzz_name, 'data-source' => "ents", 'data-mapping' => '{"value": "q_ent_id_eq"}', value: params[:q][:zzz_name]) %>
+        <script>
+            function select_org() {
+                layer.open({
+                    type: 2,
+                    area: ['700px', '530px'],
+                    fix: false, //不固定
+                    maxmin: true,
+                    content: '<%=layer_select_org_fdn_organizations_path%>'
+                });
+            }
+        </script>
+      </div>
+      <div data-toggle="buttons" class="btn-group">
+
+        <label class="btn btn-sm btn-white <%= @option == '1' ? 'active' : '' %>">
+          <input type="radio" value="1" name="q[zzz_option]" id="q_zzz_option_value1" <%= @option == '1' ? 'checked' : nil %>>月
+        </label>
+        <label class="btn btn-sm btn-white <%= @option == '2' ? 'active' : '' %>">
+          <input type="radio" value="2" name="q[zzz_option]" id="q_zzz_option_value2" <%= @option == '2' ? 'checked' : nil %>>季
+        </label>
+        <label class="btn btn-sm btn-white <%= @option == '3' ? 'active' : '' %>">
+          <input type="radio" value="3" name="q[zzz_option]" id="q_zzz_option_value3" <%= @option == '3' ? 'checked' : nil %>>年
+        </label>
+      </div>
+  <% end %>
+</div>
+<div class="ibox-content">
+  <% Aae::FinancialStatement::COLOR_LEVEL.each do |arr| %>
+      <small class="text-navy"><%= arr[0] %>：
+        <button type='button' class='btn btn-sm btn-rounded <%= arr[1] %>'></button>
+      </small>
+      &nbsp;&nbsp;
+  <% end %>
+  <%== tabs(@tab_index) do |t| %>
+      <%#= t.tab('趋势分析法') do %>
+      <%#= render :partial => 'tread_analysis', :locals => {:ent_id => @ent_id} %>
+      <%# end %>
+      <%= t.tab('偿债能力分析&预警') do %>
+          <%= render :partial => 'paying_analysis', :locals => {:ent_id => @ent_id} %>
+      <% end %>
+      <%= t.tab('获利能力分析&预警') do %>
+          <%= render :partial => 'profitability_analysis', :locals => {:ent_id => @ent_id} %>
+      <% end %>
+      <%= t.tab('营运能力分析&预警') do %>
+          <%= render :partial => 'operation_analysis', :locals => {:ent_id => @ent_id} %>
+      <% end %>
+  <% end %>
+</div>
+<script>
+    $(function () {
+        $('.scroll_layer').bind("load resize", function () {
+            if ($(this).parent().width() / 100 > <%= @x_axis.size %>) {
+                $(this).css('width', '100%');
+            }
+            else {
+                $(this).css('width', '<%= @x_axis.size*100 %>px');
+            }
+        })
+    })
+</script>
+<style>
+    .text-left {
+        background-color: #edf6ff;
+    }
+</style>

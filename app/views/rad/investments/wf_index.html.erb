@@ -1,0 +1,20 @@
+<% menu = Fdn::Menu.where(:code => 'workspace').first %>
+<%= nav_bar(menu) do %>
+    <%#= bs_button_link_to(new_rad_investment_path(), '创建', 'btn-primary btn-sm', 'fa fa-check') %>
+<% end %>
+<div class="ibox-content">
+  <%= tabs(@tab_idx) do |t| %>
+      <%= t.tab('待认领工作') do %>
+          <%= render 'wf_ntc', tasks: @task %>
+      <% end %>
+      <%= t.tab('待办事项') do %>
+          <%= render 'wf_ntd', ntd: @ntd %>
+      <% end %>
+      <%= t.tab('在途事项') do %>
+          <%= render 'wf_hd', hd: @hd %>
+      <% end %>
+      <%= t.tab('办结事项') do %>
+          <%= render 'wf_fn', f: @f %>
+      <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,6 @@
+if ('<%= @month %>' != 12) {
+    $('#detail_show').html("<%= j render('aae/financial_statements/financial_list_month', :aae_financial_statements=>@aae_financial_statements,:org_id=>@org_id) %>");
+}
+else {
+    $('#detail_show_year').html("<%= j render('aae/financial_statements/financial_list_year', :aae_financial_statements=>@aae_financial_statements,:org_id=>@org_id) %>");
+}

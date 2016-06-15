@@ -1,0 +1,5 @@
+<% if @car %>
+    $('#car_show').html("<%= j render('hr/ent_managers/car_show', :car=>@car) %>");
+<% else %>
+    $('#car_show').html("");
+<% end %>

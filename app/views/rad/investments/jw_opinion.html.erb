@@ -1,0 +1,45 @@
+<%= form_for(@rad_investment, :url => jw_update_rad_investment_path(@rad_investment), :html => {:multipart => true}, nav: {}) do |f| %>
+    <%= f.hidden_field :id %>
+    <% if @file_type == 'FIR' %>
+        <%= table([{w: 1, t: '序号'}, {w: 2, l: '文件名称'}, {w: 8, l: '监察意见'}],
+                  id: 'fir_file', caption: "决策前监察意见", obj: f.object.fir_files,
+                  parent_obj: f.object, show_seq: false, fixed: true,
+                  index_name: 'fir_file') do |obj, index| %>
+            <%= f.fields_for :fir_files, obj, child_index: index do |file_form| %>
+                <%= file_form.hidden_field(:file_template_id) %>
+                <%= control_table_tr(
+                            {r: @rad_investment.fir_files.index(obj)+1},
+                            {l: file_form.text_field(:display_name, value: obj.file_template.template_name, readonly: true, class: 'form-control', title: obj.file_template.template_name)},
+                            {l: file_form.text_field(:file_desc, class: 'form-control')}) %>
+            <% end %>
+        <% end %>
+    <% end %>
+    <% if @file_type == 'SEC' %>
+        <%= table([{w: 1, t: '序号'}, {w: 2, l: '文件名称'}, {w: 8, l: '监察意见'}],
+                  id: 'sec_file', caption: "决策中监察意见", obj: f.object.sec_files,
+                  parent_obj: f.object, show_seq: false, fixed: true,
+                  index_name: 'sec_file') do |obj, index| %>
+            <%= f.fields_for :sec_files, obj, child_index: index do |file_form| %>
+                <%= file_form.hidden_field(:file_template_id) %>
+                <%= control_table_tr(
+                            {r: @rad_investment.sec_files.index(obj)+1},
+                            {l: file_form.text_field(:display_name, value: obj.file_template.template_name, readonly: true, class: 'form-control', title: obj.file_template.template_name)},
+                            {l: file_form.text_field(:file_desc, class: 'form-control')}) %>
+            <% end %>
+        <% end %>
+    <% end %>
+    <% if @file_type == 'THR' %>
+        <%= table([{w: 1, t: '序号'}, {w: 2, l: '文件名称'}, {w: 8, l: '监察意见'}],
+                  id: 'thr_file', caption: "决策后监察意见", obj: f.object.thr_files,
+                  parent_obj: f.object, show_seq: false, fixed: true,
+                  index_name: 'tht_file') do |obj, index| %>
+            <%= f.fields_for :thr_files, obj, child_index: index do |file_form| %>
+                <%= file_form.hidden_field(:file_template_id) %>
+                <%= control_table_tr(
+                            {r: @rad_investment.thr_files.index(obj)+1},
+                            {l: file_form.text_field(:display_name, value: obj.file_template.template_name, readonly: true, class: 'form-control', title: obj.file_template.template_name)},
+                            {l: file_form.text_field(:file_desc, class: 'form-control')}) %>
+            <% end %>
+        <% end %>
+    <% end %>
+<% end %>

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @cl_content.name %>
+</p>
+
+<p>
+  <strong>Row:</strong>
+  <%= @cl_content.row %>
+</p>
+
+<p>
+  <strong>Col:</strong>
+  <%= @cl_content.col %>
+</p>
+
+<p>
+  <strong>Rows:</strong>
+  <%= @cl_content.rows %>
+</p>
+
+<p>
+  <strong>Cols:</strong>
+  <%= @cl_content.cols %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @cl_content.code %>
+</p>
+
+<p>
+  <strong>Header:</strong>
+  <%= @cl_content.header_id %>
+</p>
+
+<%= link_to 'Edit', edit_cl_content_path(@cl_content) %> |
+<%= link_to 'Back', cl_contents_path %>

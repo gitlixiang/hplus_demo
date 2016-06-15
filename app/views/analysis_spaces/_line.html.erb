@@ -1,0 +1,12 @@
+<table>
+  <tr>
+    <td style="text-align: center">
+      <% if line.nil? %>
+          暂无信息统计
+      <% else %>
+          <%= high_chart(name, line) do |c| %>
+          <% end %>
+      <% end %>
+    </td>
+  </tr>
+</table>

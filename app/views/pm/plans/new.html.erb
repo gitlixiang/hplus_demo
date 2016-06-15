@@ -1,0 +1,3 @@
+<%= form_for(@pm_plan, :html => {:multipart => true}, nav: {}) do |f| %>
+    <%= render :partial => 'form', :locals => {:plan => @pm_plan, :f => f} %>
+<% end %>

@@ -1,0 +1,47 @@
+<%= form_show(rad_corporate_bond) do |r| %>
+    <%= r.row("1:1") do %>
+        <%= r.show_content '企业名称' do %>
+            <%= rad_corporate_bond.ent_name %>
+        <% end %>
+    <% end %>
+    <%= r.row("1:1") do %>
+        <%= r.show_method('债务人', :bond_name) %>
+        <%= r.show_method('借债日期', :bond_date) %>
+    <% end %>
+    <%= r.row("1:1") do %>
+        <%= r.show_method('债券种类', :bond_type) %>
+        <%= r.show_content '债务总额(万元)' do %>
+            <%= two_decimal(rad_corporate_bond.bond_total) %>
+        <% end %>
+    <% end %>
+    <%= r.row("1:1") do %>
+        <%= r.show_content '发行价格(万元)' do %>
+            <%= two_decimal(rad_corporate_bond.distribute_price) %>
+        <% end %>
+        <%= r.show_method('发行数量', :distribute_num) %>
+    <% end %>
+    <%= r.row("1:1") do %>
+        <%= r.show_method('发行期限', :distribute_deadline) %>
+        <%= r.show_method('债务资金投向', :used) %>
+    <% end %>
+    <%= r.row("1:1") do %>
+        <%= r.show_content '还款总额(万元)' do %>
+            <%= two_decimal(rad_corporate_bond.repayments_total) %>
+        <% end %>
+        <%= r.show_content '企业净资产(万元)' do %>
+            <%= two_decimal(rad_corporate_bond.et_assets) %>
+        <% end %>
+    <% end %>
+    <%= r.row("1:1") do %>
+        <%= r.show_method('还款期限', :repayments_date) %>
+        <%= r.show_method('担保情况', :guarantee_info) %>
+    <% end %>
+    <%= r.row("1:1") do %>
+        <%= r.show_method('承销机构', :cooperation_agency) %>
+    <% end %>
+<% end %>
+<%= table([{w: 2, l: ''}, {w: 10, l: '文件'}], show_seq: false) do %>
+    <% rad_corporate_bond.file_resources.each do |file| %>
+        <%= table_tr({r: '文件：'}, {l: link_to(file.ffx_file_name, file.ffx.url, class: 'file')}) %>
+    <% end %>
+<% end %>

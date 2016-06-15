@@ -1,0 +1,10 @@
+= table([{w: 3, l: '指标名称'}, {w: 2, t: '指标值'}, {w: 2, t: '去年同期'}, {w: 2, t: '变动比率'}, {w: 2, t: '上月指标'}, {w: 2, t: '变动比率'}],\
+               show_seq: false,\
+               caption: @year.to_s+'年'+@month.to_s+'月财务分析指标') do
+       =table_tr({l: bs_link_window(url_for(:controller => "aae/financial_statements", :action=>:month_development_ability, :year=>@year, :month=>@month, :ent_id=>@ent_id),'发展能力')})
+       =table_tr({l: '<div class="forum-item-title">&nbsp;&nbsp;&nbsp;资本积累率</div><div"><small class="text-navy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"该指标反映了企业资本的保全性和增长性，指标越高，说明企业应对分风险、持续发展能力越强"</small></div>'.html_safe},\
+                                   {c: @indicator.nil?? "": @indicator.indicator_attr43.nil? ? "" : format("%.2f",@indicator.indicator_attr43),style: @line_css,:class=>(@indicator.check_attr(17) if !@indicator.nil?)},\
+                                   {c: @indicator_last_year.nil?? "": @indicator_last_year.indicator_attr43.nil? ? "" : format("%.2f",@indicator_last_year.indicator_attr43),:class=>(@indicator_last_year.check_attr(17) if !@indicator_last_year.nil?)},\
+                                   {c: @indicator.nil?? '0%' : @indicator.year_compare(@indicator_last_year,"indicator_attr43"),style: @line_css},\
+                                   {c: @indicator_last_month.nil?? "": @indicator_last_month.indicator_attr43.nil? ? "" : format("%.2f",@indicator_last_month.indicator_attr43),:class=>(@indicator_last_month.check_attr(17) if !@indicator_last_month.nil?)},\
+                                   {c: @indicator.nil?? '0%' : @indicator.month_compare(@indicator_last_month,"indicator_attr43")})

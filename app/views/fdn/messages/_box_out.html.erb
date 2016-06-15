@@ -1,0 +1,10 @@
+<%= table([{w: 3, t: "标题"}, {w: 2, t: "收件人"}, {w: 2, t: "日期"}, {w: 4, t: "操作"}],
+          obj: messages,
+          pagi_param_name: 'out_page',
+          pagi_params: {tab_idx: 4}) do |msg| %>
+    <%= table_tr({c: seq(messages_index, msg, params[:n_page]||1)},
+                 {l: bs_link_window(fdn_message_path(msg), limit_word(msg.subject, 10))},
+                 {c: msg.first_person + (msg.receivers.size > 1 ? "等("+msg.receivers.size.to_s+"人)" : "")}, #"111".gsub(/\\n/, "<br/>").gsub(/\s/, "&nbsp;")},#
+                 {c: msg.created_at.strftime(long_time)},
+                 {c: action_links(box_out_links(msg))}) %>
+<% end %>

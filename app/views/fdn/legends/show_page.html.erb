@@ -1,0 +1,6 @@
+
+<% @fdn_legend.images.each do |file| %>
+            <%= image_tag(file.ffx.url) %>
+<% end %>
+<h4><%= @fdn_legend.title %></h4>
+<%= simple_format @fdn_legend.content%>

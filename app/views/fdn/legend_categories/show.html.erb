@@ -1,0 +1,19 @@
+<%= button_div() do %>
+    <%= bs_close %>
+<% end %>
+<div class="ibox-content">
+  <%= form_show(@fdn_legend_category) do |u| %>
+      <%= u.row("1") do %>
+          <%= u.show_method '栏目分类：', :name %>
+      <% end %>
+      <%= u.row("1") do %>
+          <%= u.show_method '编码：', :code %>
+      <% end %>
+      <%= u.row("1") do %>
+          <%= u.show_method '上级栏目：', :parent_id %>
+      <% end %>
+      <%= u.row("1") do %>
+          <%= u.show_method '排序：', :seq %>
+      <% end %>
+  <% end %>
+</div>

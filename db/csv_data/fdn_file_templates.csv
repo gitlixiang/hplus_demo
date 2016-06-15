@@ -1,0 +1,16 @@
+id,resource_type,template_class,template_name,file_name,seq,template_type,status,start_date
+1,Rad::Investment,FIR1,决策议案,决策议案,10,FIR,Y,2010-1-1
+2,Rad::Investment,FIR2,专家意见,决策风险,20,FIR,Y,2010-1-1
+3,Rad::Investment,FIR2,可行性报告,决策风险,30,FIR,Y,2010-1-1
+4,Rad::Investment,FIR2,法律意见,法律风险,40,FIR,Y,2010-1-1
+5,Rad::Investment,FIR3,党委意见,三重一大,50,FIR,Y,2010-1-1
+6,Rad::Investment,FIR3,党组织意见,人事任免,60,FIR,Y,2010-1-1
+7,Rad::Investment,FIR3,纪检监察部门意见,人事任免,70,FIR,Y,2010-1-1
+8,Rad::Investment,FIR3,企业工会意见,改制、经营管理,80,FIR,Y,2010-1-1
+9,Rad::Investment,FIR3,职工意见,改制、经营管理,90,FIR,Y,2010-1-1
+10,Rad::Investment,FIR4,决策人员名单,提前告知,100,FIR,Y,2010-1-1
+11,Rad::Investment,FIR4,反馈意见,提前告知,110,FIR,Y,2010-1-1
+12,Rad::Investment,SEC1,会议决策,会议决策,120,SEC,Y,2010-1-1
+13,Rad::Investment,SEC2,临时决策,临时决策,130,SEC,Y,2010-1-1
+14,Rad::Investment,SEC3,记录存档,记录存档,140,SEC,Y,2010-1-1
+15,Rad::Investment,THR,决策报告,决策报告,150,THR,Y,2010-1-1

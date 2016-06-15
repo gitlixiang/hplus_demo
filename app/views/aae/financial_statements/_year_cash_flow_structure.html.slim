@@ -1,0 +1,24 @@
+= table([{w: 3, l: '指标名称'}, {w: 2, t: '指标值'}, {w: 2, t: '去年同期'}, {w: 2, t: '变动比率'}],\
+               show_seq: false,\
+               caption: @year.to_s+'年财务年报分析指标') do
+  =table_tr({l: bs_link_window(url_for(:controller => "aae/financial_statements", :action=>:month_cash_flow_structure, :year=>@year, :month=>12, :ent_id=>@ent_id),'现金流量结构分析')})
+  =table_tr({l: '<div>&nbsp;&nbsp;&nbsp;现金到期债务比</div><div><small class="text-navy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"该比率越高，企业资金流动性越好，企业的标准值是：1.5"</small></div>'.html_safe},\
+            {c: @indicator.nil?? "": @indicator.indicator_attr38.nil? ? "" : format("%.2f",@indicator.indicator_attr38),style: @line_css,:class=>(@indicator.check_attr(18) if !@indicator.nil?)},\
+            {c: @indicator_last_year.nil?? "": @indicator_last_year.indicator_attr38.nil? ? "" : format("%.2f",@indicator_last_year.indicator_attr38),:class=>(@indicator_last_year.check_attr(18) if !@indicator_last_year.nil?)},\
+            {c: @indicator.nil?? '0%' : @indicator.year_compare(@indicator_last_year,"indicator_attr38"),style: @line_css})
+  =table_tr({l: '<div>&nbsp;&nbsp;&nbsp;现金流动负债比</div><div><small class="text-navy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"指标越高，对负债的保障程度越高。"</small></div>'.html_safe},\
+            {c: @indicator.nil?? "": @indicator.indicator_attr39.nil? ? "" : format("%.2f",@indicator.indicator_attr39),style: @line_css,:class=>(@indicator.check_attr(19) if !@indicator.nil?)},\
+            {c: @indicator_last_year.nil?? "": @indicator_last_year.indicator_attr39.nil? ? "" : format("%.2f",@indicator_last_year.indicator_attr39),:class=>(@indicator_last_year.check_attr(19) if !@indicator_last_year.nil?)},\
+            {c: @indicator.nil?? '0%' : @indicator.year_compare(@indicator_last_year,"indicator_attr39"),style: @line_css})
+  =table_tr({l: '<div>&nbsp;&nbsp;&nbsp;现金债务总额比</div><div><small class="text-navy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"该比率越高，支付债务利息越强。企业设置的标准值：0.25"</small></div>'.html_safe},\
+            {c: @indicator.nil?? "": @indicator.indicator_attr40.nil? ? "" : format("%.2f",@indicator.indicator_attr40),style: @line_css,:class=>(@indicator.check_attr(20) if !@indicator.nil?)},\
+            {c: @indicator_last_year.nil?? "": @indicator_last_year.indicator_attr40.nil? ? "" : format("%.2f",@indicator_last_year.indicator_attr40),:class=>(@indicator_last_year.check_attr(20) if !@indicator_last_year.nil?)},\
+            {c: @indicator.nil?? '0%' : @indicator.year_compare(@indicator_last_year,"indicator_attr40"),style: @line_css})
+  =table_tr({l: '<div>&nbsp;&nbsp;&nbsp;销售现金比率</div><div><small class="text-navy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"该指标反映每１元销售净额创造现金流量的指标，其值越大越好。"</small></div>'.html_safe},\
+            {c: @indicator.nil?? "": @indicator.indicator_attr41.nil? ? "" : format("%.2f",@indicator.indicator_attr41),style: @line_css,:class=>(@indicator.check_attr(21) if !@indicator.nil?)},\
+            {c: @indicator_last_year.nil?? "": @indicator_last_year.indicator_attr41.nil? ? "" : format("%.2f",@indicator_last_year.indicator_attr41),:class=>(@indicator_last_year.check_attr(21) if !@indicator_last_year.nil?)},\
+            {c: @indicator.nil?? '0%' : @indicator.year_compare(@indicator_last_year,"indicator_attr41"),style: @line_css})
+  =table_tr({l: '<div>&nbsp;&nbsp;&nbsp;全部资产现金回收率</div><div><small class="text-navy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"该指标说明企业资产产生现金的能力，其值越大越好"</small></div>'.html_safe},\
+            {c: @indicator.nil?? "": @indicator.indicator_attr42.nil? ? "" : format("%.2f",@indicator.indicator_attr42),style: @line_css,:class=>(@indicator.check_attr(22) if !@indicator.nil?)},\
+            {c: @indicator_last_year.nil?? "": @indicator_last_year.indicator_attr42.nil? ? "" : format("%.2f",@indicator_last_year.indicator_attr42),:class=>(@indicator_last_year.check_attr(22) if !@indicator_last_year.nil?)},\
+            {c: @indicator.nil?? '0%' : @indicator.year_compare(@indicator_last_year,"indicator_attr42"),style: @line_css})

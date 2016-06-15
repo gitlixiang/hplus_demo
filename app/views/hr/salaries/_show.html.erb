@@ -1,0 +1,76 @@
+<div class="ibox-content">
+  <% if hr_salary %>
+      <%#= button_div() do %>
+      <%#= bs_button_window(edit_hr_salary_path(hr_salary), '编辑预算', '', 'fa fa-edit',width='800px',height='640px') %>
+      <%# end %>
+      <%= form_show(hr_salary) do |salary| %>
+          <%= salary.row('1:1') do %>
+              <%= salary.show_method '岗位工资：', :post_salary, label_span: 3, value_span: 3 %>
+              <%= salary.show_method '全勤奖：', :full_attendance_bonus, label_span: 3, value_span: 3 %>
+          <% end %>
+          <%= salary.row('1:1') do %>
+              <%= salary.show_method '补助：', :allowance, label_span: 3, value_span: 3 %>
+          <% end %>
+          <%= salary.row('1:1') do %>
+              <%= salary.show_method '基本工资合计：', :basic_salary, label_span: 3, value_span: 3 %>
+          <% end %>
+          <div class="hr-line-dashed"></div>
+          <%= salary.row('1:1') do %>
+              <%= salary.show_method '绩效标准：', :performance_standards, label_span: 3, value_span: 3 %>
+              <%= salary.show_method '绩效比例：', :performance_percent, label_span: 3, value_span: 3 %>
+          <% end %>
+          <%= salary.row('1:1') do %>
+              <%= salary.show_method '绩效工资：', :pay_for_performance, label_span: 3, value_span: 3 %>
+          <% end %>
+          <%= salary.row('1:1') do %>
+              <%= salary.show_method '平时加班工时：', :overtime_hours, label_span: 3, value_span: 3 %>
+              <%= salary.show_method '平时加班金额：', :overtime_pay, label_span: 3, value_span: 3 %>
+          <% end %>
+          <%= salary.row('1:1') do %>
+              <%= salary.show_method '假日加班工时：', :holiday_overtime_hours, label_span: 3, value_span: 3 %>
+              <%= salary.show_method '假日加班金额：', :holiday_overtime_pay, label_span: 3, value_span: 3 %>
+          <% end %>
+          <%= salary.row('1:1') do %>
+              <%= salary.show_method '加班费合计：', :total_overtime_pay, label_span: 3, value_span: 3 %>
+          <% end %>
+          <%= salary.row('1:1') do %>
+              <%= salary.show_method '应发工资合计：', :gross_salary, label_span: 3, value_span: 3 %>
+          <% end %>
+          <div class="hr-line-dashed"></div>
+          <%= salary.row('1:1') do %>
+              <%= salary.show_method '社保：', :social_insurance, label_span: 3, value_span: 3 %>
+              <%= salary.show_method '住房公积金：', :housing_fund, label_span: 3, value_span: 3 %>
+          <% end %>
+          <%= salary.row('1:1') do %>
+              <%= salary.show_method '个税：', :personal_income_tax, label_span: 3, value_span: 3 %>
+          <% end %>
+          <%= salary.row('1:1') do %>
+              <%= salary.show_method '请假天数：', :leave_days, label_span: 3, value_span: 3 %>
+              <%= salary.show_method '请假扣款：', :leave, label_span: 3, value_span: 3 %>
+          <% end %>
+          <%= salary.row('1:1') do %>
+              <%= salary.show_method '迟到次数：', :late_times, label_span: 3, value_span: 3 %>
+              <%= salary.show_method '迟到扣款：', :late, label_span: 3, value_span: 3 %>
+          <% end %>
+          <%= salary.row('1:1') do %>
+              <%= salary.show_method '其他扣款：', :other_deduction, label_span: 3, value_span: 3 %>
+          <% end %>
+          <%= salary.row('1:1') do %>
+              <%= salary.show_method '应扣金额合计：', :total_deduction, label_span: 3, value_span: 3 %>
+          <% end %>
+          <div class="hr-line-dashed"></div>
+          <%= salary.row('1:1') do %>
+              <%= salary.show_method '实发工资：', :net_salary, label_span: 3, value_span: 3 %>
+          <% end %>
+          <div class="hr-line-dashed"></div>
+          <%= salary.row do %>
+              <%= salary.show_method '备注：', :remark, label_span: 3, value_span: 9 %>
+          <% end %>
+      <% end %>
+  <% else %>
+      <%#= button_div() do %>
+      <%#= bs_button_window(new_hr_salary_path(params), '创建预算', '', 'fa fa-plus',width='800px',height='640px') %>
+      <%# end %>
+      无数据
+  <% end %>
+</div>

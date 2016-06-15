@@ -1,0 +1,30 @@
+<% menu = Fdn::Menu.where(:code => 'rad_investment').first %>
+<%= nav_bar(menu) do %>
+<% end %>
+<% if current_user.is_a_JW? %>
+    <%= form_for(@rad_investment, :html => {:multipart => true}, nav: {no_save: true, return_url: rad_investments_path}) do |f| %>
+        <%= f.hidden_field :id %>
+        <%= render :partial => "jw_edit", :locals => {:rad_investment => @rad_investment, :f => f} %>
+        <%#= render :partial => 'edit_form', :locals => {:rad_investment => @rad_investment, :f => f} %>
+    <% end %>
+<% else %>
+    <% if @task.TASK_DEF_KEY_ == 'ent_user' %>
+        <%= form_for(@rad_investment, :html => {:multipart => true}, nav: {btn_bar: [bs_next('提交国资委')].join(' '), return_url: rad_investments_path}) do |f| %>
+            <%= f.hidden_field :id %>
+            <%= render :partial => "#{@task.TASK_DEF_KEY_}", :locals => {:rad_investment => @rad_investment, :f => f} %>
+            <%#= render :partial => 'edit_form', :locals => {:rad_investment => @rad_investment, :f => f} %>
+        <% end %>
+    <% elsif @task.TASK_DEF_KEY_ == 'leader' %>
+        <%= form_for(@rad_investment, :html => {:multipart => true}, nav: {no_save: true, btn_bar: [bs_prev('退回审核岗'), bs_next('办结')].join(' '), return_url: rad_investments_path}) do |f| %>
+            <%= f.hidden_field :id %>
+            <%= render :partial => "#{@task.TASK_DEF_KEY_}", :locals => {:rad_investment => @rad_investment, :f => f} %>
+            <%#= render :partial => 'edit_form', :locals => {:rad_investment => @rad_investment, :f => f} %>
+        <% end %>
+    <% else %>
+        <%= form_for(@rad_investment, :html => {:multipart => true}, nav: {no_save: true, btn_bar: [bs_prev('退回补正'), bs_next('提交复审')].join(' '), return_url: rad_investments_path}) do |f| %>
+            <%= f.hidden_field :id %>
+            <%= render :partial => "#{@task.TASK_DEF_KEY_}", :locals => {:rad_investment => @rad_investment, :f => f} %>
+            <%#= render :partial => 'edit_form', :locals => {:rad_investment => @rad_investment, :f => f} %>
+        <% end %>
+    <% end %>
+<% end %>

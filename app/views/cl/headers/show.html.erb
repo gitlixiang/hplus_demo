@@ -1,0 +1,12 @@
+<div class="ibox-content">
+  <%= form_show(@cl_header) do |u| %>
+      <%= u.row('1:1') do %>
+          <%= u.show_method '名称：', :name %>
+          <%= u.show_method '业务模型：', :resource_type %>
+      <% end %>
+      <%= u.row('1:1') do %>
+          <%= u.show_method '代码：', :code %>
+          <%= u.show_method '排序：', :order %>
+      <% end %>
+  <% end %>
+</div>

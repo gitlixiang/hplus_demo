@@ -1,0 +1,11 @@
+var radio_length = $("input:radio[id^='aae_financial_statement_month']");
+var arr = new Array();
+arr = '<%= @month_arr %>'.split(",")
+for (var i = 0; i < radio_length.length; i++) {
+    radio_length[i].checked = false;
+    if (arr.indexOf(radio_length[i].value) >= 0) {
+        radio_length[i].disabled = true;
+    }else{
+        radio_length[i].disabled = false;
+    }
+}

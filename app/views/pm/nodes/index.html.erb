@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Pm Nodes</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Percent</th>
+    <th>Content</th>
+    <th>Name</th>
+    <th>Plan</th>
+    <th>Sort seq</th>
+    <th>Start date</th>
+    <th>End date</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @pm_nodes.each do |pm_node| %>
+      <tr>
+        <td><%= pm_node.percent %></td>
+        <td><%= pm_node.content %></td>
+        <td><%= pm_node.name %></td>
+        <td><%= pm_node.plan_id %></td>
+        <td><%= pm_node.sort_seq %></td>
+        <td><%= pm_node.start_date %></td>
+        <td><%= pm_node.end_date %></td>
+        <td><%= link_to 'Show', pm_node %></td>
+        <td><%= link_to 'Edit', edit_pm_node_path(pm_node) %></td>
+        <td><%= link_to 'Destroy', pm_node, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Node', new_pm_node_path %>

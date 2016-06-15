@@ -1,0 +1,30 @@
+<%= form_show(car) do |u| %>
+    <%= u.row("1") do %>
+        <%= u.show_method '排量（升）：', :displacement %>
+    <% end %>
+    <%= u.row('1') do %>
+        <%= u.show_content '车辆状态：' do %>
+            <%= car.c_status.value %>
+        <% end %>
+    <% end %>
+    <%= u.row('1') do %>
+        <%= u.show_content '购买/租用：' do %>
+            <%= car.rent.value %>
+        <% end %>
+    <% end %>
+    <% if car.is_rent == 1 %>
+        <%= u.row("1") do %>
+            <%= u.show_method '购买价格（元）：', :total_price %>
+        <% end %>
+        <%= u.row("1") do %>
+            <%= u.show_method '购买日期：', :buy_date %>
+        <% end %>
+    <% elsif car.is_rent == 2 %>
+        <%= u.row("1") do %>
+            <%= u.show_method '租用价格（元/年）：', :rent_price %>
+        <% end %>
+    <% end %>
+    <%= u.row("1") do %>
+        <%= u.show_method '备注：', :memo %>
+    <% end %>
+<% end %>

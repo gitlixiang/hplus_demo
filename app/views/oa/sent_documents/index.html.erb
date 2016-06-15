@@ -1,0 +1,42 @@
+<% menu = Fdn::Menu.where(:code => 'oa_sent_documents').first %>
+<%= nav_bar(menu) do %>
+    <%= bs_button_window(new_oa_sent_document_path(), '创建发文', 'btn-primary btn-sm', 'fa fa-check',) %>
+<% end %>
+<div class="ibox-content">
+  <%= tabs(@tab_idx) do |t| %>
+      <%= t.tab('待办文件') do %>
+          <%= render 'ntd', docs: @ntd %>
+      <% end %>
+      <%= t.tab('在途文件') do %>
+          <%= render 'hd', docs: @hd %>
+      <% end %>
+      <%= t.tab('办结文件') do %>
+          <%= render 'fn', docs: @f %>
+      <% end %>
+  <% end %>
+</div>
+<!--
+<%= @deployments %>
+<br>
+流程定义个数：<%= @count %>
+<br>
+实例个数：<%= @instances_count %>
+<br>
+自己需要处理的工作流：<%= @items.count if @items %>
+<br>
+logger:<%= @logger %>
+<br>
+image_encode:<%#= @image.encoding %>
+<br>
+image:<%#= @image %>
+-->
+<%#= table([{w: 3, t: 'id'}, {w: 3, t: 'name'}, {w: 3, t: 'time'}, {w: 3, t: 'category'}],
+          obj: @deployments,
+          pagi_param_name: 'page') do |deploy| %>
+<%#= table_tr({c: seq(@deployments, deploy, params[:page]||1)},
+                 {c: deploy[:id]},
+                 {c: deploy[:name]},
+                 {c: format_java_time(deploy[:deployment_time])},
+                 {c: deploy[:category]}) %>
+
+<%# end %>

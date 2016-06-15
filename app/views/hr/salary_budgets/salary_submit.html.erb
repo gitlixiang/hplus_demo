@@ -1,0 +1,24 @@
+<%= nav_bar(Fdn::Menu.find_by(code: 'salary_budget_submit')) do %>
+<% end %>
+<% if current_org.is_ent? %>
+    <%= button_div do %>
+        <%= bs_button_window(new_hr_salary_budget_path({org_id: current_org.id, year: Time.now.year}), '创建', 'btn-primary btn-sm', 'fa fa-check') %>
+    <% end %>
+<% end %>
+<div class="ibox-content">
+  <%= table([{w: 1, t: '年份'}, {w: 1, t: '基本工资'}, {w: 1, t: '绩效工资'}, {w: 1, t: '社保'}, {w: 1, t: '住房公积金'}, {w: 2, t: '合计'}, {w: 2, t: '操作'}],
+            obj: @hr_salary_budgets,
+            fixed: true,
+            pagi_param_name: 'page') do |salary_budget| %>
+      <%= table_tr({c: @hr_salary_budgets.present? ? seq(@hr_salary_budgets, salary_budget, params[:page]||1) : ''},
+                   {c: salary_budget.year},
+                   {r: salary_budget.basic_salary},
+                   {r: salary_budget.pay_for_performance},
+                   {r: salary_budget.social_insurance},
+                   {r: salary_budget.housing_fund},
+                   {r: salary_budget.total_budget},
+                   {c: action_links([{value: '查看', url: hr_salary_budget_path(salary_budget)}
+                                    ])}
+          ) %>
+  <% end %>
+</div>

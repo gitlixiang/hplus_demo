@@ -1,0 +1,8 @@
+<div style='line-height:36px;height:36px;font-size: 16px;margin-left: 1em;text-indent: 2em;background-image: url("/assets/menu_list2.jpg");background-repeat: no-repeat;'>
+<%= link_to @root.name, menhu_legend_list_fdn_legends_path(type_code:@root.id) ,style:'color:white'%>
+</div>
+<% @root.descendants.each do |c| %>
+  <div style='line-height:36px;height:36px;font-size: 16px;margin-left: 1em;;text-indent: <%= (c.depth+2) %>em;background-image: url("/assets/menu_list2.jpg");background-repeat: no-repeat;'>
+  <%= link_to c.name, menhu_legend_list_fdn_legends_path(type_code:c.id),style:'color:white' %>
+  </div>
+<% end %>

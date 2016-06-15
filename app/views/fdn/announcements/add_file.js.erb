@@ -1,0 +1,2 @@
+$('#file tr:last').after("<%= j render('fdn/announcements/file', :the_file=>@the_file,:index=>@index,:announcement=>@fdn_announcement) %>");
+$('#<%= dynamic_hidden_count_name( @fdn_announcement, 0, 'file') %>').val('<%= @index + 1%>');

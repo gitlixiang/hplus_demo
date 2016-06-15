@@ -1,0 +1,23 @@
+<%= form_show pm_plan do |plan| %>
+    <div style="padding-right:10% ">
+      <%= plan.row do %>
+          <%= plan.show_method '项目名称', :name %>
+      <% end %>
+      <%= plan.row do %>
+          <%= plan.show_content '计划进度' do %>
+              <%= pm_plan.content.html_safe if pm_plan.content %>
+          <% end %>
+      <% end %>
+      <%= plan.row do %>
+          <%= plan.show_method '项目联系人', :contact %>
+      <% end %>
+      <%= plan.row do %>
+          <%= plan.show_method '联系方式', :phone %>
+      <% end %>
+      <%= plan.row do %>
+          <%= plan.show_content '当前进度' do %>
+              <%= progress_bar(pm_plan.newest_percent) %>
+          <% end %>
+      <% end %>
+    </div>
+<% end %>

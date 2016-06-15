@@ -1,0 +1,35 @@
+<%= button_div() do %>
+    <%= bs_close %>
+<% end %>
+<div class="ibox-content">
+  <%= form_show @fdn_announcement do |announcement| %>
+      <div style="padding-right:10% ">
+        <center>
+          <h3>
+            <%= announcement.row do %>
+                <%= announcement.show_method '', :title %>
+            <% end %>
+          </h3>
+          <%= announcement.row do %>
+              <%= announcement.show_content '', style: "font-size:12px" do %>
+                  <%= '发布时间：' + @fdn_announcement.created_at.strftime('%Y-%m-%d')+' 发布人：' + @fdn_announcement.creator.full_name %>
+              <% end %>
+          <% end %>
+        </center>
+        <%= announcement.row do %>
+            <%= announcement.show_content '' do %>
+                <%= @fdn_announcement.content.html_safe if @fdn_announcement.content %>
+            <% end %>
+        <% end %>
+      </div>
+      <center>
+        <% if @fdn_announcement.file_resources.size != 0 %>
+            <%= table([{w: 4, l: '序号'}, {w: 8, l: '文件'}], show_seq: false) do %>
+                <% @fdn_announcement.file_resources.each do |file| %>
+                    <%= table_tr({r: @fdn_announcement.file_resources.index(file)+1}, {l: (file.id != nil && file.ffx_file_size && file.ffx_file_size >= 0) ? link_to(file.ffx_file_name, file.ffx.url) : '空'}) %>
+                <% end %>
+            <% end %>
+        <% end %>
+      </center>
+  <% end %>
+</div>

@@ -1,0 +1,20 @@
+<%= javascript_include_tag 'ckeditor/init' %>
+<%#= javascript_include_tag 'ckeditor/override' %>
+<div class="ibox-content">
+    <%= f.row('1') do %>
+        <%= f.control('text', '标题：', :title ,class:'required') %>
+    <% end %>
+
+    <%= f.row() do %>
+        <%= f.control('cktext_area', '内容：', :content, rows: 10, class: 'span10' ) %>
+    <% end %>
+
+    <%= table([{w: 6, l: '文件上传'}, {w: 4, t: '操作'}],
+              id: 'file', obj: f.object.file_resources,
+              parent_obj: f.object, show_seq: false,
+              index_name: 'file',
+              add_value: '新增文件',
+              new_row: add_file_fdn_announcements_path(id: f.object.id)) do |obj, index| %>
+        <%= render 'file', :the_file => obj, :index => index, announcement: f.object %>
+    <% end %>
+</div>

@@ -1,0 +1,34 @@
+<%= javascript_include_tag rjs_ent_of_fdn_organizations_path(columns: ['resource_id', 'name']) %>
+<% menu = Fdn::Menu.where(:code => 'training_infos').first %>
+<%= nav_bar(menu) do %>
+    <%= bs_button_window(new_hr_training_info_path, '创建', 'btn-primary btn-sm', 'fa fa-check',) %>
+<% end %>
+<div class="ibox-title">
+  <%= search_form_for(@search, url: hr_training_infos_path, nav_bar: true) do |f| %>
+      <div class="input-group col-md-2">
+        <%= f.control('text', '培训班', :training_course_name_cont) %>
+      </div>
+      <div class="input-group col-md-2">
+        <%= f.control('text', '课程名称', :name_cont) %>
+      </div>
+  <% end %>
+</div>
+<div class="ibox-content">
+  <%= table(training_info_header,
+            obj: @hr_training_infos,
+            fixed: true,
+            pagi_param_name: 'page') do |tal| %>
+      <%= table_tr({c: seq(@hr_training_infos, tal, params[:page]||1)},
+                   {c: tal.name},
+                   {c: tal.date},
+                   {c: tal.lecturer},
+                   {c: tal.charge_man},
+                   {c: action_links([
+                                            {value: '查看', url: hr_training_info_path(tal)},
+                                            {value: '编辑', url: edit_hr_training_info_path(tal)},
+                                            {value: '删除', url: hr_training_info_path(tal), url_method: 'delete', confirm: '确定要删除吗？'}
+                                    ]
+                   )}
+          ) %>
+  <% end %>
+</div>

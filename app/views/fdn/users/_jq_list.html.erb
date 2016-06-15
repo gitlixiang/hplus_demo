@@ -1,0 +1,35 @@
+<%= table([{w: 2, t: '产权帐号'}, {w: 4, t: '备注'}, {w: 2, t: '当前帐号'}, {w: 4, t: '操作'}],
+          id: 'cq_user', caption: '产权帐号', obj: fdn_user.cq_users, \
+          parent_obj: fdn_user, show_seq: false, \
+          index_name: 'cq_user', \
+          new_row: add_jq_user_fdn_users_path(id: fdn_user.id, type: 'cq_user', table_id: 'cq_user', index_name: 'cq_user')) do |user, cq_index| %>
+    <%= render '/fdn/users/jq_user_list', :user => user, :index => cq_index, :type => 'cq_user', :fdn_user => fdn_user %>
+<% end %>
+<%= table([{w: 2, t: '快报帐号'}, {w: 4, t: '备注'}, {w: 2, t: '当前帐号'}, {w: 4, t: '操作'}],
+          id: 'kb_user', caption: '快报帐号', obj: fdn_user.kb_users, \
+          parent_obj: fdn_user, show_seq: false, \
+          index_name: 'kb_user', \
+          new_row: add_jq_user_fdn_users_path(id: fdn_user.id, type: 'kb_user', table_id: 'kb_user', index_name: 'kb_user')) do |user, kb_index| %>
+    <%= render '/fdn/users/jq_user_list', :user => user, :index => kb_index, :type => 'kb_user', :fdn_user => fdn_user %>
+<% end %>
+<%= table([{w: 2, t: '年报帐号'}, {w: 4, t: '备注'}, {w: 2, t: '当前帐号'}, {w: 4, t: '操作'}],
+          id: 'nb_user', caption: '年报帐号', obj: fdn_user.nb_users, \
+          parent_obj: fdn_user, show_seq: false, \
+          index_name: 'nb_user', \
+          new_row: add_jq_user_fdn_users_path(id: fdn_user.id, type: 'nb_user', table_id: 'nb_user', index_name: 'nb_user')) do |user, nb_index| %>
+    <%= render '/fdn/users/jq_user_list', :user => user, :index => nb_index, :type => 'nb_user', :fdn_user => fdn_user %>
+<% end %>
+<%= table([{w: 2, t: '预算帐号'}, {w: 4, t: '备注'}, {w: 2, t: '当前帐号'}, {w: 4, t: '操作'}],
+          id: 'ys_user', caption: '预算帐号', obj: fdn_user.ys_users, \
+          parent_obj: fdn_user, show_seq: false, \
+          index_name: 'ys_user', \
+          new_row: add_jq_user_fdn_users_path(id: fdn_user.id, type: 'ys_user', table_id: 'ys_user', index_name: 'ys_user')) do |user, ys_index| %>
+    <%= render '/fdn/users/jq_user_list', :user => user, :index => ys_index, :type => 'ys_user', :fdn_user => fdn_user %>
+<% end %>
+<%= table([{w: 2, t: '决算帐号'}, {w: 4, t: '备注'}, {w: 2, t: '当前帐号'}, {w: 4, t: '操作'}],
+          id: 'js_user', caption: '决算帐号', obj: fdn_user.js_users, \
+          parent_obj: fdn_user, show_seq: false, \
+          index_name: 'js_user', \
+          new_row: add_jq_user_fdn_users_path(id: fdn_user.id, type: 'js_user', table_id: 'js_user', index_name: 'js_user')) do |user, js_index| %>
+    <%= render '/fdn/users/jq_user_list', :user => user, :index => js_index, :type => 'js_user', :fdn_user => fdn_user %>
+<% end %>

@@ -1,0 +1,123 @@
+<% menu = Fdn::Menu.where(:code => 'jq_index').first %>
+<%= nav_bar(menu) do %>
+    <%#= bs_button_window(new_fdn_organization_path(type:'ENT'), '创建企业', 'btn-primary btn-sm', 'fa fa-check',)%>
+<% end %>
+<div class="ibox-content">
+  <div class="row border-bottom white-bg dashboard-header">
+
+    <div class="col-sm-3">
+      <div class="ibox float-e-margins">
+        <div class=" text-center">
+
+          <h3><strong>产权</strong></h3>
+          <a target="blank" style="font-size: 20px" href="/fdn/organizations/visit_jq?name=<%= current_user.cq_user %>"><img alt="image" class="feed-photo" src="/assets/cq.jpg" style="width:100px;height:100px;"></a>
+        </div>
+        <!--<div class="ibox-content no-padding">-->
+        <!--<ul class="list-group">-->
+        <!--<li class="list-group-item">-->
+        <!--<%#= link_to ">>产权系统入口<<", url_for(visit_jq_fdn_organizations_path(:name => current_user.cq_user)), :target => "blank", :style => "font-size: 20px" %>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="ibox float-e-margins">
+        <div class=" text-center">
+
+          <h3><strong>快报</strong></h3>
+          <a target="blank" style="font-size: 20px" href="/fdn/organizations/visit_jq?name=<%= current_user.kb_user %>"><img alt="image" class="feed-photo" src="/assets/kb.jpg" style="width:100px;height:100px;"></a>
+        </div>
+        <!--<div class="ibox-content no-padding">-->
+        <!--<ul class="list-group">-->
+        <!--<li class="list-group-item">-->
+        <!--<%#= link_to ">>快报系统入口<<", url_for(visit_jq_fdn_organizations_path(:name => current_user.kb_user)), :target => "blank", :style => "font-size: 20px" %>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="ibox float-e-margins">
+        <div class=" text-center">
+
+          <h3><strong>年报</strong></h3>
+          <a target="blank" style="font-size: 20px" href="/fdn/organizations/visit_jq?name=<%= current_user.nb_user %>"><img alt="image" class="feed-photo" src="/assets/nb.jpg" style="width:100px;height:100px;"></a>
+        </div>
+        <!--<div class="ibox-content no-padding">-->
+        <!--<ul class="list-group">-->
+        <!--<li class="list-group-item">-->
+        <!--<%#= link_to ">>年报系统入口<<", url_for(visit_jq_fdn_organizations_path(:name => current_user.nb_user)), :target => "blank", :style => "font-size: 20px" %>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="ibox float-e-margins">
+        <div class=" text-center">
+
+          <h3><strong>预算</strong></h3>
+          <a target="blank" style="font-size: 20px" href="/fdn/organizations/visit_jq?name=<%= current_user.ys_user %>"><img alt="image" class="feed-photo" src="/assets/ys.jpg" style="width:100px;height:100px;"></a>
+        </div>
+        <!--<div class="ibox-content no-padding">-->
+        <!--<ul class="list-group">-->
+        <!--<li class="list-group-item">-->
+        <!--<%#= link_to ">>预算系统入口<<", url_for(visit_jq_fdn_organizations_path(:name => current_user.ys_user)), :target => "blank", :style => "font-size: 20px" %>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+      </div>
+    </div>
+  </div>
+  <div class="row border-bottom white-bg dashboard-header">
+    <div class="col-sm-3">
+      <div class="ibox float-e-margins">
+        <div class=" text-center">
+
+          <h3><strong>决算</strong></h3>
+          <a target="blank" style="font-size: 20px" href="/fdn/organizations/visit_jq?name=<%= current_user.js_user %>"><img alt="image" class="feed-photo" src="/assets/js.jpg" style="width:100px;height:100px;"></a>
+        </div>
+        <!--<div class="ibox-content no-padding">-->
+        <!--<ul class="list-group">-->
+        <!--<li class="list-group-item">-->
+        <!--<%#= link_to ">>决算系统入口<<", url_for(visit_jq_fdn_organizations_path(:name => current_user.js_user)), :target => "blank", :style => "font-size: 20px" %>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="ibox float-e-margins">
+        <div class=" text-center">
+
+          <h3><strong>资产评估</strong></h3>
+          <img alt="image" class="feed-photo" src="/assets/zcpg.jpg" style="width:100px;height:100px;">
+        </div>
+        <!--<div class="ibox-content no-padding">-->
+        <!--<ul class="list-group">-->
+        <!--<li class="list-group-item">-->
+        <!--<%#= link_to ">>决算系统入口<<", url_for(visit_jq_fdn_organizations_path(:name => current_user.js_user)), :target => "blank", :style => "font-size: 20px" %>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="ibox float-e-margins">
+        <div class=" text-center">
+
+          <h3><strong>上市公司国有股权</strong></h3>
+          <img alt="image" class="feed-photo" src="/assets/ssgs.jpg" style="width:100px;height:100px;">
+        </div>
+        <!--<div class="ibox-content no-padding">-->
+        <!--<ul class="list-group">-->
+        <!--<li class="list-group-item">-->
+        <!--<%#= link_to ">>决算系统入口<<", url_for(visit_jq_fdn_organizations_path(:name => current_user.js_user)), :target => "blank", :style => "font-size: 20px" %>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+      </div>
+    </div>
+  </div>
+</div>

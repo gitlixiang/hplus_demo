@@ -1,0 +1,24 @@
+<div class="ibox-content">
+    <%= table(corporate_bond_header,
+                obj: rad_corporate_bonds,
+                fixed: true,
+                pagi_param_name: 'page') do |inv| %>
+          <%= table_tr({c: seq(rad_corporate_bonds, inv, params[:page]||1)},
+                       {l: inv.ent_name},
+                       {c: inv.bond_type},
+                       {c: two_decimal(inv.bond_total)},
+                       {c: two_decimal(inv.et_assets)},
+                       {c: inv.used},
+                       if inv.status == 'locked'
+                         {c: action_links([
+                                {value: '办理', url: edit_rad_corporate_bond_path(inv), url_method: 'get'}
+                         ])}
+                       else
+                         {c: action_links([
+                                {value: '办理', url: edit_rad_corporate_bond_path(inv), url_method: 'get'},
+                                {value: '删除', url: rad_corporate_bond_path(inv), url_method: 'delete', :confirm => "确定删除吗？"}
+                         ])}
+                       end
+                       ) %>
+    <% end %>
+</div>

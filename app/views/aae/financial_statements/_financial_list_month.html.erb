@@ -1,0 +1,16 @@
+<div class="ibox-content">
+  <%= table([{w: 4, t: '企业名称'}, {w: 2, t: '报表年份'}, {w: 2, t: '报表月份'}, {w: 3, t: '操作'}],
+            obj: @aae_financial_statements,
+            id: "aae_financial_statements_table",
+            pagi_param_name: 'q_page') do |aae_financial_statements| %>
+      <%= table_tr({c: seq(@aae_financial_statements, aae_financial_statements, params[:q_page]||1, 10)},
+                   {c: aae_financial_statements.ent_name},
+                   {c: aae_financial_statements.year},
+                   {c: aae_financial_statements.month},
+                   {c: action_links([
+                                            {value: '查看', url: aae_financial_statement_path(aae_financial_statements)},
+                                            {value: '编辑', url: edit_aae_financial_statement_path(aae_financial_statements)},
+                                            {value: '删除', url: destroy_record_aae_financial_statement_path(aae_financial_statements), params: "'org_id': '#{aae_financial_statements.enterprise.organization.id}'", url_method: 'confirm', :confirm => "确定删除吗？", tips: "信息已删除！"}
+                                    ])}) %>
+  <% end %>
+</div>

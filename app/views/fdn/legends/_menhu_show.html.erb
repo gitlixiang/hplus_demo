@@ -1,0 +1,29 @@
+<li style="font-size: 20px;padding-top: 20px;color: rgb(245, 81, 81);background: url(/images/icon01.jpg) repeat-x left bottom"><%= @fdn_legend_category.show_list %></li>
+<%= form_show @fdn_legend do |legend| %>
+    <div>
+      <center>
+        <%= legend.row do %>
+            <%= legend.show_content '', style: "font-size:22px; margin-top: 20px" do %>
+                <%= @fdn_legend.title %>
+            <% end %>
+        <% end %>
+        <%= legend.row do %>
+            <%= legend.show_content '', style: "font-size:12px; margin-top: 10px" do %>
+                <%= '发布时间：' + @fdn_legend.created_at.strftime('%Y-%m-%d')+' 发布人：' + @fdn_legend.creator.org.short_name + '-'+ @fdn_legend.creator.full_name %>
+            <% end %>
+        <% end %>
+      </center>
+      <%= legend.row do %>
+          <%= legend.show_content '', :style => "font-size:18px; margin-top: 20px;word-break: break-word;" do %>
+              <%= @fdn_legend.content.html_safe if @fdn_legend.content %>
+          <% end %>
+      <% end %>
+      <% if @fdn_legend.file.size != 0 %>
+          <%= table([{w: 4, t: '序号'}, {w: 8, t: '文件'}], show_seq: false) do %>
+              <% @fdn_legend.file.each do |file| %>
+                  <%= table_tr({r: @fdn_legend.file.index(file)+1}, {l: (file.id != nil && file.ffx_file_size && file.ffx_file_size >= 0) ? link_to(file.ffx_file_name, file.ffx.url) : '空'}) %>
+              <% end %>
+          <% end %>
+      <% end %>
+    </div>
+<% end %>

@@ -1,0 +1,41 @@
+<%= form_show(message) do |p| %>
+    <%= p.row('1') do %>
+        <%= p.show_content "发送人" do %>
+            <%= message.sender.org.name+"--"+message.sender.full_name %>
+        <% end %>
+    <% end %>
+    <%= p.row('1:1') do %>
+        <%= p.show_content "发送时间" do %>
+            <%= message.created_at.to_s(:time_l) %>
+        <% end %>
+    <% end %>
+    <%= p.row('1') do %>
+        <%= p.show_content "收件人" do %>
+            <% message.receivers_names.each do |receiver| %>
+                <%= p.row('1:1') do %>
+                    <%= receiver %>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% end %>
+    <%= p.row('1:1') do %>
+        <%= p.show_content "主题" do %>
+            <%= message.subject %>
+        <% end %>
+    <% end %>
+    <%= p.row('1:1') do %>
+        <%= p.show_content "内容" do %>
+            <%= message.body_html.html_safe %>
+        <% end %>
+    <% end %>
+    <% message.file_resources.each do |file| %>
+        <%= p.row('1:1') do %>
+            <%= p.show_content "附件" do %>
+                <%= link_to file.ffx_file_name, file.ffx.url %>
+            <% end %>
+        <% end %>
+    <% end %>
+<% end %>
+
+
+

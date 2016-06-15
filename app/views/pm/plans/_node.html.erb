@@ -1,0 +1,18 @@
+<%= base_fields_for pm_plan do |f| %>
+    <%= f.fields_for :pm_nodes, the_node, child_index: index do |node_form| %>
+        <%= control_table_tr({css: "date_array#{index}"},
+                             {c: node_form.hidden_field(:id)+node_form.hidden_field(:plan_id)+node_form.text_field(:name, class: 'form-control')},
+                             {c: node_form.text_field(:start_date, class: "form-control date#{index}")},
+                             {c: node_form.text_field(:end_date, class: "form-control date#{index}")},
+                             {c: node_form.text_field(:content, class: 'form-control')},
+                             {c: node_form.text_field(:percent, class: 'form-control')},
+                             {c: remove_line_tag(node_form, url_for(:controller => 'pm/plans', :action => :del_node, :id => (the_node ? the_node.id : 0), :if_resource => 'yes')), style: 'vertical-align: middle'}) %>
+    <% end %>
+<% end %>
+
+<script>
+    $('.date_array<%= index %>').datepicker({
+        inputs: $(".date<%= index %>").toArray(),
+        autoclose: false
+    });
+</script>

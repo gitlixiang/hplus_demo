@@ -1,0 +1,1 @@
+json.extract! @hr_salary_budget, :id, :org_id, :year, :status, :remark, :basic_salary, :pay_for_performance, :total_overtime_pay, :gross_salary, :social_insurance, :housing_fund, :personal_income_tax, :total_deduction, :net_salary, :remark, :created_at, :updated_at

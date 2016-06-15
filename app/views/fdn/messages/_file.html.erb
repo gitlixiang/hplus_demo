@@ -1,0 +1,26 @@
+<%= base_fields_for msg do |f| %>
+    <%= f.fields_for :file_resources, upload_file, child_index: index do |file_form| %>
+        <%= control_table_tr({c: (upload_file.new_record? ? file_form.file_field(:ffx) : link_to(upload_file.ffx_file_name, upload_file.ffx.url, :class => 'file'))}, {c: remove_line_tag(file_form, url_for(:controller => "fdn/messages", :action => :del_file, :id => 1, :resource_file_id => upload_file.id)), style: 'vertical-align: middle'}) %>
+    <% end %>
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

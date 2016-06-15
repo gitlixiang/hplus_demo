@@ -1,0 +1,18 @@
+<% menu = Fdn::Menu.where(:code => 'fdn_announcements').first %>
+<%= nav_bar(menu) do %>
+    <%= bs_button_window(new_fdn_announcement_path, '创建', 'btn-primary btn-sm', 'fa fa-check',) %>
+<% end %>
+<div class="ibox-content">
+  <%= table([{w: 2, l: '标题'}, {w: 3, l: '内容'}, {w: 2, t: '发布时间'}, {w: 1, t: '创建人'}, {w: 2, t: '操作'}],
+            pagi_param_name: 'announcement_page',
+            fixed: true,
+            obj: @fdn_announcements) do |announcement| %>
+      <%= table_tr({c: seq(@fdn_announcements, announcement, params[:page]||1)},
+                   {l: limit_word(announcement.title, 15)},
+                   {l: limit_word(announcement.content, 30)},
+                   {c: announcement.created_at.strftime("%Y-%m-%d")},
+                   {c: (announcement.creator.full_name if announcement.creator)},
+                   {c: action_links(announcement_index_links(announcement))}
+          ) %>
+  <% end %>
+</div>

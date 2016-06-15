@@ -1,0 +1,41 @@
+<%= javascript_include_tag rjs_ent_of_fdn_organizations_path(columns: ['resource_id', 'name']) %>
+<%= nav_bar(Fdn::Menu.find_by(code: 'salary')) do %>
+    <%#= bs_button_link_to(cl_headers_path, '表头', 'btn-primary btn-sm', 'fa fa-check') %>
+    <%#= bs_button_link_to(cl_contents_path, '内容', 'btn-primary btn-sm', 'fa fa-check') %>
+<% end %>
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <div class="col-sm-5">
+      <div class="ibox float-e-margins">
+        <div class="ibox-content">
+          <div class="file-manager">
+            <h3>查询：</h3>
+            <%= select_tag 'year', options_for_select(@years), class: 'form-control' %>
+            <%= select_tag 'month', options_for_select((1..12).to_a.map { |month| [month.to_s+'月', month] }), class: 'form-control' %>
+            <%= text_field_tag 'search_tree', '', class: 'form-control', placeholder: '组织名称查询' %>
+            <div class="ibox-content" style="padding-left:0;padding-top:2px">
+              <%#= js_tree_xml_tag('org_tree', fdn_roles_path(:format => :xml)) %>
+
+              <div id='org_tree' class="test treeview" style="overflow: auto;max-height: 600px">
+              </div>
+              <%= js_tree_org_json_tag('org_tree', url_for(:controller => 'hr/salaries', :action => :detail_refresh), 'org_id', true, 'search_tree', {year: 'year', month: 'month'}) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-7">
+      <div class="ibox float-e-margins" id="detail_show">
+        <%= render 'salary_list', :hr_salaries => @hr_salaries %>
+      </div>
+    </div>
+  </div>
+  <!--<div class="row">-->
+  <!--<div class="col-sm-12">-->
+  <!--<div class="ibox float-e-margins">-->
+  <!--<div class="ibox-content">-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+</div>

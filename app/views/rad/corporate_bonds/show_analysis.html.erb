@@ -1,0 +1,305 @@
+<div class="form-group">
+  <p class="col-sm-12" style="font-size:15px;letter-spacing: 0.04em;">
+    利率变化：最高值为<u><%= @repays.map(&:repay_rate).max %>%</u>、最低值为<u><%= @repays.map(&:repay_rate).min %>
+    %</u>、平均值为<u><%= two_decimal(@repays.map(&:repay_rate).sum / @repays.map(&:repay_rate).size) %>%</u>
+  </p>
+
+  <p class="col-sm-12" style="font-size:15px;letter-spacing: 0.04em;">
+    资产负债率变化：最高值为<u><%= @repays.map(&:debt_radio).max %>%</u>、最低值为<u><%= @repays.map(&:debt_radio).min %>%</u>
+  </p>
+
+  <p class="col-sm-12" style="font-size:15px;letter-spacing: 0.04em;">
+    还款情况：账款总额<u><%= @rad_corporate_bond.repayments_total %></u>万元，已还债款<u><%= @repays.sum("repayments")+@repays.sum("interest") %></u>万元，包含本金<u><%= @repays.sum("repayments") %></u>万元、利息<u><%= @repays.sum("interest") %></u>万元
+  </p>
+</div>
+<div class="row">
+  <div class="ibox float-e-margins">
+    <div class="ibox-content">
+      <div class="echarts" id="d_line" style="width: 100%"></div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="ibox float-e-margins">
+    <div class="ibox-content">
+      <div class="echarts" id="line" style="width: 100%"></div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="ibox float-e-margins">
+    <div class="ibox-content">
+      <div class="echarts" id="bar" style="width: 100%"></div>
+    </div>
+  </div>
+</div>
+<script>
+    var x_a = new Array();
+    var x_a_bar = new Array();
+    var y_1 = new Array();
+    var y_2 = new Array();
+    var y_l = new Array();
+    //日期
+    x_a = '<%= @repays.map(&:repay_date).join('|') %>'.split("|")
+    x_a_bar = '<%= @repays.map(&:repay_date).join('|') %>'.split("|")
+    x_a_bar.unshift('总额');
+    //利率
+    y_1 = '<%= @repays.map(&:repay_rate).join('|') %>'.split("|")
+    //利息
+    y_2 = '<%= @repays.map(&:interest).join('|') %>'.split("|")
+    y_2_bar = '<%= @repays.map(&:interest).join('|') %>'.split("|")
+    y_2_bar.unshift('')
+    //还款额
+    bar_1 = '<%= @repays.map(&:repayments).join('|') %>'.split("|")
+    bar_1.unshift('<%= @rad_corporate_bond.repayments_total %>');
+    bar_2 = '<%= @repay_all.join('|') %>'.split("|")
+    bar_2.unshift('0')
+    //资产负债率
+    y_l = '<%= @repays.map(&:debt_radio).join('|') %>'.split("|");
+    var lineChart = echarts.init(document.getElementById("line"));
+    var lineoption = {
+        title: {
+            text: '资产负债率变化',
+            x: 'center'
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                dataZoom: {},
+                dataView: {show: true, readOnly: false},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['资产负债率(%)'],
+            x: 'left'
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: true,
+                data: x_a,
+                axisLine: {onZero: false}
+            }
+        ],
+        yAxis: [
+            {
+                name: '资产负债率(%)',
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value}%'
+                }
+            }
+        ],
+        series: [
+            {
+                name: '资产负债率(%)',
+                type: 'line',
+                data: y_l,
+                markPoint: {
+                    data: [
+                        {type: 'max', name: '最大值'},
+                        {type: 'min', name: '最小值'}
+                    ]
+                },
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
+    lineChart.setOption(lineoption);
+    $(window).resize(lineChart.resize);
+
+    var DlineChart = echarts.init(document.getElementById("d_line"));
+    var Dlineoption = {
+        title: {
+            text: '债务利率利息变化',
+            x: 'center'
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                dataZoom: {},
+                dataView: {show: true, readOnly: false},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        dataZoom: {
+            show: false,
+            start: 0,
+            end: 100
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['利率(%)', '利息(万元)'],
+            x: 'left'
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: true,
+                data: x_a,
+                axisLine: {onZero: false}
+            }
+        ],
+        yAxis: [
+            {
+                name: '利率(%)',
+                nameLocation: 'end',
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value}%'
+                },
+                boundaryGap: [0.2, 0.2]
+            },
+            {
+                name: '利息(万元)',
+                nameLocation: 'end',
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value}万元'
+                },
+                boundaryGap: [0.2, 0.2]
+            }
+        ],
+        series: [
+            {
+                name: '利息(万元)',
+                type: 'bar',
+                yAxisIndex: 1,
+                data: y_2
+//                markPoint: {
+//                    data: [
+//                        {type: 'max', name: '最大值'},
+//                        {type: 'min', name: '最小值'}
+//                    ]
+//                },
+//                markLine: {
+//                    data: [
+//                        {type: 'average', name: '平均值'}
+//                    ]
+//                }
+            },
+            {
+                name: '利率(%)',
+                type: 'line',
+                data: y_1
+//                markPoint: {
+//                    data: [
+//                        {type: 'max', name: '最大值'},
+//                        {type: 'min', name: '最小值'}
+//                    ]
+//                },
+//                markLine: {
+//                    data: [
+//                        {type: 'average', name: '平均值'}
+//                    ]
+//                }
+            }
+        ]
+    };
+    DlineChart.setOption(Dlineoption);
+    $(window).resize(DlineChart.resize);
+
+    var BarChart = echarts.init(document.getElementById("bar"));
+    var baroption = {
+        title: {
+            text: '还款进度',
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow'
+            },
+            formatter: function (params) {
+                var bar1 = params[0];
+                var bar2 = params[1];
+                var bar3 = params[2];
+                if (bar1.name == '总额') {
+                    return bar1.name + '<br/>' + '账款总额: ' + parseFloat(bar2.value);
+                } else {
+                    return bar1.name + '<br/>' + '累计还款: ' + (parseFloat(bar1.value) + parseFloat(bar2.value)) + '<br/>' + bar2.seriesName + ' : ' + bar2.value + '<br/>' + bar3.seriesName + ' : ' + bar3.value;
+                }
+            }
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                dataView: {show: true, readOnly: false},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        legend: {
+            data: ['还款', '利息'],
+            x: 'left'
+        },
+        yAxis: {
+            name: '日期',
+            type: 'category',
+            splitLine: {show: false},
+            data: x_a_bar
+        },
+        xAxis: {
+            name: '还款额(万元)',
+            type: 'value'
+        },
+        series: [
+            {
+                name: '已还债款',
+                type: 'bar',
+                stack: '总量',
+                itemStyle: {
+                    normal: {
+                        barBorderColor: 'rgba(0,0,0,0)',
+                        color: 'rgba(0,0,0,0)'
+                    },
+                    emphasis: {
+                        barBorderColor: 'rgba(0,0,0,0)',
+                        color: 'rgba(0,0,0,0)'
+                    }
+                },
+                data: bar_2
+            },
+            {
+                name: '还款',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'inside'
+                    }
+                },
+                data: bar_1
+            },
+            {
+                name: '利息',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'right'
+                    }
+                },
+                data: y_2_bar
+            }
+        ]
+    };
+    BarChart.setOption(baroption);
+    $(window).resize(BarChart.resize);
+</script>

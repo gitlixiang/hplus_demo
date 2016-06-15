@@ -1,0 +1,144 @@
+<div class="row">
+  <div class="col-sm-6">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <%= render('analysis_spaces/line', line: @attr15, name: @name15) %>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <%= render('analysis_spaces/line', line: @attr23, name: @name23) %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ibox-content">
+  <div class="row">
+    <div class="col-md-3" style="padding-right: 0;padding-left: 0">
+      <%= table(financial_analysis_name_header,
+                show_seq: false,
+                fixed: true) do %>
+          <tr class="">
+            <td class="text-left">应收账款周转率</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">应收账款周转天数</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">存货周转率</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">存货周转天数</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">流动资产周转率</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">流动资产周转天数</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">固定资产收入率</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">总资产周转率</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">营业周期</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">现金到期债务比</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">现金流动负债比</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">现金债务总额比</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">销售现金比率</td>
+          </tr>
+          <tr class="">
+            <td class="text-left ">全部资产现金回收率</td>
+          </tr>
+      <% end %>
+    </div>
+    <div class="col-md-9" style="padding-right: 0;padding-left: 0;overflow-x: auto;">
+      <%= table(financial_analysis_data_header(@x_axis),
+                show_seq: false,
+                class: 'scroll_layer') do %>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(8) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr11 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(9) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr14 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(10) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr15 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(11) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr18 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(12) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr19 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(13) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr21 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(14) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr22 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(15) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr23 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(16) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr24 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(18) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr38 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(19) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr39 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(20) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr40 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(21) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr41 if fs.indicator %></td>
+            <% end %>
+          </tr>
+          <tr class="">
+            <% @financial_statements.each do |fs| %>
+                <td class="text-center <%= fs.indicator.check_attr(22) if !fs.indicator.nil? %>">&nbsp;<%= fs.indicator.indicator_attr42 if fs.indicator %></td>
+            <% end %>
+          </tr>
+      <% end %>
+    </div>
+  </div>
+</div>

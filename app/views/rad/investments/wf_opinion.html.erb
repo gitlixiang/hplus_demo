@@ -1,0 +1,24 @@
+<%= button_div() do %>
+    <%= bs_close %>
+<% end %>
+<div class="ibox-content">
+  <%= form_show(@task) do |task| %>
+      <% i = 1 %>
+      <% if @task.task_opinions.size != 0 %>
+          <% @task.task_opinions.each do |o| %>
+              <%= task.row('1') do %>
+                  <%= task.show_content "#{o.name}" do %>
+                      <%= o.opinion %>
+                  <% end %>
+              <% end %>
+              <% i +=1 %>
+          <% end %>
+      <% else %>
+          <%= task.row('1') do %>
+              <%= task.show_content "审核意见" do %>
+                  无书面意见
+              <% end %>
+          <% end %>
+      <% end %>
+  <% end %>
+</div>

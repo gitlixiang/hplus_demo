@@ -1,0 +1,14 @@
+<div class="ibox-content">
+    <%= table([{w: 4, t: '项目名称'},{w: 2, t: '到岗时间'},{w: 1, t: '操作'}],
+                obj: tasks,
+                fixed: true,
+                pagi_param_name: 'page') do |task| %>
+          <%= table_tr({c: seq(tasks, task, params[:page]||1)},
+                       {l: task.wf_proc_inst.proc_resource.resource.project_name},
+                       {c: task.START_TIME_.strftime(long_time)},
+                       {c: action_links([
+                              {value: '认领', url: claim_work_oa_sent_documents_path(task_id:task.ID_), url_method: 'get'}
+                       ])}
+                       ) %>
+    <% end %>
+</div>

@@ -1,0 +1,34 @@
+<%= jstree_include_tag %>
+<% menu = Fdn::Menu.where(:code => 'financial_month').first %>
+<%= nav_bar(menu) do %>
+    <% if current_org.resource_type=='Fdn::Enterprise' %>
+        <%= bs_button_window(new_aae_financial_statement_path(:time_code => 1), '创建', 'btn-primary btn-sm', 'fa fa-check',) %>
+    <% end %>
+<% end %>
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <div class="col-sm-5">
+      <div class="ibox float-e-margins">
+        <div class="ibox-content">
+          <div id='org_tree' class="test treeview" style="overflow: auto;max-height: 600px">
+          </div>
+          <%= js_tree_org_json_tag('org_tree', url_for(:controller => 'aae/financial_statements', :action => :month_detail_refresh), 'org_id', true, 'search_tree') %>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-7">
+      <div class="ibox float-e-margins" id="detail_show">
+        <%= render 'financial_list_month', :aae_financial_statements => @aae_financial_statements, :org_id => @org_id %>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    $('#org_tree').bind('loaded.jstree', function (e, data) {
+        $('#org_tree').find('li').each(function () {
+            if ('<%= @org_id %>' == $(this).attr('id')) { //如果节点的ID包含于arr，表示要选中
+                $(this).find('a').addClass('jstree-clicked');
+            }
+        });
+    })
+</script>

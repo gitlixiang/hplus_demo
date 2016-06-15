@@ -1,0 +1,4 @@
+<h5 style="text-align: center"><%= title %></h5>
+<%= table([{w: 4, t: "级次"}, {w: 3, t: "今年户数"}, {w: 3, t: "去年户数"}, {w: 2, t: "增加%"}], obj: arr, no_page: true, show_seq: false) do |a| %>
+    <%= table_tr({c: a[0]}, {c: a[1]}, {c: a[2]}, {c: a[3]}) %>
+<% end %>

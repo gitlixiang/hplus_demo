@@ -1,0 +1,8 @@
+<%= base_fields_for rad_investment do |f| %>
+    <%= f.fields_for :oth_files, the_file, child_index: index do |file_form| %>
+        <%= control_table_tr({l: file_form.text_field(:display_name)},
+                             {l: file_form.file_field(:ffx), :class => 'file'},
+                             {l: the_file.ffx_file_name == nil ? '' : link_to(the_file.ffx_file_name, the_file.ffx.url)},
+                             {c: remove_line_tag(file_form, url_for(:controller => 'rad/investments', :action => :del_file, :id => the_file.id, :if_resource => 'yes')), style: 'vertical-align: middle'}) %>
+    <% end %>
+<% end %>

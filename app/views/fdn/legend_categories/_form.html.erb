@@ -1,0 +1,20 @@
+<div class="ibox-content">
+  <%= f.row('1') do %>
+      <%= f.control('text', '栏目分类：', :name) %>
+  <% end %>
+  <%= f.row() do %>
+      <%= f.control('select', '上级栏目：', :parent_id, Fdn::LegendCategory.all.map { |o| [o.name, o.id] }, {prompt: '请选择'}, class: "selectpicker", onchange: "change_seq()") %>
+  <% end %>
+  <%= f.row('1') do %>
+      <%= f.control('text', '编码：', :code) %>
+  <% end %>
+  <%= f.row('1') do %>
+      <%= f.control('text', '排序：', :position) %>
+  <% end %>
+</div>
+<script>
+    function change_seq() {
+        var parent_id = $('#fdn_legend_category_parent_id').val();
+        $.jq_remote_get('<%= url_for(:controller => 'fdn/legend_categories',:action => :change_seq) %>', {'parent_id': parent_id, format: 'js'});
+    }
+</script>

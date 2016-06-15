@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Pm Tasks</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Content</th>
+    <th>Org</th>
+    <th>Resource</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @pm_tasks.each do |pm_task| %>
+      <tr>
+        <td><%= pm_task.name %></td>
+        <td><%= pm_task.content %></td>
+        <td><%= pm_task.org_id %></td>
+        <td><%= pm_task.resource %></td>
+        <td><%= link_to 'Show', pm_task %></td>
+        <td><%= link_to 'Edit', edit_pm_task_path(pm_task) %></td>
+        <td><%= link_to 'Destroy', pm_task, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Task', new_pm_task_path %>

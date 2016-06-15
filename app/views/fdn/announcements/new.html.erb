@@ -1,0 +1,4 @@
+<%= form_for(@fdn_announcement, :html => {:multipart => true}, nav: {}) do |f| %>
+    <%= render :partial => 'form', :locals => {:announcement => @fdn_announcement, :f => f} %>
+<% end %>
+
